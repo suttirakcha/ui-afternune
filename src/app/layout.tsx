@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Raleway, Send_Flowers } from "next/font/google";
+import { Provider } from "@/components/ui/provider";
+import { Toaster } from "@/components/ui/toaster";
 import "./globals.css";
 
 const sendFlowers = Send_Flowers({
@@ -30,7 +32,10 @@ export default function RootLayout({
   return (
     <html suppressHydrationWarning>
       <body className={`${sendFlowers.variable} ${raleway.variable}`}>
-        {children}
+        <Provider>
+          {children}
+          <Toaster />
+        </Provider>
       </body>
     </html>
   );
