@@ -1,9 +1,15 @@
+"use client";
+
 import { Stack, Text } from "@chakra-ui/react";
 import { sidebarMenus } from "@/menus/sidebarMenus";
 import Logo from "@/components/custom/Logo";
 import MenuLinks from "@/components/custom/MenuLinks";
+import AfnButton from "@/components/custom/AfnButton";
+import AuthDialog from "@/components/dialogs/AuthDialog";
+import { useState } from "react";
 
 export default function Sidebar() {
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const currentYear = new Date().getFullYear();
 
   const sidebarStyles = {
@@ -32,8 +38,14 @@ export default function Sidebar() {
         </Stack>
       </Stack>
       <Stack gap={"20px"}>
+        <AfnButton onClick={() => setIsLoginModalOpen(true)}>Login</AfnButton>
         <Text color="var(--secondary)">&copy; {currentYear} Afternune</Text>
       </Stack>
+
+      <AuthDialog
+        open={isLoginModalOpen}
+        onOpenChange={(value) => setIsLoginModalOpen(value.open)}
+      />
     </Stack>
   );
 }
