@@ -1,0 +1,21 @@
+import * as Yup from "yup";
+
+export const loginSchema = Yup.object({
+  identifier: Yup.string().required("Username or email is a required field"),
+  password: Yup.string()
+    .min(6, "Password must be at least 6 characters")
+    .required("Password is a required field"),
+});
+
+export const registerSchema = Yup.object({
+  username: Yup.string().required("Username is a required field"),
+  email: Yup.string()
+    .email("Invalid email address")
+    .required("Email is a required field"),
+  password: Yup.string()
+    .min(6, "Password must be at least 6 characters")
+    .required("Password is a required field"),
+  confirmPassword: Yup.string().required(
+    "Confirm password is a required field"
+  ),
+});

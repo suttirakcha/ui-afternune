@@ -3,6 +3,7 @@ import AfnField from "@/components/custom/AfnField";
 import AfnInput from "@/components/custom/AfnInput";
 import AfnButton from "@/components/custom/AfnButton";
 import { Box, HStack, Spinner, Text } from "@chakra-ui/react";
+import { registerSchema } from "@/schemas/auth.schema";
 
 interface RegisterFormProps {
   onClickLogin: () => void;
@@ -25,6 +26,7 @@ export default function RegisterForm({ onClickLogin }: RegisterFormProps) {
         password: "",
         confirmPassword: "",
       }}
+      validationSchema={registerSchema}
       onSubmit={onSubmit}
     >
       {({ errors, touched, isSubmitting, setFieldValue, handleSubmit }) => {

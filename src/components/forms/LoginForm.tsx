@@ -1,9 +1,14 @@
-import { Formik } from "formik";
+import { Formik, FormikHelpers } from "formik";
 import AfnInput from "@/components/custom/AfnInput";
 import AfnField from "@/components/custom/AfnField";
 import AfnButton from "@/components/custom/AfnButton";
 import { Box, HStack, Spinner, Text } from "@chakra-ui/react";
 import React from "react";
+import { toaster } from "@/components/ui/toaster";
+import { LoginFormValues } from "@/types/auth.type";
+import { login } from "@/services/auth.service";
+import { loginSchema } from "@/schemas/auth.schema";
+import { handleError } from "@/utils/handle-error";
 
 interface LoginFormProps {
   onClickResetPassword: () => void;
@@ -19,8 +24,15 @@ export default function LoginForm({
   onClickRegister,
   onClickResetPassword,
 }: LoginFormProps) {
-  const onSubmit = (data: unknown) => {
-    console.log(data);
+  const onSubmit = async (values: LoginFormValues) => {
+    try {
+      const response = await login(values);
+      toaster.create({
+        description: response.message,
+      });
+    } catch (error: unknown) {
+      handleError(error);
+    }
   };
 
   return (
@@ -29,6 +41,7 @@ export default function LoginForm({
         identifier: "",
         password: "",
       }}
+      validationSchema={loginSchema}
       onSubmit={onSubmit}
     >
       {({
