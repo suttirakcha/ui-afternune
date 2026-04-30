@@ -6,6 +6,8 @@ import { useState } from "react";
 import { AuthType } from "@/types/auth.type";
 import { ModalOpenProps } from "@/types/dialog.type";
 import AfnCloseButton from "@/components/custom/AfnCloseButton";
+import LoginForm from "@/components/forms/LoginForm";
+import RegisterForm from "@/components/forms/RegisterForm";
 
 export default function AuthDialog({ open, onOpenChange }: ModalOpenProps) {
   const [authType, setAuthType] = useState<AuthType>(AuthType.LOGIN);
@@ -21,6 +23,17 @@ export default function AuthDialog({ open, onOpenChange }: ModalOpenProps) {
         <Text fontSize={24} color="var(--secondary)">
           {authType}
         </Text>
+
+        {authType === AuthType.LOGIN && (
+          <LoginForm
+            onClickRegister={() => setAuthType(AuthType.REGISTER)}
+            onClickResetPassword={() => setAuthType(AuthType.RESET_PASSWORD)}
+          />
+        )}
+
+        {authType === AuthType.REGISTER && (
+          <RegisterForm onClickLogin={() => setAuthType(AuthType.LOGIN)} />
+        )}
       </Stack>
       <AfnCloseButton onClick={handleClose} />
     </AfnDialog>

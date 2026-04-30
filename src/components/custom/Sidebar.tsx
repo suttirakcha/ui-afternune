@@ -23,7 +23,8 @@ export default function Sidebar() {
     flexDirection: "column",
     justifyContent: "space-between",
     backgroundColor: "white",
-    display: "none",
+    // display: "none",
+    display: "flex",
     lg: {
       display: "flex",
     },
