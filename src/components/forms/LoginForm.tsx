@@ -1,4 +1,4 @@
-import { Formik, FormikHelpers } from "formik";
+import { Formik } from "formik";
 import AfnInput from "@/components/custom/AfnInput";
 import AfnField from "@/components/custom/AfnField";
 import AfnButton from "@/components/custom/AfnButton";
@@ -20,6 +20,11 @@ const BOX_TEXT_FIELD = {
   justifyContent: "center",
 } satisfies React.CSSProperties;
 
+const INITIAL_VALUES = {
+  identifier: "",
+  password: "",
+};
+
 export default function LoginForm({
   onClickRegister,
   onClickResetPassword,
@@ -37,22 +42,11 @@ export default function LoginForm({
 
   return (
     <Formik
-      initialValues={{
-        identifier: "",
-        password: "",
-      }}
+      initialValues={INITIAL_VALUES}
       validationSchema={loginSchema}
       onSubmit={onSubmit}
     >
-      {({
-        errors,
-        touched,
-        values,
-        isSubmitting,
-        setFieldValue,
-        handleSubmit,
-      }) => {
-        const fieldProps = (key: keyof typeof values) => {};
+      {({ errors, touched, isSubmitting, setFieldValue, handleSubmit }) => {
         return (
           <form onSubmit={handleSubmit} className="form">
             <AfnField
