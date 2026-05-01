@@ -1,7 +1,8 @@
-const BACKEND_URL = process.env.BACKEND_URL || "http://localhost:8000";
+const PUBLIC_API_DOMAIN =
+  process.env.PUBLIC_API_DOMAIN || "http://localhost:8000";
 
 export async function handleFetch(url: string, options: RequestInit) {
-  const response = await fetch(`${BACKEND_URL}/${url}`, {
+  const response = await fetch(`${PUBLIC_API_DOMAIN}/${url}`, {
     ...options,
     headers: {
       "Content-Type": "application/json",

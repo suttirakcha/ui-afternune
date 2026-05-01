@@ -1,9 +1,21 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
   experimental: {
     optimizePackageImports: ["@chakra-ui/react"],
+  },
+  env: {
+    PUBLIC_API_DOMAIN: process.env.PUBLIC_API_DOMAIN,
+  },
+  images: {
+    remotePatterns: [
+      {
+        protocol: "http",
+        hostname: "res.cloudinary.com",
+        port: "",
+        pathname: "/afnenv/**",
+      },
+    ],
   },
 };
 
