@@ -4,6 +4,10 @@ import AfnInput from "@/components/custom/AfnInput";
 import AfnButton from "@/components/custom/AfnButton";
 import { Box, HStack, Spinner, Text } from "@chakra-ui/react";
 import { registerSchema } from "@/schemas/auth.schema";
+import { register } from "@/services/auth.service";
+import { RegisterFormValues } from "@/types/auth.type";
+import { toaster } from "@/components/ui/toaster";
+import { handleError } from "@/utils/handle-error";
 
 interface RegisterFormProps {
   onClickLogin: () => void;
@@ -14,18 +18,28 @@ const BOX_TEXT_FIELD = {
   justifyContent: "center",
 } satisfies React.CSSProperties;
 
+const INITIAL_VALUES = {
+  username: "",
+  email: "",
+  password: "",
+  confirmPassword: "",
+};
+
 export default function RegisterForm({ onClickLogin }: RegisterFormProps) {
-  const onSubmit = (data: unknown) => {
-    console.log(data);
+  const onSubmit = async (values: RegisterFormValues) => {
+    try {
+      const response = await register(values);
+      toaster.create({
+        description: response.message,
+      });
+      onClickLogin();
+    } catch (error: unknown) {
+      handleError(error);
+    }
   };
   return (
     <Formik
-      initialValues={{
-        username: "",
-        email: "",
-        password: "",
-        confirmPassword: "",
-      }}
+      initialValues={INITIAL_VALUES}
       validationSchema={registerSchema}
       onSubmit={onSubmit}
     >
