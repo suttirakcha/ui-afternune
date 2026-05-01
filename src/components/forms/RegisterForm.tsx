@@ -1,13 +1,13 @@
 import { Formik } from "formik";
 import AfnField from "@/components/custom/AfnField";
 import AfnInput from "@/components/custom/AfnInput";
-import AfnButton from "@/components/custom/AfnButton";
-import { Box, HStack, Spinner, Text } from "@chakra-ui/react";
+import { Box, CssProperties, HStack, Text } from "@chakra-ui/react";
 import { registerSchema } from "@/schemas/auth.schema";
 import { register } from "@/services/auth.service";
 import { RegisterFormValues } from "@/types/auth.type";
 import { toaster } from "@/components/ui/toaster";
 import { handleError } from "@/utils/handle-error";
+import SubmitButton from "@/components/custom/SubmitButton";
 
 interface RegisterFormProps {
   onClickLogin: () => void;
@@ -16,7 +16,7 @@ interface RegisterFormProps {
 const BOX_TEXT_FIELD = {
   display: "inline-flex",
   justifyContent: "center",
-} satisfies React.CSSProperties;
+} satisfies CssProperties;
 
 const INITIAL_VALUES = {
   username: "",
@@ -99,7 +99,7 @@ export default function RegisterForm({ onClickLogin }: RegisterFormProps) {
               <AfnInput
                 type="password"
                 name="confirmPassword"
-                placeholder="Enter your confirmPassword"
+                placeholder="Enter your confirm password"
                 onChange={(e) =>
                   setFieldValue("confirmPassword", e.target.value)
                 }
@@ -119,10 +119,11 @@ export default function RegisterForm({ onClickLogin }: RegisterFormProps) {
               </HStack>
             </Box>
 
-            <AfnButton type="submit" disabled={isSubmitting} display={"flex"}>
-              {isSubmitting ? <Spinner /> : null}
-              {isSubmitting ? "Registering..." : "Register"}
-            </AfnButton>
+            <SubmitButton
+              isSubmitting={isSubmitting}
+              submitText="Register"
+              submittingText="Registering..."
+            />
           </form>
         );
       }}

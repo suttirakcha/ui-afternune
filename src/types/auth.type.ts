@@ -1,4 +1,8 @@
-import { loginSchema, registerSchema } from "@/schemas/auth.schema";
+import {
+  forgotPasswordSchema,
+  loginSchema,
+  registerSchema,
+} from "@/schemas/auth.schema";
 import * as Yup from "yup";
 
 export enum AuthType {
@@ -9,3 +13,6 @@ export enum AuthType {
 
 export type LoginFormValues = Yup.InferType<typeof loginSchema>;
 export type RegisterFormValues = Yup.InferType<typeof registerSchema>;
+export type ForgotPasswordFormValues = Yup.InferType<
+  typeof forgotPasswordSchema
+>;

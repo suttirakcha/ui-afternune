@@ -1,14 +1,13 @@
 import { Formik } from "formik";
 import AfnInput from "@/components/custom/AfnInput";
 import AfnField from "@/components/custom/AfnField";
-import AfnButton from "@/components/custom/AfnButton";
-import { Box, HStack, Spinner, Text } from "@chakra-ui/react";
-import React from "react";
+import { Box, CssProperties, HStack, Text } from "@chakra-ui/react";
 import { toaster } from "@/components/ui/toaster";
 import { LoginFormValues } from "@/types/auth.type";
 import { login } from "@/services/auth.service";
 import { loginSchema } from "@/schemas/auth.schema";
 import { handleError } from "@/utils/handle-error";
+import SubmitButton from "@/components/custom/SubmitButton";
 
 interface LoginFormProps {
   onClickResetPassword: () => void;
@@ -18,7 +17,7 @@ interface LoginFormProps {
 const BOX_TEXT_FIELD = {
   display: "inline-flex",
   justifyContent: "center",
-} satisfies React.CSSProperties;
+} satisfies CssProperties;
 
 const INITIAL_VALUES = {
   identifier: "",
@@ -96,10 +95,11 @@ export default function LoginForm({
               </HStack>
             </Box>
 
-            <AfnButton type="submit" disabled={isSubmitting} display={"flex"}>
-              {isSubmitting ? <Spinner /> : null}
-              {isSubmitting ? "Logging in..." : "Login"}
-            </AfnButton>
+            <SubmitButton
+              isSubmitting={isSubmitting}
+              submitText="Login"
+              submittingText="Logging in..."
+            />
           </form>
         );
       }}

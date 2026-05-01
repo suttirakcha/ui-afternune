@@ -8,6 +8,7 @@ import { ModalOpenProps } from "@/types/dialog.type";
 import AfnCloseButton from "@/components/custom/AfnCloseButton";
 import LoginForm from "@/components/forms/LoginForm";
 import RegisterForm from "@/components/forms/RegisterForm";
+import ForgotPasswordForm from "@/components/forms/ForgotPasswordForm";
 
 export default function AuthDialog({ open, onOpenChange }: ModalOpenProps) {
   const [authType, setAuthType] = useState<AuthType>(AuthType.LOGIN);
@@ -33,6 +34,12 @@ export default function AuthDialog({ open, onOpenChange }: ModalOpenProps) {
 
         {authType === AuthType.REGISTER && (
           <RegisterForm onClickLogin={() => setAuthType(AuthType.LOGIN)} />
+        )}
+
+        {authType === AuthType.RESET_PASSWORD && (
+          <ForgotPasswordForm
+            onClickLogin={() => setAuthType(AuthType.LOGIN)}
+          />
         )}
       </Stack>
       <AfnCloseButton onClick={handleClose} />
