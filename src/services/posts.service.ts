@@ -13,3 +13,17 @@ export async function getPosts() {
   const data = await response.json();
   return data;
 }
+
+export async function getPostById(id: string) {
+  const response = await handleFetch(`posts/${id}`, {
+    method: "GET",
+  });
+
+  if (!response.ok) {
+    const errorData = await response.json();
+    throw new Error(errorData.message ?? "Failed to fetch post");
+  }
+
+  const data = await response.json();
+  return data;
+}

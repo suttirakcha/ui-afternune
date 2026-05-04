@@ -29,6 +29,7 @@ export default function AuthDialog({ open, onOpenChange }: ModalOpenProps) {
           <LoginForm
             onClickRegister={() => setAuthType(AuthType.REGISTER)}
             onClickResetPassword={() => setAuthType(AuthType.RESET_PASSWORD)}
+            onLogin={handleClose}
           />
         )}
 

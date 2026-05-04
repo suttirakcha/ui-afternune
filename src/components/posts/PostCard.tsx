@@ -2,32 +2,15 @@
 
 import AvatarUser from "@/components/avatar/AvatarUser";
 import Loading from "@/components/custom/Loading";
+import PostInteractions from "@/components/posts/PostInteractions";
 import { Post } from "@/types/posts.type";
-import { calculateTime } from "@/utils/calculate-time";
-import {
-  Box,
-  Card,
-  CssProperties,
-  HStack,
-  Stack,
-  Text,
-  VStack,
-} from "@chakra-ui/react";
+import { Card, CssProperties, VStack } from "@chakra-ui/react";
 import Image from "next/image";
 import Link from "next/link";
-import { LuHeart, LuMessageSquareMore } from "react-icons/lu";
 
 interface PostCardProps {
   post: Post;
 }
-
-const ICON_STYLES = {
-  width: "24px",
-  height: "24px",
-  stroke: "var(--secondary)",
-  strokeWidth: "2px",
-  cursor: "pointer",
-} satisfies CssProperties;
 
 const CARD_STYLES = {
   border: "2px solid #EA900040",
@@ -43,7 +26,7 @@ const DESCRIPTION_STYLES = {
 } satisfies CssProperties;
 
 export default function PostCard({ post }: PostCardProps) {
-  const { _id, caption, image_url, user, createdAt, comments } = post;
+  const { _id, caption, image_url, user } = post;
   return (
     <Card.Root {...CARD_STYLES}>
       <Card.Body>
@@ -65,39 +48,7 @@ export default function PostCard({ post }: PostCardProps) {
           )}
 
           <AvatarUser user={user} />
-          <HStack
-            justifyContent={"space-between"}
-            alignItems={"center"}
-            color={"var(--secondary)"}
-            width={"full"}
-          >
-            <HStack gap={4} fontWeight={600} fontSize={"20px"}>
-              <HStack gap={2}>
-                <LuHeart
-                // onClick={handleClickLike}
-                // style={{
-                //   ...iconStyles,
-                //   // fill: '',
-                //   fill: clickedLike ? "var(--secondary)" : "",
-                // }}
-                />
-                <Text>{0}</Text>
-              </HStack>
-              <Box
-                height={"24px"}
-                width={"2px"}
-                backgroundColor={"var(--secondary)"}
-              />
-              <HStack gap={2}>
-                <LuMessageSquareMore style={ICON_STYLES} />
-                <Text>{comments.length ?? 0}</Text>
-              </HStack>
-            </HStack>
-            <HStack>
-              <Text>{calculateTime(createdAt)}</Text>
-              {/* <PostOptions post={post} /> */}
-            </HStack>
-          </HStack>
+          <PostInteractions post={post} />
 
           <Card.Description {...DESCRIPTION_STYLES}>{caption}</Card.Description>
         </VStack>

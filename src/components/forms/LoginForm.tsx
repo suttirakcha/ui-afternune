@@ -12,6 +12,7 @@ import SubmitButton from "@/components/custom/SubmitButton";
 interface LoginFormProps {
   onClickResetPassword: () => void;
   onClickRegister: () => void;
+  onLogin: () => void;
 }
 
 const BOX_TEXT_FIELD = {
@@ -27,6 +28,7 @@ const INITIAL_VALUES = {
 export default function LoginForm({
   onClickRegister,
   onClickResetPassword,
+  onLogin,
 }: LoginFormProps) {
   const onSubmit = async (values: LoginFormValues) => {
     try {
@@ -34,6 +36,7 @@ export default function LoginForm({
       toaster.create({
         description: response.message,
       });
+      onLogin();
     } catch (error: unknown) {
       handleError(error);
     }

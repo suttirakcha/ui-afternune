@@ -1,12 +1,12 @@
 "use client";
 
-import { Stack, Text } from "@chakra-ui/react";
+import { Skeleton, Stack, Text } from "@chakra-ui/react";
 import { sidebarMenus } from "@/menus/sidebarMenus";
 import Logo from "@/components/custom/Logo";
 import MenuLinks from "@/components/custom/MenuLinks";
 import AfnButton from "@/components/custom/AfnButton";
 import AuthDialog from "@/components/dialogs/AuthDialog";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { getProfile, logout } from "@/services/auth.service";
 import { User } from "@/types/users.type";
 import AvatarUser from "@/components/avatar/AvatarUser";
@@ -88,14 +88,18 @@ export default function Sidebar() {
         </Stack>
       </Stack>
       <Stack gap={"20px"}>
-        {profile ? (
-          <AfnMenu
-            trigger={<AvatarUser user={profile} />}
-            options={profileOptions}
-          />
-        ) : (
-          <AfnButton onClick={() => setIsLoginModalOpen(true)}>Login</AfnButton>
-        )}
+        <Suspense fallback={<Skeleton height={40} width={"full"} />}>
+          {profile ? (
+            <AfnMenu
+              trigger={<AvatarUser user={profile} />}
+              options={profileOptions}
+            />
+          ) : (
+            <AfnButton onClick={() => setIsLoginModalOpen(true)}>
+              Login
+            </AfnButton>
+          )}
+        </Suspense>
         <Text color="var(--secondary)">&copy; {currentYear} Afternune</Text>
       </Stack>
 

@@ -13,4 +13,5 @@ export type Comment = {
   readonly _id: string;
   detail: string;
   createdAt: string;
+  user: User;
 };
