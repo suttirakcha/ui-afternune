@@ -1,4 +1,6 @@
+import { commentSchema } from "@/schemas/posts.schema";
 import { User } from "@/types/users.type";
+import * as Yup from "yup";
 
 export type Post = {
   readonly _id: string;
@@ -15,3 +17,5 @@ export type Comment = {
   createdAt: string;
   user: User;
 };
+
+export type CommentFieldValues = Yup.InferType<typeof commentSchema>;

@@ -3,7 +3,7 @@ import { Stack } from "@chakra-ui/react";
 
 export default function ContactPage() {
   return (
-    <Stack>
+    <Stack position="sticky" top={10} gap={10}>
       <AfnTitle>Contacts</AfnTitle>
     </Stack>
   );
