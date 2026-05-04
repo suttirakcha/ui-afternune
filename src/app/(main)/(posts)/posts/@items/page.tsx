@@ -11,6 +11,7 @@ const POST_ITEMS_STYLES = {
 
 export default async function PostItemsPage() {
   const posts = await getPosts();
+
   return (
     <Stack {...POST_ITEMS_STYLES}>
       <CreatePostButton />

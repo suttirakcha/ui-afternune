@@ -6,10 +6,21 @@ import Logo from "@/components/custom/Logo";
 import MenuLinks from "@/components/custom/MenuLinks";
 import AfnButton from "@/components/custom/AfnButton";
 import AuthDialog from "@/components/dialogs/AuthDialog";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { getProfile, logout } from "@/services/auth.service";
+import { User } from "@/types/users.type";
+import AvatarUser from "@/components/avatar/AvatarUser";
+import AfnMenu from "@/components/custom/AfnMenu";
+import { useRouter } from "next/navigation";
+import { Option } from "@/types/menus.type";
+import { LuLogOut, LuSettings, LuUser } from "react-icons/lu";
+import { toaster } from "@/components/ui/toaster";
+import { handleError } from "@/utils/handle-error";
 
 export default function Sidebar() {
+  const router = useRouter();
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  const [profile, setProfile] = useState<User | null>(null);
   const currentYear = new Date().getFullYear();
 
   const sidebarStyles = {
@@ -30,6 +41,44 @@ export default function Sidebar() {
     },
   };
 
+  const handleLogout = async () => {
+    try {
+      const response = await logout();
+      toaster.create({
+        description: response.message,
+      });
+    } catch (error) {
+      handleError(error);
+    }
+  };
+
+  const profileOptions: Option[] = [
+    {
+      menu: "View profile",
+      onSelect: () => router.push(`/profile/${profile?._id}`),
+      icon: <LuUser />,
+    },
+    // {
+    //   menu: "Settings",
+    //   onSelect: () => router.push(settingsMenus[0].href),
+    //   icon: <LuSettings />,
+    // },
+    {
+      menu: "Logout",
+      onSelect: handleLogout,
+      icon: <LuLogOut />,
+    },
+  ];
+
+  useEffect(() => {
+    const run = async () => {
+      const user = await getProfile();
+      setProfile(user);
+    };
+
+    run();
+  }, []);
+
   return (
     <Stack {...sidebarStyles}>
       <Stack gap={"60px"} flexDirection={"column"}>
@@ -39,7 +88,14 @@ export default function Sidebar() {
         </Stack>
       </Stack>
       <Stack gap={"20px"}>
-        <AfnButton onClick={() => setIsLoginModalOpen(true)}>Login</AfnButton>
+        {profile ? (
+          <AfnMenu
+            trigger={<AvatarUser user={profile} />}
+            options={profileOptions}
+          />
+        ) : (
+          <AfnButton onClick={() => setIsLoginModalOpen(true)}>Login</AfnButton>
+        )}
         <Text color="var(--secondary)">&copy; {currentYear} Afternune</Text>
       </Stack>
 

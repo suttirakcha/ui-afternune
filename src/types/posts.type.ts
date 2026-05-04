@@ -6,4 +6,11 @@ export type Post = {
   image_url: string;
   user: User;
   createdAt: string;
+  comments: Comment[];
+};
+
+export type Comment = {
+  readonly _id: string;
+  detail: string;
+  createdAt: string;
 };
