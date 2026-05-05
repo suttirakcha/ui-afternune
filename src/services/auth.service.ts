@@ -7,6 +7,7 @@ import {
   RegisterFormValues,
 } from "@/types/auth.type";
 import { clearCookieTokens, setCookieTokens } from "@/lib/setCookieTokens";
+import { revalidateUserOnSidebar } from "@/lib/revalidate";
 
 export async function login(values: LoginFormValues) {
   const response = await handleFetch("auth/login", {
@@ -21,6 +22,7 @@ export async function login(values: LoginFormValues) {
 
   const data = await response.json();
   await setCookieTokens(response);
+  await revalidateUserOnSidebar();
 
   return data;
 }
@@ -41,7 +43,9 @@ export async function register(values: RegisterFormValues) {
 }
 
 export async function getProfile() {
-  const response = await handleFetchWithAuth("auth/me");
+  const response = await handleFetchWithAuth("auth/me", {
+    next: { tags: ["user"] },
+  });
 
   if (!response.ok) {
     return null;

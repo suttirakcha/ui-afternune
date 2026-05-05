@@ -4,10 +4,11 @@ import AfnField from "@/components/custom/AfnField";
 import { Box, CssProperties, HStack, Text } from "@chakra-ui/react";
 import { toaster } from "@/components/ui/toaster";
 import { LoginFormValues } from "@/types/auth.type";
-import { login } from "@/services/auth.service";
+import { getProfile, login } from "@/services/auth.service";
 import { loginSchema } from "@/schemas/auth.schema";
 import { handleError } from "@/utils/handle-error";
 import SubmitButton from "@/components/custom/SubmitButton";
+import { revalidateUserOnSidebar } from "@/lib/revalidate";
 
 interface LoginFormProps {
   onClickResetPassword: () => void;
@@ -36,6 +37,7 @@ export default function LoginForm({
       toaster.create({
         description: response.message,
       });
+      revalidateUserOnSidebar();
       onLogin();
     } catch (error: unknown) {
       handleError(error);
