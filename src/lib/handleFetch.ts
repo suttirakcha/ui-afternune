@@ -10,7 +10,8 @@ export async function handleFetch(url: string, options?: RequestInit) {
       "Content-Type": "application/json",
       ...options?.headers,
     },
-    cache: "no-store",
+    // cache: "no-store",
+    credentials: "include",
   });
 
   return response;
@@ -18,11 +19,12 @@ export async function handleFetch(url: string, options?: RequestInit) {
 
 export async function handleFetchWithAuth(url: string, options?: RequestInit) {
   const cookieStore = await cookies();
-  const token = cookieStore.get("accessToken")?.value;
+  const accessToken = cookieStore.get("accessToken")?.value;
+
   const response = await handleFetch(url, {
     ...options,
     headers: {
-      Authorization: `Bearer ${token}`,
+      Authorization: `Bearer ${accessToken}`,
       ...options?.headers,
     },
   });

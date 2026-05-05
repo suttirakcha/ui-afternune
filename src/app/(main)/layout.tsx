@@ -9,7 +9,7 @@ export default function MainLayout({ children }: { children: ReactNode }) {
     <Box className="animated">
       <Sidebar />
       <Stack
-        maxWidth={"100dvw"}
+        maxWidth="100dvw"
         lg={{ maxWidth: "calc(100dvw - 300px)" }}
         marginLeft="auto"
       >

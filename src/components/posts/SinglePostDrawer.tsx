@@ -2,6 +2,7 @@
 
 import AvatarUser from "@/components/avatar/AvatarUser";
 import AfnCloseButton from "@/components/custom/AfnCloseButton";
+import CommentForm from "@/components/forms/CommentForm";
 import CommentList from "@/components/posts/CommentList";
 import PostInteractions from "@/components/posts/PostInteractions";
 import { Comment, Post } from "@/types/posts.type";
@@ -87,6 +88,7 @@ export default function SinglePostDrawer({
               <Suspense fallback={<Skeleton height={10} width="full" />}>
                 <Stack h="full" w="full" justifyContent="space-between">
                   <CommentList comments={comments} />
+                  <CommentForm post={post} />
                 </Stack>
               </Suspense>
             </VStack>

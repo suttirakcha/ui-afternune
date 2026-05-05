@@ -15,9 +15,11 @@ export default function PostLayout({
   children,
 }: PostLayoutProps) {
   return (
-    <MainContainer animated>
+    <MainContainer animated height={0}>
       <Grid gridTemplateColumns="repeat(3, 1fr)" gap={20}>
-        <GridItem colSpan={2}>{items}</GridItem>
+        <GridItem colSpan={1} xl={{ gridColumn: "span 2" }}>
+          {items}
+        </GridItem>
         <GridItem>{contacts}</GridItem>
       </Grid>
       {children}

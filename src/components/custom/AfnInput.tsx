@@ -30,7 +30,7 @@ export default function AfnInput({
 }: AfnInputProps) {
   if (rest.type === "file") {
     return (
-      <Stack gap={4}>
+      <Stack gap={4} width="full">
         {previewUrl && (
           <Box
             borderRadius="16px"
