@@ -41,7 +41,9 @@ export async function register(values: RegisterFormValues) {
 }
 
 export async function getProfile() {
-  const response = await handleFetchWithAuth("auth/me");
+  const response = await handleFetchWithAuth("auth/me", {
+    cache: "force-cache",
+  });
 
   if (!response.ok) {
     return null;
