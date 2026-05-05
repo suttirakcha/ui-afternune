@@ -16,10 +16,12 @@ import { Option } from "@/types/menus.type";
 import { LuLogOut, LuSettings, LuUser } from "react-icons/lu";
 import { toaster } from "@/components/ui/toaster";
 import { handleError } from "@/utils/handle-error";
+import SidebarLogin from "@/components/custom/SidebarLogin";
 
 export default function Sidebar() {
   const router = useRouter();
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [profile, setProfile] = useState<User | null>(null);
   const currentYear = new Date().getFullYear();
 
@@ -52,6 +54,18 @@ export default function Sidebar() {
     }
   };
 
+  const handleFetchProfile = async () => {
+    try {
+      const user = await getProfile();
+      console.log(user);
+      setProfile(user);
+    } catch (error) {
+      handleError(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   const profileOptions: Option[] = [
     {
       menu: "View profile",
@@ -71,12 +85,7 @@ export default function Sidebar() {
   ];
 
   useEffect(() => {
-    const run = async () => {
-      const user = await getProfile();
-      setProfile(user);
-    };
-
-    run();
+    handleFetchProfile();
   }, []);
 
   return (
@@ -88,18 +97,15 @@ export default function Sidebar() {
         </Stack>
       </Stack>
       <Stack gap={"20px"}>
-        <Suspense fallback={<Skeleton height={40} width={"full"} />}>
-          {profile ? (
-            <AfnMenu
-              trigger={<AvatarUser user={profile} />}
-              options={profileOptions}
-            />
-          ) : (
-            <AfnButton onClick={() => setIsLoginModalOpen(true)}>
-              Login
-            </AfnButton>
-          )}
-        </Suspense>
+        {isLoading ? (
+          <Skeleton height={10} width={"full"} />
+        ) : (
+          <SidebarLogin
+            profile={profile}
+            options={profileOptions}
+            onLoginModal={setIsLoginModalOpen}
+          />
+        )}
         <Text color="var(--secondary)">&copy; {currentYear} Afternune</Text>
       </Stack>
 
