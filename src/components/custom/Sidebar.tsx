@@ -54,7 +54,6 @@ export default function Sidebar() {
   const handleFetchProfile = async () => {
     try {
       const user = await getProfile();
-      console.log(user);
       setProfile(user);
     } catch (error) {
       handleError(error);
