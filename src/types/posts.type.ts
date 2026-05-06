@@ -1,4 +1,4 @@
-import { commentSchema } from "@/schemas/posts.schema";
+import { commentSchema, postSchema } from "@/schemas/posts.schema";
 import { User } from "@/types/users.type";
 import * as Yup from "yup";
 
@@ -18,4 +18,5 @@ export type Comment = {
   user: User;
 };
 
+export type PostFieldValues = Yup.InferType<typeof postSchema>;
 export type CommentFieldValues = Yup.InferType<typeof commentSchema>;

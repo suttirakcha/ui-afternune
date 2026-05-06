@@ -16,6 +16,7 @@ export default function AfnTextarea(props: AfnTextareaProps) {
     fontWeight: 500,
     minHeight: "96px",
     bgColor: error ? "var(--chakra-colors-red-100)" : "var(--light-orange)",
+    resize: "none",
   } satisfies TextareaProps;
 
   return <Textarea {...BASE_TEXTAREA_PROPS} {...rest}></Textarea>;

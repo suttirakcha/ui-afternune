@@ -17,7 +17,7 @@ export default function LinkBackBtn({ href, children }: LinkBackBtnProps) {
         gap={1}
         transition="gap .2s"
         className="group"
-        _hover={{ gap: 4 }}
+        _hover={{ gap: 3 }}
       >
         <Box
           transition="background-color .2s"
