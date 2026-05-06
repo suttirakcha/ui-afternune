@@ -6,6 +6,7 @@ import AfnTextarea from "@/components/custom/AfnTextarea";
 import SubmitButton from "@/components/custom/SubmitButton";
 import { toaster } from "@/components/ui/toaster";
 import { postSchema } from "@/schemas/posts.schema";
+import { uploadImage } from "@/services/cloudinary.service";
 import { createPost } from "@/services/posts.service";
 import { useUploadImageStore } from "@/stores/useUploadImageStore";
 import { Post, PostFieldValues } from "@/types/posts.type";
@@ -24,14 +25,22 @@ const INITIAL_VALUES = {
 
 export default function PostForm({ post }: PostFormProps) {
   const imageRef = useRef<HTMLInputElement>(null);
-  const { previewUrl, setPreviewUrl, resetPreview } = useUploadImageStore();
+  const { previewUrl, imageFile, setPreviewUrl, resetPreview } =
+    useUploadImageStore();
+
   const onSubmit = async (values: PostFieldValues) => {
     try {
-      const response = await createPost(values);
+      const imageResponse = await uploadImage(imageFile!);
+      const response = await createPost({
+        caption: values.caption,
+        image_url: imageResponse.secure_url,
+      });
       toaster.create({
         description: response.message,
       });
+      resetPreview();
     } catch (error) {
+      console.log(error);
       handleError(error);
     }
   };

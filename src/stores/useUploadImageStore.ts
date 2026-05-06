@@ -1,4 +1,3 @@
-import { ChangeEvent, RefObject } from "react";
 import { create } from "zustand";
 
 type UploadImageStore = {
