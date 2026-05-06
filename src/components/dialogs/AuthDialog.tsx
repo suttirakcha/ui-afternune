@@ -9,8 +9,10 @@ import AfnCloseButton from "@/components/custom/AfnCloseButton";
 import LoginForm from "@/components/forms/LoginForm";
 import RegisterForm from "@/components/forms/RegisterForm";
 import ForgotPasswordForm from "@/components/forms/ForgotPasswordForm";
+import { useRouter } from "next/navigation";
 
 export default function AuthDialog({ open, onOpenChange }: ModalOpenProps) {
+  const router = useRouter();
   const [authType, setAuthType] = useState<AuthType>(AuthType.LOGIN);
 
   const handleClose = () => {
@@ -29,7 +31,7 @@ export default function AuthDialog({ open, onOpenChange }: ModalOpenProps) {
           <LoginForm
             onClickRegister={() => setAuthType(AuthType.REGISTER)}
             onClickResetPassword={() => setAuthType(AuthType.RESET_PASSWORD)}
-            onLogin={handleClose}
+            onLogin={router.refresh}
           />
         )}
 
