@@ -1,3 +1,5 @@
+import { getProfile } from "@/services/auth.service";
+import { handleError } from "@/utils/handle-error";
 import { cookies } from "next/headers";
 
 const PUBLIC_API_DOMAIN =

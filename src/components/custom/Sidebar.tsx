@@ -5,7 +5,7 @@ import { sidebarMenus } from "@/menus/sidebarMenus";
 import Logo from "@/components/custom/Logo";
 import MenuLinks from "@/components/custom/MenuLinks";
 import AuthDialog from "@/components/dialogs/AuthDialog";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { getProfile, logout } from "@/services/auth.service";
 import { User } from "@/types/users.type";
 import { useRouter } from "next/navigation";
@@ -40,18 +40,19 @@ export default function Sidebar() {
     },
   };
 
-  const handleLogout = async () => {
+  const handleLogout = useCallback(async () => {
     try {
       const response = await logout();
       toaster.create({
         description: response.message,
       });
+      setProfile(null);
     } catch (error) {
       handleError(error);
     }
-  };
+  }, [profile]);
 
-  const handleFetchProfile = async () => {
+  const handleFetchProfile = useCallback(async () => {
     try {
       const user = await getProfile();
       setProfile(user);
@@ -60,7 +61,7 @@ export default function Sidebar() {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [profile]);
 
   const profileOptions: Option[] = [
     {
