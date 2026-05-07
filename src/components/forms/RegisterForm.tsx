@@ -1,3 +1,5 @@
+"use client";
+
 import { Formik } from "formik";
 import AfnField from "@/components/custom/AfnField";
 import AfnInput from "@/components/custom/AfnInput";
@@ -8,10 +10,8 @@ import { RegisterFormValues } from "@/types/auth.type";
 import { toaster } from "@/components/ui/toaster";
 import { handleError } from "@/utils/handle-error";
 import SubmitButton from "@/components/custom/SubmitButton";
-
-interface RegisterFormProps {
-  onClickLogin: () => void;
-}
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const BOX_TEXT_FIELD = {
   display: "inline-flex",
@@ -25,14 +25,15 @@ const INITIAL_VALUES = {
   confirmPassword: "",
 };
 
-export default function RegisterForm({ onClickLogin }: RegisterFormProps) {
+export default function RegisterForm() {
+  const router = useRouter();
   const onSubmit = async (values: RegisterFormValues) => {
     try {
       const response = await register(values);
       toaster.create({
         description: response.message,
       });
-      onClickLogin();
+      router.push("/login");
     } catch (error: unknown) {
       handleError(error);
     }
@@ -113,9 +114,9 @@ export default function RegisterForm({ onClickLogin }: RegisterFormProps) {
                 <Text color={"var(--secondary)"} fontWeight={600}>
                   Already have an account?{" "}
                 </Text>
-                <Text onClick={onClickLogin} className="menu-links">
+                <Link href="/login" className="menu-links">
                   Login
-                </Text>
+                </Link>
               </HStack>
             </Box>
 
