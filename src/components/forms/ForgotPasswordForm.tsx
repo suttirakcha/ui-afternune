@@ -1,3 +1,5 @@
+"use client";
+
 import { Formik } from "formik";
 import SubmitButton from "@/components/custom/SubmitButton";
 import AfnField from "@/components/custom/AfnField";
@@ -7,10 +9,7 @@ import { ForgotPasswordFormValues } from "@/types/auth.type";
 import { forgotPassword } from "@/services/auth.service";
 import { handleError } from "@/utils/handle-error";
 import { toaster } from "@/components/ui/toaster";
-
-interface ForgotPasswordFormProps {
-  onClickLogin: () => void;
-}
+import Link from "next/link";
 
 const BOX_TEXT_FIELD = {
   display: "inline-flex",
@@ -21,9 +20,7 @@ const INITIAL_VALUES = {
   email: "",
 };
 
-export default function ForgotPasswordForm({
-  onClickLogin,
-}: ForgotPasswordFormProps) {
+export default function ForgotPasswordForm() {
   const onSubmit = async (values: ForgotPasswordFormValues) => {
     try {
       const response = await forgotPassword(values);
@@ -56,9 +53,9 @@ export default function ForgotPasswordForm({
             </AfnField>
 
             <Box {...BOX_TEXT_FIELD}>
-              <Text onClick={onClickLogin} className="menu-links">
+              <Link href="/login" className="menu-links">
                 Back to Login
-              </Text>
+              </Link>
             </Box>
 
             <SubmitButton

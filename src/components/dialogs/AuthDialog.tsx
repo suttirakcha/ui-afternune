@@ -27,23 +27,11 @@ export default function AuthDialog({ open, onOpenChange }: ModalOpenProps) {
           {authType}
         </Text>
 
-        {authType === AuthType.LOGIN && (
-          <LoginForm
-            onClickRegister={() => setAuthType(AuthType.REGISTER)}
-            onClickResetPassword={() => setAuthType(AuthType.RESET_PASSWORD)}
-            onLogin={router.refresh}
-          />
-        )}
+        {authType === AuthType.LOGIN && <LoginForm />}
 
-        {authType === AuthType.REGISTER && (
-          <RegisterForm onClickLogin={() => setAuthType(AuthType.LOGIN)} />
-        )}
+        {authType === AuthType.REGISTER && <RegisterForm />}
 
-        {authType === AuthType.RESET_PASSWORD && (
-          <ForgotPasswordForm
-            onClickLogin={() => setAuthType(AuthType.LOGIN)}
-          />
-        )}
+        {authType === AuthType.RESET_PASSWORD && <ForgotPasswordForm />}
       </Stack>
       <AfnCloseButton onClick={handleClose} />
     </AfnDialog>

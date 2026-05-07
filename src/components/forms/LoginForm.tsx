@@ -10,12 +10,8 @@ import { login } from "@/services/auth.service";
 import { loginSchema } from "@/schemas/auth.schema";
 import { handleError } from "@/utils/handle-error";
 import SubmitButton from "@/components/custom/SubmitButton";
-
-interface LoginFormProps {
-  onClickResetPassword: () => void;
-  onClickRegister: () => void;
-  onLogin: () => void;
-}
+import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 const BOX_TEXT_FIELD = {
   display: "inline-flex",
@@ -27,18 +23,15 @@ const INITIAL_VALUES = {
   password: "",
 };
 
-export default function LoginForm({
-  onClickRegister,
-  onClickResetPassword,
-  onLogin,
-}: LoginFormProps) {
+export default function LoginForm() {
+  const router = useRouter();
   const onSubmit = async (values: LoginFormValues) => {
     try {
       const response = await login(values);
       toaster.create({
         description: response.message,
       });
-      onLogin();
+      router.push("/");
     } catch (error: unknown) {
       handleError(error);
     }
@@ -84,9 +77,9 @@ export default function LoginForm({
             </AfnField>
 
             <Box {...BOX_TEXT_FIELD}>
-              <Text onClick={onClickResetPassword} className="menu-links">
+              <Link href="/forgot-password" className="menu-links">
                 Forgot password?
-              </Text>
+              </Link>
             </Box>
 
             <Box {...BOX_TEXT_FIELD}>
@@ -94,9 +87,9 @@ export default function LoginForm({
                 <Text color={"var(--secondary)"} fontWeight={600}>
                   Don&apos;t have an account?{" "}
                 </Text>
-                <Text onClick={onClickRegister} className="menu-links">
+                <Link href="/register" className="menu-links">
                   Register
-                </Text>
+                </Link>
               </HStack>
             </Box>
 

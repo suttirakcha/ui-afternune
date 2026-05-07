@@ -4,20 +4,18 @@ import { Skeleton, Stack, Text } from "@chakra-ui/react";
 import { sidebarMenus } from "@/menus/sidebarMenus";
 import Logo from "@/components/custom/Logo";
 import MenuLinks from "@/components/custom/MenuLinks";
-import AuthDialog from "@/components/dialogs/AuthDialog";
 import { useCallback, useEffect, useState } from "react";
 import { getProfile, logout } from "@/services/auth.service";
 import { User } from "@/types/users.type";
 import { useRouter } from "next/navigation";
 import { Option } from "@/types/menus.type";
-import { LuLogOut, LuSettings, LuUser } from "react-icons/lu";
+import { LuLogOut, LuUser } from "react-icons/lu";
 import { toaster } from "@/components/ui/toaster";
 import { handleError } from "@/utils/handle-error";
 import SidebarLogin from "@/components/custom/SidebarLogin";
 
 export default function Sidebar() {
   const router = useRouter();
-  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [profile, setProfile] = useState<User | null>(null);
   const currentYear = new Date().getFullYear();
@@ -97,19 +95,10 @@ export default function Sidebar() {
         {isLoading ? (
           <Skeleton height={10} width={"full"} />
         ) : (
-          <SidebarLogin
-            profile={profile}
-            options={profileOptions}
-            onLoginModal={setIsLoginModalOpen}
-          />
+          <SidebarLogin profile={profile} options={profileOptions} />
         )}
         <Text color="var(--secondary)">&copy; {currentYear} Afternune</Text>
       </Stack>
-
-      <AuthDialog
-        open={isLoginModalOpen}
-        onOpenChange={(value) => setIsLoginModalOpen(value.open)}
-      />
     </Stack>
   );
 }
