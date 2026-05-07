@@ -4,9 +4,17 @@ import AfnField from "@/components/custom/AfnField";
 import AfnInput from "@/components/custom/AfnInput";
 import AfnTextarea from "@/components/custom/AfnTextarea";
 import SubmitButton from "@/components/custom/SubmitButton";
-import { Post } from "@/types/posts.type";
+import { toaster } from "@/components/ui/toaster";
+import { revalidatePosts } from "@/lib/revalidate";
+import { postSchema } from "@/schemas/posts.schema";
+import { uploadImage } from "@/services/cloudinary.service";
+import { createPost } from "@/services/posts.service";
+import { useUploadImageStore } from "@/stores/useUploadImageStore";
+import { Post, PostFieldValues } from "@/types/posts.type";
+import { handleError } from "@/utils/handle-error";
 import { Formik } from "formik";
-import React from "react";
+import { useRouter } from "next/navigation";
+import React, { ChangeEvent, useRef } from "react";
 
 interface PostFormProps {
   post?: Post;
@@ -18,10 +26,50 @@ const INITIAL_VALUES = {
 };
 
 export default function PostForm({ post }: PostFormProps) {
-  const onSubmit = (values: unknown) => {};
+  const router = useRouter();
+  const imageRef = useRef<HTMLInputElement>(null);
+  const { previewUrl, imageFile, setPreviewUrl, resetPreview } =
+    useUploadImageStore();
+
+  const onSubmit = async (values: PostFieldValues) => {
+    try {
+      const imageResponse = await uploadImage(imageFile!);
+      const response = await createPost({
+        caption: values.caption,
+        image_url: imageResponse.secure_url,
+      });
+      toaster.create({
+        description: response.message,
+      });
+      resetPreview();
+      revalidatePosts();
+      router.push("/posts");
+    } catch (error) {
+      console.log(error);
+      handleError(error);
+    }
+  };
+
   return (
-    <Formik initialValues={INITIAL_VALUES} onSubmit={onSubmit}>
+    <Formik
+      initialValues={INITIAL_VALUES}
+      onSubmit={onSubmit}
+      validationSchema={postSchema}
+    >
       {({ isSubmitting, handleSubmit, setFieldValue, errors, touched }) => {
+        const handleSetPreviewUrl = (e: ChangeEvent<HTMLInputElement>) => {
+          const file = e.target.files?.[0];
+          if (!file) return;
+
+          setPreviewUrl(file);
+          setFieldValue("image_url", e.target.value);
+        };
+
+        const handleReset = () => {
+          resetPreview();
+          setFieldValue("image_url", null);
+          if (imageRef.current) imageRef.current.value = "";
+        };
         return (
           <form onSubmit={handleSubmit} className="form">
             <AfnField
@@ -36,8 +84,20 @@ export default function PostForm({ post }: PostFormProps) {
                 onChange={(e) => setFieldValue("caption", e.target.value)}
               />
             </AfnField>
-            <AfnField label="Post image">
-              <AfnInput type="file" disabled={isSubmitting} />
+            <AfnField
+              label="Post image"
+              error={errors.image_url}
+              touched={touched.image_url}
+            >
+              <AfnInput
+                ref={imageRef}
+                type="file"
+                disabled={isSubmitting}
+                error={!!(errors.image_url && touched.image_url)}
+                onChange={handleSetPreviewUrl}
+                onReset={handleReset}
+                previewUrl={previewUrl}
+              />
             </AfnField>
 
             <SubmitButton

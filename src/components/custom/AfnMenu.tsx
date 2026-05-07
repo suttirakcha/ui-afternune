@@ -24,7 +24,7 @@ export default function AfnMenu({
             border={"2px solid var(--light-orange)"}
             borderRadius={"16px"}
             boxShadow={"0 0 16px var(--light-orange-2)"}
-            zIndex={1401}
+            zIndex={1500}
           >
             <For each={options}>
               {({ menu, onSelect, icon, condition }) => {

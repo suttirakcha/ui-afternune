@@ -1,9 +1,12 @@
 "use server";
 
-import { handleFetch } from "@/lib/handleFetch";
+import { handleFetch, handleFetchWithAuth } from "@/lib/handleFetch";
+import { PostFieldValues } from "@/types/posts.type";
 
 export async function getPosts() {
-  const response = await handleFetch("posts");
+  const response = await handleFetch("posts", {
+    next: { tags: ["posts"], revalidate: 0 },
+  });
 
   if (!response.ok) {
     const errorData = await response.json();
@@ -22,6 +25,21 @@ export async function getPostById(id: string) {
   if (!response.ok) {
     const errorData = await response.json();
     throw new Error(errorData.message ?? "Failed to fetch post");
+  }
+
+  const data = await response.json();
+  return data;
+}
+
+export async function createPost(values: PostFieldValues) {
+  const response = await handleFetchWithAuth("posts", {
+    method: "POST",
+    body: JSON.stringify(values),
+  });
+
+  if (!response.ok) {
+    const errorData = await response.json();
+    throw new Error(errorData.message ?? "Failed to create post");
   }
 
   const data = await response.json();
