@@ -4,7 +4,9 @@ import { handleFetch, handleFetchWithAuth } from "@/lib/handleFetch";
 import { PostFieldValues } from "@/types/posts.type";
 
 export async function getPosts() {
-  const response = await handleFetch("posts");
+  const response = await handleFetch("posts", {
+    next: { tags: ["posts"], revalidate: 0 },
+  });
 
   if (!response.ok) {
     const errorData = await response.json();

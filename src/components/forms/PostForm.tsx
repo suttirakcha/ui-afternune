@@ -5,6 +5,7 @@ import AfnInput from "@/components/custom/AfnInput";
 import AfnTextarea from "@/components/custom/AfnTextarea";
 import SubmitButton from "@/components/custom/SubmitButton";
 import { toaster } from "@/components/ui/toaster";
+import { revalidatePosts } from "@/lib/revalidate";
 import { postSchema } from "@/schemas/posts.schema";
 import { uploadImage } from "@/services/cloudinary.service";
 import { createPost } from "@/services/posts.service";
@@ -12,6 +13,7 @@ import { useUploadImageStore } from "@/stores/useUploadImageStore";
 import { Post, PostFieldValues } from "@/types/posts.type";
 import { handleError } from "@/utils/handle-error";
 import { Formik } from "formik";
+import { useRouter } from "next/navigation";
 import React, { ChangeEvent, useRef } from "react";
 
 interface PostFormProps {
@@ -24,6 +26,7 @@ const INITIAL_VALUES = {
 };
 
 export default function PostForm({ post }: PostFormProps) {
+  const router = useRouter();
   const imageRef = useRef<HTMLInputElement>(null);
   const { previewUrl, imageFile, setPreviewUrl, resetPreview } =
     useUploadImageStore();
@@ -39,6 +42,8 @@ export default function PostForm({ post }: PostFormProps) {
         description: response.message,
       });
       resetPreview();
+      revalidatePosts();
+      router.push("/posts");
     } catch (error) {
       console.log(error);
       handleError(error);
