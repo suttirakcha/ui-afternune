@@ -10,7 +10,10 @@ export async function getPosts() {
 
   if (!response.ok) {
     const errorData = await response.json();
-    throw new Error(errorData.message ?? "Failed to fetch posts");
+    return {
+      success: false,
+      message: errorData.message ?? "Failed to fetch posts",
+    };
   }
 
   const data = await response.json();
@@ -24,7 +27,10 @@ export async function getPostById(id: string) {
 
   if (!response.ok) {
     const errorData = await response.json();
-    throw new Error(errorData.message ?? "Failed to fetch post");
+    return {
+      success: false,
+      message: errorData.message ?? "Failed to fetch post",
+    };
   }
 
   const data = await response.json();

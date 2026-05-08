@@ -1,0 +1,76 @@
+"use client";
+
+import AvatarUser from "@/components/avatar/AvatarUser";
+import AfnTitle from "@/components/custom/AfnTitle";
+import Loading from "@/components/custom/Loading";
+import FollowButton from "@/components/users/FollowButton";
+import { getUsers } from "@/services/users.service";
+import { User } from "@/types/users.type";
+import { For, HStack, Stack, Text, VStack } from "@chakra-ui/react";
+import React, { useCallback, useEffect, useState } from "react";
+
+interface SearchResultProps {
+  search: string;
+}
+
+export default function SearchResult({ search }: SearchResultProps) {
+  const [isLoading, setIsLoading] = useState(true);
+  const [users, setUsers] = useState<User[]>([]);
+  const handleFetchUsers = useCallback(async () => {
+    try {
+      setIsLoading(true);
+      const fetchedUsers = await getUsers(search);
+      setUsers(fetchedUsers);
+    } finally {
+      setIsLoading(false);
+    }
+  }, [search]);
+
+  useEffect(() => {
+    handleFetchUsers();
+  }, [search]);
+
+  return (
+    <VStack>
+      <Stack
+        boxShadow={"var(--main-box-shadow)"}
+        p={6}
+        borderRadius={"16px"}
+        gap={6}
+        animation={"fade-in 1s"}
+        width={"full"}
+      >
+        <AfnTitle size={"small"}>
+          {search ? "Search results" : "Suggested users"}
+        </AfnTitle>
+        <Stack gap={4}>
+          <For
+            each={users}
+            fallback={
+              isLoading ? (
+                <Stack alignItems={"center"} width={"full"}>
+                  <Loading />
+                </Stack>
+              ) : (
+                <Text>{"No users found"}</Text>
+              )
+            }
+          >
+            {(profile) => {
+              const { _id, username, image_url } = profile;
+              return (
+                <HStack justifyContent={"space-between"} key={_id}>
+                  <AvatarUser
+                    user={{ username, image_url }}
+                    link={`/profile/${_id}`}
+                  />
+                  <FollowButton />
+                </HStack>
+              );
+            }}
+          </For>
+        </Stack>
+      </Stack>
+    </VStack>
+  );
+}

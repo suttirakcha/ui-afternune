@@ -2,8 +2,9 @@
 
 import { handleFetch } from "@/lib/handleFetch";
 
-export async function getUsers() {
-  const response = await handleFetch("users");
+export async function getUsers(search?: string) {
+  const userUrl = `users${search ? `?search=${search}` : ""}`;
+  const response = await handleFetch(userUrl);
 
   if (!response.ok) {
     const errorData = await response.json();

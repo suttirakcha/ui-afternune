@@ -40,10 +40,27 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
       <Grid
         templateColumns={"repeat(2, 1fr)"}
         background={
-          "linear-gradient(to right, var(--light-orange-2) 10%, white 40%)"
+          "linear-gradient(to right, var(--light-orange-2) 30%, white 50%)"
         }
       >
-        <GridItem height="100dvh"></GridItem>
+        <GridItem
+          height="100dvh"
+          margin="auto"
+          display="flex"
+          alignItems="center"
+        >
+          <Text
+            fontFamily="Send Flowers"
+            fontSize="60px"
+            fontWeight={500}
+            WebkitTextStroke="1px white"
+            color="white"
+            width="400px"
+            lineHeight="72px"
+          >
+            Let's build a good society with others
+          </Text>
+        </GridItem>
         <GridItem p={10} margin="auto" width="full">
           <Stack gap={10} maxWidth={600}>
             <LinkBackBtn href="/">Back to homepage</LinkBackBtn>

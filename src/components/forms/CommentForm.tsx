@@ -5,7 +5,7 @@ import AfnInput from "@/components/custom/AfnInput";
 import { commentSchema } from "@/schemas/posts.schema";
 import { addComment } from "@/services/comments.service";
 import { CommentFieldValues, Post } from "@/types/posts.type";
-import { handleError } from "@/utils/handle-error";
+import { handleMessage } from "@/utils/handle-message";
 import { Box, Spinner } from "@chakra-ui/react";
 import { Formik, FormikHelpers } from "formik";
 import { LuSend } from "react-icons/lu";
@@ -32,12 +32,12 @@ export default function CommentForm({ post }: CommentFormProps) {
     values: CommentFieldValues,
     actions: FormikHelpers<CommentFieldValues>
   ) => {
-    try {
-      await addComment(post._id, values);
-      actions.setFieldValue("detail", "");
-    } catch (error) {
-      handleError(error);
+    const response = await addComment(post._id, values);
+    if (!response?.success) {
+      handleMessage(response?.message);
+      return;
     }
+    actions.setFieldValue("detail", "");
   };
   return (
     <Formik

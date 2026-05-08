@@ -1,17 +1,17 @@
 import { cookies } from "next/headers";
 
-const PUBLIC_API_DOMAIN =
-  process.env.PUBLIC_API_DOMAIN || "http://localhost:8000";
+const NEXT_PUBLIC_API_URL =
+  process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
 
 export async function handleFetch(url: string, options?: RequestInit) {
   const isFormData = options?.body instanceof FormData;
-  const response = await fetch(`${PUBLIC_API_DOMAIN}/${url}`, {
+  const response = await fetch(`${NEXT_PUBLIC_API_URL}/${url}`, {
     ...options,
     headers: {
       ...(!isFormData && { "Content-Type": "application/json" }),
       ...options?.headers,
     },
-    // cache: "no-store",
+    cache: "no-store",
     credentials: "include",
   });
 

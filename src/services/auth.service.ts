@@ -17,14 +17,14 @@ export async function login(values: LoginFormValues) {
 
   if (!response.ok) {
     const errorData = await response.json();
-    throw new Error(errorData.message ?? "Login failed");
+    return { success: false, message: errorData.message ?? "Login failed" };
   }
 
   const data = await response.json();
   await setCookieTokens(response);
   await revalidateUserOnSidebar();
 
-  return data;
+  return { success: true, message: data.message };
 }
 
 export async function register(values: RegisterFormValues) {
@@ -35,11 +35,11 @@ export async function register(values: RegisterFormValues) {
 
   if (!response.ok) {
     const errorData = await response.json();
-    throw new Error(errorData.message ?? "Register failed");
+    return { success: false, message: errorData.message ?? "Register failed" };
   }
 
   const data = await response.json();
-  return data;
+  return { success: true, message: data.message };
 }
 
 export async function getProfile() {
@@ -63,11 +63,14 @@ export async function forgotPassword(values: ForgotPasswordFormValues) {
 
   if (!response.ok) {
     const errorData = await response.json();
-    throw new Error(errorData.message ?? "Forgot password failed");
+    return {
+      success: false,
+      message: errorData.message ?? "Forgot password failed",
+    };
   }
 
   const data = await response.json();
-  return data;
+  return { success: true, message: data.message };
 }
 
 export async function logout() {
@@ -77,13 +80,13 @@ export async function logout() {
 
   if (!response.ok) {
     const errorData = await response.json();
-    throw new Error(errorData.message ?? "Logout failed");
+    return { success: false, message: errorData.message ?? "Logout failed" };
   }
 
   const data = await response.json();
 
   await clearCookieTokens(response);
-  return data;
+  return { success: true, message: data.message };
 }
 
 export async function refresh() {

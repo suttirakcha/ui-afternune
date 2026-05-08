@@ -4,14 +4,14 @@ import { Stack, Text } from "@chakra-ui/react";
 import AfnDialog from "@/components/custom/AfnDialog";
 import { useState } from "react";
 import { AuthType } from "@/types/auth.type";
-import { ModalOpenProps } from "@/types/dialog.type";
 import AfnCloseButton from "@/components/custom/AfnCloseButton";
 import LoginForm from "@/components/forms/LoginForm";
 import RegisterForm from "@/components/forms/RegisterForm";
 import ForgotPasswordForm from "@/components/forms/ForgotPasswordForm";
 import { useRouter } from "next/navigation";
+import { DialogOpenProps } from "@/types/dialog.type";
 
-export default function AuthDialog({ open, onOpenChange }: ModalOpenProps) {
+export default function AuthDialog({ open, onOpenChange }: DialogOpenProps) {
   const router = useRouter();
   const [authType, setAuthType] = useState<AuthType>(AuthType.LOGIN);
 
