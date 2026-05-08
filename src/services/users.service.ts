@@ -1,6 +1,6 @@
 "use server";
 
-import { handleFetch } from "@/lib/handleFetch";
+import { handleFetch, handleFetchWithAuth } from "@/lib/handleFetch";
 
 export async function getUsers(search?: string) {
   const userUrl = `users${search ? `?search=${search}` : ""}`;
@@ -8,7 +8,7 @@ export async function getUsers(search?: string) {
 
   if (!response.ok) {
     const errorData = await response.json();
-    throw new Error(errorData.message ?? "Failed to fetch users");
+    return errorData.message ?? "Failed to fetch users";
   }
 
   const data = await response.json();
@@ -20,9 +20,61 @@ export async function getUserById(userId: string) {
 
   if (!response.ok) {
     const errorData = await response.json();
-    throw new Error(errorData.message ?? "Failed to fetch user");
+    return errorData.message ?? "Failed to fetch user";
   }
 
   const data = await response.json();
   return data;
+}
+
+export async function getFollowedUser(userId: string) {
+  const response = await handleFetchWithAuth(`users/${userId}/followed`, {
+    next: { tags: ["followed"], revalidate: 0 },
+  });
+
+  if (!response.ok) {
+    const errorData = await response.json();
+    return {
+      success: false,
+      message: errorData.message ?? "Failed to fetch the follow",
+    };
+  }
+
+  const text = await response.text();
+  const data = text ? JSON.parse(text) : null;
+  return data;
+}
+
+export async function followUser(userId: string) {
+  const response = await handleFetchWithAuth(`users/${userId}/follow`, {
+    method: "POST",
+  });
+
+  if (!response.ok) {
+    const errorData = await response.json();
+    return {
+      success: false,
+      message: errorData.message ?? "Failed to follow",
+    };
+  }
+}
+
+export async function unfollowUser(userId: string) {
+  const response = await handleFetchWithAuth(`users/${userId}/unfollow`, {
+    method: "DELETE",
+  });
+
+  if (!response.ok) {
+    const errorData = await response.json();
+    return {
+      success: false,
+      message: errorData.message ?? "Failed to unfollow",
+    };
+  }
+
+  const data = await response.json();
+  return {
+    success: true,
+    message: data.message,
+  };
 }
