@@ -11,7 +11,7 @@ import { uploadImage } from "@/services/cloudinary.service";
 import { createPost } from "@/services/posts.service";
 import { useUploadImageStore } from "@/stores/useUploadImageStore";
 import { Post, PostFieldValues } from "@/types/posts.type";
-import { handleError } from "@/utils/handle-error";
+import { handleMessage } from "@/utils/handle-message";
 import { Formik } from "formik";
 import { useRouter } from "next/navigation";
 import React, { ChangeEvent, useRef } from "react";
@@ -32,22 +32,19 @@ export default function PostForm({ post }: PostFormProps) {
     useUploadImageStore();
 
   const onSubmit = async (values: PostFieldValues) => {
-    try {
-      const imageResponse = await uploadImage(imageFile!);
-      const response = await createPost({
-        caption: values.caption,
-        image_url: imageResponse.secure_url,
-      });
-      toaster.create({
-        description: response.message,
-      });
-      resetPreview();
-      revalidatePosts();
-      router.push("/posts");
-    } catch (error) {
-      console.log(error);
-      handleError(error);
+    const imageResponse = await uploadImage(imageFile!);
+    const response = await createPost({
+      caption: values.caption,
+      image_url: imageResponse.secure_url,
+    });
+    if (!response.success) {
+      handleMessage(response.message);
+      return;
     }
+    handleMessage(response.message);
+    resetPreview();
+    revalidatePosts();
+    router.push("/posts");
   };
 
   return (

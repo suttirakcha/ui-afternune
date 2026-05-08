@@ -23,7 +23,10 @@ export async function addComment(postId: string, values: CommentFieldValues) {
 
   if (!response.ok) {
     const errorData = await response.json();
-    throw new Error(errorData.message ?? "Failed to comment");
+    return {
+      success: false,
+      message: errorData.message ?? "Failed to comment",
+    };
   }
 
   // const data = await response.json();

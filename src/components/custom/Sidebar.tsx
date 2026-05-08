@@ -10,8 +10,7 @@ import { User } from "@/types/users.type";
 import { useRouter } from "next/navigation";
 import { Option } from "@/types/menus.type";
 import { LuLogOut, LuUser } from "react-icons/lu";
-import { toaster } from "@/components/ui/toaster";
-import { handleError } from "@/utils/handle-error";
+import { handleMessage } from "@/utils/handle-message";
 import SidebarLogin from "@/components/custom/SidebarLogin";
 
 export default function Sidebar() {
@@ -39,23 +38,19 @@ export default function Sidebar() {
   };
 
   const handleLogout = useCallback(async () => {
-    try {
-      const response = await logout();
-      toaster.create({
-        description: response.message,
-      });
-      setProfile(null);
-    } catch (error) {
-      handleError(error);
+    const response = await logout();
+    if (!response.success) {
+      handleMessage(response.message);
+      return;
     }
+    handleMessage(response.message);
+    setProfile(null);
   }, [profile]);
 
   const handleFetchProfile = useCallback(async () => {
     try {
       const user = await getProfile();
       setProfile(user);
-    } catch (error) {
-      handleError(error);
     } finally {
       setIsLoading(false);
     }

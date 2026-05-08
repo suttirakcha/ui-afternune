@@ -4,11 +4,10 @@ import { Formik } from "formik";
 import AfnInput from "@/components/custom/AfnInput";
 import AfnField from "@/components/custom/AfnField";
 import { Box, CssProperties, HStack, Text } from "@chakra-ui/react";
-import { toaster } from "@/components/ui/toaster";
 import { LoginFormValues } from "@/types/auth.type";
 import { login } from "@/services/auth.service";
 import { loginSchema } from "@/schemas/auth.schema";
-import { handleError } from "@/utils/handle-error";
+import { handleMessage } from "@/utils/handle-message";
 import SubmitButton from "@/components/custom/SubmitButton";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -26,15 +25,13 @@ const INITIAL_VALUES = {
 export default function LoginForm() {
   const router = useRouter();
   const onSubmit = async (values: LoginFormValues) => {
-    try {
-      const response = await login(values);
-      toaster.create({
-        description: response.message,
-      });
-      router.push("/");
-    } catch (error: unknown) {
-      handleError(error);
+    const response = await login(values);
+    if (!response.success) {
+      handleMessage(response.message);
+      return;
     }
+    handleMessage(response.message);
+    router.push("/");
   };
 
   return (

@@ -5,7 +5,7 @@ const nextConfig: NextConfig = {
     optimizePackageImports: ["@chakra-ui/react"],
   },
   env: {
-    PUBLIC_API_DOMAIN: process.env.PUBLIC_API_DOMAIN,
+    NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL,
   },
   images: {
     remotePatterns: [

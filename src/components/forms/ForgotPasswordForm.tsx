@@ -7,8 +7,7 @@ import AfnInput from "@/components/custom/AfnInput";
 import { Box, CssProperties, Text } from "@chakra-ui/react";
 import { ForgotPasswordFormValues } from "@/types/auth.type";
 import { forgotPassword } from "@/services/auth.service";
-import { handleError } from "@/utils/handle-error";
-import { toaster } from "@/components/ui/toaster";
+import { handleMessage } from "@/utils/handle-message";
 import Link from "next/link";
 
 const BOX_TEXT_FIELD = {
@@ -22,14 +21,12 @@ const INITIAL_VALUES = {
 
 export default function ForgotPasswordForm() {
   const onSubmit = async (values: ForgotPasswordFormValues) => {
-    try {
-      const response = await forgotPassword(values);
-      toaster.create({
-        description: response.message,
-      });
-    } catch (error) {
-      handleError(error);
+    const response = await forgotPassword(values);
+    if (!response.success) {
+      handleMessage(response.message);
+      return;
     }
+    handleMessage(response.message);
   };
 
   return (

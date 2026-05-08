@@ -7,8 +7,7 @@ import { Box, CssProperties, HStack, Text } from "@chakra-ui/react";
 import { registerSchema } from "@/schemas/auth.schema";
 import { register } from "@/services/auth.service";
 import { RegisterFormValues } from "@/types/auth.type";
-import { toaster } from "@/components/ui/toaster";
-import { handleError } from "@/utils/handle-error";
+import { handleMessage } from "@/utils/handle-message";
 import SubmitButton from "@/components/custom/SubmitButton";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -28,15 +27,13 @@ const INITIAL_VALUES = {
 export default function RegisterForm() {
   const router = useRouter();
   const onSubmit = async (values: RegisterFormValues) => {
-    try {
-      const response = await register(values);
-      toaster.create({
-        description: response.message,
-      });
-      router.push("/login");
-    } catch (error: unknown) {
-      handleError(error);
+    const response = await register(values);
+    if (!response.success) {
+      handleMessage(response.message);
+      return;
     }
+    handleMessage(response.message);
+    router.push("/login");
   };
   return (
     <Formik
