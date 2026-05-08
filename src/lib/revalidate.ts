@@ -9,3 +9,7 @@ export const revalidateUserOnSidebar = async () => {
 export const revalidatePosts = async () => {
   revalidateTag("posts");
 };
+
+export const revalidateFollow = async () => {
+  revalidateTag("followed");
+};
