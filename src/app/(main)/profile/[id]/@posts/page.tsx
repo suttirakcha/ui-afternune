@@ -1,6 +1,6 @@
 import { PostFallback } from "@/components/posts/PostFallback";
 import PostsList from "@/components/posts/PostsList";
-import { getPosts } from "@/services/posts.service";
+import { getProfile } from "@/services/auth.service";
 import { getUserById } from "@/services/users.service";
 import { Stack } from "@chakra-ui/react";
 
@@ -13,11 +13,12 @@ export default async function ProfilePostPage({
 }: ProfilePostPageProps) {
   const { id } = await params;
   const user = await getUserById(id);
+  const profile = await getProfile();
   const { posts } = user;
 
   return (
     <Stack gap={6}>
-      <PostsList posts={posts} fallback={<PostFallback />} />
+      <PostsList posts={posts} fallback={<PostFallback />} profile={profile} />
     </Stack>
   );
 }

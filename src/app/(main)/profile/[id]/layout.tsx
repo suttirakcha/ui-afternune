@@ -18,7 +18,7 @@ export default function ProfileLayout({
         {detail}
         <Stack gap={10}>
           <Grid
-            templateColumns="repeat(1, 1fr)"
+            gridTemplateColumns="repeat(1, 1fr)"
             gap={20}
             xl={{
               gridTemplateColumns: "repeat(3, 1fr)",

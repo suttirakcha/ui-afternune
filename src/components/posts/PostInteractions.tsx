@@ -1,5 +1,7 @@
+import LikeButton from "@/components/posts/LikeButton";
 import PostOptions from "@/components/posts/PostOptions";
 import { Post } from "@/types/posts.type";
+import { User } from "@/types/users.type";
 import { calculateTime } from "@/utils/calculate-time";
 import { Box, CssProperties, HStack, Text } from "@chakra-ui/react";
 import React from "react";
@@ -7,6 +9,7 @@ import { LuHeart, LuMessageSquareMore } from "react-icons/lu";
 
 interface PostInteractionsProps {
   post: Post;
+  profile: User;
 }
 
 const ICON_STYLES = {
@@ -17,8 +20,11 @@ const ICON_STYLES = {
   cursor: "pointer",
 } satisfies CssProperties;
 
-export default function PostInteractions({ post }: PostInteractionsProps) {
-  const { createdAt, comments } = post;
+export default function PostInteractions({
+  post,
+  profile,
+}: PostInteractionsProps) {
+  const { createdAt, comments, likes, user } = post;
 
   return (
     <HStack
@@ -29,15 +35,8 @@ export default function PostInteractions({ post }: PostInteractionsProps) {
     >
       <HStack gap={4} fontWeight={600} fontSize={"20px"}>
         <HStack gap={2}>
-          <LuHeart
-          // onClick={handleClickLike}
-          // style={{
-          //   ...iconStyles,
-          //   // fill: '',
-          //   fill: clickedLike ? "var(--secondary)" : "",
-          // }}
-          />
-          <Text>{0}</Text>
+          <LikeButton post={post} style={ICON_STYLES} profile={profile} />
+          <Text>{likes.length ?? 0}</Text>
         </HStack>
         <Box
           height={"24px"}
@@ -51,7 +50,7 @@ export default function PostInteractions({ post }: PostInteractionsProps) {
       </HStack>
       <HStack>
         <Text>{calculateTime(createdAt)}</Text>
-        <PostOptions post={post} />
+        <PostOptions post={post} profile={profile} />
       </HStack>
     </HStack>
   );

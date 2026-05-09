@@ -1,5 +1,3 @@
-"use client";
-
 import AvatarUser from "@/components/avatar/AvatarUser";
 import defaultImage from "../../../public/afternune-icon.svg";
 import PostInteractions from "@/components/posts/PostInteractions";
@@ -8,9 +6,11 @@ import { Card, CssProperties, Stack, VStack } from "@chakra-ui/react";
 import Image from "next/image";
 import Link from "next/link";
 import { Suspense } from "react";
+import { User } from "@/types/users.type";
 
 interface PostCardProps {
   post: Post;
+  profile: User;
 }
 
 const CARD_STYLES = {
@@ -26,7 +26,7 @@ const DESCRIPTION_STYLES = {
   lineHeight: "28px",
 } satisfies CssProperties;
 
-export default function PostCard({ post }: PostCardProps) {
+export default function PostCard({ post, profile }: PostCardProps) {
   const { _id, caption, image_url, user } = post;
 
   return (
@@ -68,7 +68,7 @@ export default function PostCard({ post }: PostCardProps) {
           </Link>
 
           <AvatarUser user={user} link={`/profile/${user._id}`} />
-          <PostInteractions post={post} />
+          <PostInteractions post={post} profile={profile} />
 
           <Card.Description {...DESCRIPTION_STYLES}>{caption}</Card.Description>
         </VStack>

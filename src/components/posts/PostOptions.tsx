@@ -5,24 +5,44 @@ import ReportDialog from "@/components/dialogs/ReportDialog";
 import { Option } from "@/types/menus.type";
 import { Post } from "@/types/posts.type";
 import { ReportType } from "@/types/report.type";
+import { User } from "@/types/users.type";
 import { Box } from "@chakra-ui/react";
+import { useRouter } from "next/navigation";
 import React, { Fragment, useState } from "react";
-import { LuEllipsis, LuFileText } from "react-icons/lu";
+import { LuEllipsis, LuFileText, LuSquarePen } from "react-icons/lu";
 
 interface PostOptionsProps {
   post: Post;
+  profile: User;
 }
 
-export default function PostOptions({ post }: PostOptionsProps) {
+export default function PostOptions({ post, profile }: PostOptionsProps) {
+  const router = useRouter();
   const [isReportPostModalOpen, setIsReportPostModalOpen] = useState({
     open: false,
   });
+
+  const isProfileMatch = post.user_id === profile?._id;
+
   const options: Option[] = [
     {
       menu: "Report",
       onSelect: () => setIsReportPostModalOpen({ open: true }),
       icon: <LuFileText />,
-      // condition: !isCurrentPost,
+      condition: !isProfileMatch,
+    },
+    {
+      menu: "Edit post",
+      onSelect: () => router.push(`/edit-post/${post._id}`),
+      icon: <LuSquarePen />,
+      condition: isProfileMatch,
+    },
+    {
+      menu: "Delete post",
+      // onSelect: () => setIsDeletePostModalOpen({ open: true }),
+      onSelect: () => {},
+      icon: <LuSquarePen />,
+      condition: isProfileMatch,
     },
   ];
   return (

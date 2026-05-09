@@ -5,6 +5,7 @@ import { PostFieldValues } from "@/types/posts.type";
 
 export async function getPosts() {
   const response = await handleFetch("posts", {
+    method: "GET",
     next: { tags: ["posts"], revalidate: 0 },
   });
 
@@ -23,6 +24,7 @@ export async function getPosts() {
 export async function getPostById(id: string) {
   const response = await handleFetch(`posts/${id}`, {
     method: "GET",
+    next: { tags: ["posts"], revalidate: 0 },
   });
 
   if (!response.ok) {
@@ -46,6 +48,21 @@ export async function createPost(values: PostFieldValues) {
   if (!response.ok) {
     const errorData = await response.json();
     throw new Error(errorData.message ?? "Failed to create post");
+  }
+
+  const data = await response.json();
+  return data;
+}
+
+export async function updatePost(id: string, values: PostFieldValues) {
+  const response = await handleFetchWithAuth(`posts/${id}`, {
+    method: "PATCH",
+    body: JSON.stringify(values),
+  });
+
+  if (!response.ok) {
+    const errorData = await response.json();
+    throw new Error(errorData.message ?? "Failed to update post");
   }
 
   const data = await response.json();
