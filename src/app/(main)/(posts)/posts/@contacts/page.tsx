@@ -1,6 +1,7 @@
 import AvatarUser from "@/components/avatar/AvatarUser";
 import AfnTitle from "@/components/custom/AfnTitle";
 import { getProfile } from "@/services/auth.service";
+import { User } from "@/types/users.type";
 import { For, Stack, Text, VStack } from "@chakra-ui/react";
 import Link from "next/link";
 
@@ -20,7 +21,7 @@ export default async function ContactPage() {
               </Text>
             }
           >
-            {(contact) => (
+            {(contact: User) => (
               <Link href={`/messages/${contact.username}`} key={contact._id}>
                 <AvatarUser user={contact} />
               </Link>
