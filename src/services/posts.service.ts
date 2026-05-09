@@ -68,3 +68,17 @@ export async function updatePost(id: string, values: PostFieldValues) {
   const data = await response.json();
   return data;
 }
+
+export async function deletePost(id: string) {
+  const response = await handleFetchWithAuth(`posts/${id}`, {
+    method: "DELETE",
+  });
+
+  if (!response.ok) {
+    const errorData = await response.json();
+    throw new Error(errorData.message ?? "Failed to delete post");
+  }
+
+  const data = await response.json();
+  return data;
+}
