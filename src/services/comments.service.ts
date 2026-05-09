@@ -8,7 +8,10 @@ export async function getCommentsByPostId(postId: string) {
 
   if (!response.ok) {
     const errorData = await response.json();
-    throw new Error(errorData.message ?? "Failed to fetch comments");
+    return {
+      success: false,
+      message: errorData.message ?? "Failed to fetch comments",
+    };
   }
 
   const data = await response.json();
@@ -28,7 +31,4 @@ export async function addComment(postId: string, values: CommentFieldValues) {
       message: errorData.message ?? "Failed to comment",
     };
   }
-
-  // const data = await response.json();
-  // return data;
 }

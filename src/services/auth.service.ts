@@ -8,6 +8,7 @@ import {
 } from "@/types/auth.type";
 import { clearCookieTokens, setCookieTokens } from "@/lib/setCookieTokens";
 import { revalidateUserOnSidebar } from "@/lib/revalidate";
+import { User } from "@/types/users.type";
 
 export async function login(values: LoginFormValues) {
   const response = await handleFetch("auth/login", {
@@ -42,7 +43,7 @@ export async function register(values: RegisterFormValues) {
   return { success: true, message: data.message };
 }
 
-export async function getProfile() {
+export async function getProfile(): Promise<User | null> {
   const response = await handleFetchWithAuth("auth/me", {
     next: { tags: ["user"] },
   });

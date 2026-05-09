@@ -6,6 +6,7 @@ import CommentForm from "@/components/forms/CommentForm";
 import CommentList from "@/components/posts/CommentList";
 import PostInteractions from "@/components/posts/PostInteractions";
 import { Comment, Post } from "@/types/posts.type";
+import { User } from "@/types/users.type";
 import { Drawer, Skeleton, Stack, VStack } from "@chakra-ui/react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -14,6 +15,7 @@ import { CSSProperties, Suspense } from "react";
 interface SinglePostDrawerProps {
   post: Post;
   comments: Comment[];
+  profile: User;
 }
 
 const CONTENT_STYLES = {
@@ -55,6 +57,7 @@ const IMAGE_STYLES = {
 export default function SinglePostDrawer({
   post,
   comments,
+  profile,
 }: SinglePostDrawerProps) {
   const router = useRouter();
   const { image_url, caption, user } = post;
@@ -83,7 +86,7 @@ export default function SinglePostDrawer({
               >
                 {caption}
               </Drawer.Description>
-              <PostInteractions post={post} />
+              <PostInteractions post={post} profile={profile} />
 
               <Suspense fallback={<Skeleton height={10} width="full" />}>
                 <Stack h="full" w="full" justifyContent="space-between">

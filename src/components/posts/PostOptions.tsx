@@ -1,28 +1,51 @@
 "use client";
 
 import AfnMenu from "@/components/custom/AfnMenu";
+import DeletePostDialog from "@/components/dialogs/DeletePostDialog";
 import ReportDialog from "@/components/dialogs/ReportDialog";
 import { Option } from "@/types/menus.type";
 import { Post } from "@/types/posts.type";
 import { ReportType } from "@/types/report.type";
+import { User } from "@/types/users.type";
 import { Box } from "@chakra-ui/react";
+import { useRouter } from "next/navigation";
 import React, { Fragment, useState } from "react";
-import { LuEllipsis, LuFileText } from "react-icons/lu";
+import { LuEllipsis, LuFileText, LuSquarePen, LuTrash2 } from "react-icons/lu";
 
 interface PostOptionsProps {
   post: Post;
+  profile: User;
 }
 
-export default function PostOptions({ post }: PostOptionsProps) {
-  const [isReportPostModalOpen, setIsReportPostModalOpen] = useState({
+export default function PostOptions({ post, profile }: PostOptionsProps) {
+  const router = useRouter();
+  const [isReportPostDialogOpen, setIsReportPostDialogOpen] = useState({
     open: false,
   });
+  const [isDeletePostDialogOpen, setIsDeletePostDialogOpen] = useState({
+    open: false,
+  });
+
+  const isProfileMatch = post.user_id === profile?._id;
+
   const options: Option[] = [
     {
       menu: "Report",
-      onSelect: () => setIsReportPostModalOpen({ open: true }),
+      onSelect: () => setIsReportPostDialogOpen({ open: true }),
       icon: <LuFileText />,
-      // condition: !isCurrentPost,
+      condition: !isProfileMatch,
+    },
+    {
+      menu: "Edit post",
+      onSelect: () => router.push(`/edit-post/${post._id}`),
+      icon: <LuSquarePen />,
+      condition: isProfileMatch,
+    },
+    {
+      menu: "Delete post",
+      onSelect: () => setIsDeletePostDialogOpen({ open: true }),
+      icon: <LuTrash2 />,
+      condition: isProfileMatch,
     },
   ];
   return (
@@ -44,10 +67,15 @@ export default function PostOptions({ post }: PostOptionsProps) {
       />
 
       <ReportDialog
-        open={isReportPostModalOpen.open}
-        onOpenChange={setIsReportPostModalOpen}
+        open={isReportPostDialogOpen.open}
+        onOpenChange={setIsReportPostDialogOpen}
         type={ReportType.POST}
         data={post}
+      />
+      <DeletePostDialog
+        open={isDeletePostDialogOpen.open}
+        onOpenChange={setIsDeletePostDialogOpen}
+        post={post}
       />
     </Fragment>
   );
