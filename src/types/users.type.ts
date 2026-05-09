@@ -8,6 +8,8 @@ export type User = {
   interests: string[];
   gender: Gender;
   posts: Post[];
+  followers: User[];
+  following: User[];
 };
 
 export enum Role {
