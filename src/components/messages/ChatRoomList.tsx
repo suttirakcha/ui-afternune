@@ -9,7 +9,7 @@ import { handleMessage } from "@/utils/handle-message";
 import Loading from "@/components/custom/Loading";
 import Pusher from "pusher-js";
 
-export default function ChatRoomList() {
+export default function ChatRoomList({ userId }: { userId: string }) {
   const [rooms, setRooms] = useState<ChatRoom[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -32,9 +32,10 @@ export default function ChatRoomList() {
       cluster: process.env.NEXT_PUBLIC_PUSHER_APP_CLUSTER!,
     });
 
-    const channel = pusher.subscribe("chatrooms");
+    // ✅ Subscribe to user-specific channel
+    const channel = pusher.subscribe(`chatrooms-${userId}`);
 
-    channel.bind("fetch-rooms", (updatedRoom: ChatRoom) => {
+    channel.bind("update-room", (updatedRoom: ChatRoom) => {
       setRooms((prev) => {
         const exists = prev.find((r) => r._id === updatedRoom._id);
 
@@ -51,10 +52,10 @@ export default function ChatRoomList() {
 
     return () => {
       channel.unbind_all();
-      pusher.unsubscribe("chatrooms");
+      pusher.unsubscribe(`chatrooms-${userId}`);
       pusher.disconnect();
     };
-  }, [rooms]);
+  }, [userId]);
 
   return (
     <Stack gap={4}>
