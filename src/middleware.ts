@@ -1,7 +1,7 @@
 import { isTokenExpired } from "@/lib/jwt";
 import { NextRequest, NextResponse } from "next/server";
 
-const protectedRoutes = ["/create-post"];
+const protectedRoutes = ["/create-post", "/messages", "/update-post"];
 const authRoutes = ["/login", "/register", "/forgot-password"];
 
 export async function middleware(request: NextRequest) {

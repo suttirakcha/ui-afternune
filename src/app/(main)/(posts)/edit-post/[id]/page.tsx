@@ -22,7 +22,7 @@ export default async function UpdatePostPage({ params }: UpdatePostPageParams) {
   const post = await getPostById(id);
   const profile = await getProfile();
 
-  if (!post || post.user_id !== profile._id) {
+  if (!post || post.user_id !== profile?._id) {
     handleMessage(post.message);
     return redirect("/posts");
   }

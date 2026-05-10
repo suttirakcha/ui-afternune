@@ -1,6 +1,7 @@
 import NotFound from "@/app/not-found";
 import AfnAmount from "@/components/custom/AfnAmount";
 import AfnTitle from "@/components/custom/AfnTitle";
+import Topbar from "@/components/custom/Topbar";
 import FollowButton from "@/components/users/FollowButton";
 import ProfileMessageButton from "@/components/users/ProfileMessageButton";
 import ProfileOptions from "@/components/users/ProfileOptions";
@@ -11,6 +12,14 @@ import { Avatar, AvatarGroup, HStack, Stack, Text } from "@chakra-ui/react";
 interface ProfileDetailPageProps {
   params: Promise<{ id: string }>;
 }
+
+const PROFILE_TOPBAR_STYLES = {
+  position: "fixed",
+  transition: "top .3s",
+  width: "calc(100% - 300px)",
+  zIndex: "99",
+  left: "var(--sidebar-width)",
+};
 
 export default async function ProfileDetailPage({
   params,
@@ -28,6 +37,11 @@ export default async function ProfileDetailPage({
 
   return (
     <Stack gap={10}>
+      <Topbar
+        isShowWhenScroll
+        title={profile.username}
+        {...PROFILE_TOPBAR_STYLES}
+      />
       <HStack gap={7} alignItems={"center"}>
         <AfnTitle>{profile.username}</AfnTitle>
         {!currentProfile ||

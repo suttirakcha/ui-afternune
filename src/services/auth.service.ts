@@ -43,7 +43,7 @@ export async function register(values: RegisterFormValues) {
   return { success: true, message: data.message };
 }
 
-export async function getProfile(): Promise<User | null> {
+export async function getProfile() {
   const response = await handleFetchWithAuth("auth/me", {
     next: { tags: ["user"] },
   });
