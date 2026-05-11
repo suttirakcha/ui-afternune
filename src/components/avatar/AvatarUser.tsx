@@ -33,13 +33,13 @@ export default function AvatarUser(props: AvatarUserProps) {
         </Avatar.Root>
         {isOnline && (
           <Box
-            width={"16px"}
-            height={"16px"}
+            width={"12px"}
+            height={"12px"}
             borderRadius={"9999px"}
             backgroundColor={"#29E230"}
             position={"absolute"}
-            right={0}
-            bottom={0}
+            right={1}
+            bottom={1}
             boxShadow={"0 0 6px #29E230"}
           />
         )}

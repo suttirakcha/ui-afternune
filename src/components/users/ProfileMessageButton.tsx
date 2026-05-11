@@ -1,6 +1,7 @@
 "use client";
 
 import AfnButton from "@/components/custom/AfnButton";
+import { getChatRoomByReceiverId } from "@/services/messages.service";
 import { User } from "@/types/users.type";
 import { useRouter } from "next/navigation";
 
@@ -12,12 +13,19 @@ export default function ProfileMessageButton({
   profile,
 }: ProfileMessageButtonProps) {
   const router = useRouter();
+  const handleChatRoom = async () => {
+    const roomResponse = await getChatRoomByReceiverId(profile._id);
+    if (roomResponse.success) {
+      router.push(`/messages/${roomResponse?.data?.room?.receiver?._id}`);
+    }
+  };
+
   return (
     <AfnButton
       variant="outline"
       px={6}
       fontSize="16px"
-      onClick={() => router.push(`/messages/${profile.username}`)}
+      onClick={handleChatRoom}
     >
       Message
     </AfnButton>

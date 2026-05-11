@@ -1,11 +1,11 @@
-import { ReactNode } from "react";
+import { ComponentType, ReactNode } from "react";
 
 export type Menu = {
   id: string;
   title: string;
   href: string;
   icon?: ReactNode;
-  component?: ReactNode;
+  component?: ComponentType;
 };
 
 export type Option = {

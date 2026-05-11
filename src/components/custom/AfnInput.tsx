@@ -36,6 +36,7 @@ const AfnInput = forwardRef<HTMLInputElement, AfnInputProps>(function AfnInput(
             overflow="hidden"
             position="relative"
             className="group"
+            {...rest}
           >
             <Image
               src={previewUrl}
