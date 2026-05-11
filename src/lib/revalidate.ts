@@ -13,3 +13,7 @@ export const revalidatePosts = async () => {
 export const revalidateFollow = async () => {
   revalidateTag("followed");
 };
+
+export const revalidateCommunity = async () => {
+  revalidateTag("community");
+};

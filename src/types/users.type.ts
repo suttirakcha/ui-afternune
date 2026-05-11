@@ -4,6 +4,7 @@ import {
   updateProfileSchema,
   updateProfileSettingsSchema,
 } from "@/schemas/users.schema";
+import { Community } from "@/types/communities.type";
 
 export type User = {
   readonly _id: string;
@@ -16,6 +17,7 @@ export type User = {
   followers: User[];
   following: User[];
   is_first_time: boolean;
+  joined_communities: Community[];
 };
 
 export enum Role {

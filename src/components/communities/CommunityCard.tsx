@@ -4,7 +4,6 @@ import AvatarUser from "@/components/avatar/AvatarUser";
 import AfnBadge from "@/components/custom/AfnBadge";
 import { Community } from "@/types/communities.type";
 import { Avatar, Card, For, HStack, Stack, Text } from "@chakra-ui/react";
-import Link from "next/link";
 import { LuUsers } from "react-icons/lu";
 
 interface CommunityCardProps {
@@ -12,8 +11,7 @@ interface CommunityCardProps {
 }
 
 export default function CommunityCard({ community }: CommunityCardProps) {
-  const { _id, title, detail, image_url, members, categories, creator } =
-    community;
+  const { title, detail, image_url, members, categories, creator } = community;
   return (
     <Card.Root border={"2px solid #EA900040"} borderRadius={"16px"} p={6}>
       <Card.Body flexDirection={"row"} gap={6}>
@@ -66,8 +64,7 @@ export default function CommunityCard({ community }: CommunityCardProps) {
           >
             <LuUsers />
             <Text>
-              {/* {members.length ?? 0} member{members.length === 1 ? "" : "s"} */}
-              0 members
+              {members.length ?? 0} member{members.length === 1 ? "" : "s"}
             </Text>
           </HStack>
 

@@ -1,6 +1,12 @@
+import CommunityOptions from "@/components/communities/CommunityOptions";
+import JoinCommunityButton from "@/components/communities/JoinCommunityButton";
 import AfnAmount from "@/components/custom/AfnAmount";
 import AfnTitle from "@/components/custom/AfnTitle";
-import { getCommunityById } from "@/services/communities.service";
+import { getProfile } from "@/services/auth.service";
+import {
+  getCommunityById,
+  getCommunityMembers,
+} from "@/services/communities.service";
 import { Avatar, AvatarGroup, HStack, Stack, Text } from "@chakra-ui/react";
 
 interface CommunityDetailPageParams {
@@ -12,11 +18,29 @@ export default async function CommunityDetailPage({
 }: CommunityDetailPageParams) {
   const { id } = await params;
   const community = await getCommunityById(id);
+  const profile = await getProfile();
+
+  const isCreator = community?.creator_id === profile?._id;
+  const joined = await getCommunityMembers(community?._id);
 
   return (
     <Stack gap={10}>
       <HStack gap={7} alignItems={"center"}>
         <AfnTitle>{community.title}</AfnTitle>
+        {!profile ||
+          (!isCreator && (
+            <Stack gap={4} flexDirection="row" alignItems="center">
+              <JoinCommunityButton
+                community={community}
+                isAlreadyJoined={!!joined}
+              />
+              <CommunityOptions
+                community={community}
+                isCreator={isCreator}
+                isJoined={!!joined}
+              />
+            </Stack>
+          ))}
       </HStack>
 
       <HStack alignItems={"flex-start"} gap={"60px"}>
@@ -38,8 +62,7 @@ export default async function CommunityDetailPage({
           <HStack color="var(--secondary)" gap="60px">
             <AfnAmount
               title="Members"
-              // amount={community?.members?.length ?? 0}
-              amount={0}
+              amount={community?.members?.length ?? 0}
             />
           </HStack>
 
