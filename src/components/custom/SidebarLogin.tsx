@@ -17,5 +17,6 @@ export default function SidebarLogin({ profile, options }: SidebarLoginProps) {
   if (!profile) {
     return <AfnButton onClick={() => router.push("/login")}>Login</AfnButton>;
   }
+
   return <AfnMenu trigger={<AvatarUser user={profile} />} options={options} />;
 }

@@ -9,9 +9,10 @@ import { getProfile, logout } from "@/services/auth.service";
 import { User } from "@/types/users.type";
 import { useRouter } from "next/navigation";
 import { Option } from "@/types/menus.type";
-import { LuLogOut, LuUser } from "react-icons/lu";
+import { LuLogOut, LuSettings, LuUser } from "react-icons/lu";
 import { handleMessage } from "@/utils/handle-message";
 import SidebarLogin from "@/components/custom/SidebarLogin";
+import { settingsMenus } from "@/menus/settingsMenus";
 
 export default function Sidebar() {
   const router = useRouter();
@@ -45,7 +46,7 @@ export default function Sidebar() {
     }
     handleMessage(response.message);
     setProfile(null);
-  }, [profile]);
+  }, []);
 
   const handleFetchProfile = useCallback(async () => {
     try {
@@ -54,7 +55,7 @@ export default function Sidebar() {
     } finally {
       setIsLoading(false);
     }
-  }, [profile]);
+  }, []);
 
   const profileOptions: Option[] = [
     {
@@ -62,11 +63,11 @@ export default function Sidebar() {
       onSelect: () => router.push(`/profile/${profile?._id}`),
       icon: <LuUser />,
     },
-    // {
-    //   menu: "Settings",
-    //   onSelect: () => router.push(settingsMenus[0].href),
-    //   icon: <LuSettings />,
-    // },
+    {
+      menu: "Settings",
+      onSelect: () => router.push(settingsMenus[0].href),
+      icon: <LuSettings />,
+    },
     {
       menu: "Logout",
       onSelect: handleLogout,

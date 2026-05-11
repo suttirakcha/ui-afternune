@@ -4,7 +4,6 @@ export type Community = {
   readonly _id: string;
   title: string;
   detail: string;
-  category?: string;
   creator: User;
   image_url?: string;
   members: User[];

@@ -5,6 +5,7 @@ import AfnCheckboxBadges from "@/components/custom/AfnCheckoutBadges";
 import AfnDatePicker from "@/components/custom/AfnDatePicker";
 import AfnField from "@/components/custom/AfnField";
 import AfnRadioButtons from "@/components/custom/AfnRadioButtons";
+import ManageInterestsCheckbox from "@/components/users/ManageInterestsCheckbox";
 import { updateProfileSchema } from "@/schemas/users.schema";
 import { updateUser } from "@/services/users.service";
 import { Gender, Interests, UpdateProfileFormValues } from "@/types/users.type";
@@ -24,13 +25,6 @@ const genders = [Gender.MALE, Gender.FEMALE, Gender.NOT_SPECIFIED].map(
     value: gender,
   })
 );
-
-const interests: Interests[] = Object.values(Interests);
-
-export const interestsList = interests.map((interest) => ({
-  label: interest,
-  value: interest,
-}));
 
 interface CreateProfileFormProps {
   onSkip: () => void;
@@ -89,8 +83,7 @@ export default function CreateProfileForm({ onSkip }: CreateProfileFormProps) {
                 onValueChange={(e) => setFieldValue("gender", e.value)}
               />
             </AfnField>
-            <AfnCheckboxBadges
-              items={interestsList}
+            <ManageInterestsCheckbox
               label="What are your interests? (Can select more than one)"
               onValueChange={(values) => setFieldValue("interests", values)}
             />

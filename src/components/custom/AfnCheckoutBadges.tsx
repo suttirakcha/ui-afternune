@@ -9,7 +9,7 @@ import {
 
 interface AfnCheckboxBadgesProps extends CheckboxGroupProps {
   items: ListType[];
-  label: string;
+  label?: string;
 }
 
 const CHECKBOX_ROOT_STYLES = {
@@ -30,13 +30,16 @@ const CHECKBOX_ROOT_STYLES = {
 export default function AfnCheckboxBadges({
   items,
   label,
+  value,
   onValueChange,
 }: AfnCheckboxBadgesProps) {
   return (
-    <CheckboxGroup gap={"16px"} onValueChange={onValueChange}>
-      <Text fontWeight={600} fontSize={16}>
-        {label}
-      </Text>
+    <CheckboxGroup gap={"16px"} value={value} onValueChange={onValueChange}>
+      {label && (
+        <Text fontWeight={600} fontSize={16}>
+          {label}
+        </Text>
+      )}
       <Wrap>
         {items.map((item) => (
           <CheckboxCard.Root

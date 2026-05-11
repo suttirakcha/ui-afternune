@@ -41,7 +41,7 @@ export async function getChatRoomByReceiverId(receiver_id: string) {
 
   const text = await response.text();
   const data = text ? JSON.parse(text) : null;
-  return data;
+  return { success: true, data };
 }
 
 export async function sendMessageToReceiverId(

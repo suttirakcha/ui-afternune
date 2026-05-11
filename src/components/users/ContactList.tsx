@@ -28,7 +28,11 @@ export default function ContactList({ profile }: ContactListProps) {
             {(contact: User) => {
               const handleChatRoom = async () => {
                 const roomResponse = await getChatRoomByReceiverId(contact._id);
-                router.push(`/messages/${roomResponse?.room?.receiver?._id}`);
+                if (roomResponse.success) {
+                  router.push(
+                    `/messages/${roomResponse?.data?.room?.receiver?._id}`
+                  );
+                }
               };
               return (
                 <Stack key={contact._id} onClick={handleChatRoom}>

@@ -6,3 +6,9 @@ export const updateProfileSchema = Yup.object({
   is_first_time: Yup.boolean(),
   gender: Yup.string().nullable(),
 });
+
+export const updateProfileSettingsSchema = Yup.object({
+  username: Yup.string().required("Username is a required field"),
+  bio: Yup.string(),
+  image_url: Yup.string(),
+});

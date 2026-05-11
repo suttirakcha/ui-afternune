@@ -1,7 +1,6 @@
 "use server";
 
 import { handleFetch, handleFetchWithAuth } from "@/lib/handleFetch";
-import { UpdateProfileFormValues } from "@/types/users.type";
 
 export async function getUsers(search?: string) {
   const userUrl = `users${search ? `?search=${search}` : ""}`;
@@ -80,7 +79,7 @@ export async function unfollowUser(userId: string) {
   };
 }
 
-export async function updateUser(values: UpdateProfileFormValues) {
+export async function updateUser<T>(values: T) {
   const response = await handleFetchWithAuth("users", {
     method: "PATCH",
     body: JSON.stringify(values),
@@ -96,21 +95,4 @@ export async function updateUser(values: UpdateProfileFormValues) {
 
   const data = await response.json();
   return { success: true, message: data.message };
-}
-
-export async function createUserProfile(values: UpdateProfileFormValues) {
-  const response = await handleFetchWithAuth("/users", {
-    method: "PATCH",
-    body: JSON.stringify(values),
-  });
-
-  if (!response.ok) {
-    const errorData = await response.json();
-    return {
-      success: false,
-      message: errorData.message ?? "Failed to update user",
-    };
-  }
-
-  return { success: true };
 }

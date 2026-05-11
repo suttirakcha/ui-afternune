@@ -16,12 +16,12 @@ export default async function MessagePage({ params }: MessagePageParams) {
     <MainContainer px={0} py={0} gap={0} maxWidth={"none"}>
       <Stack gap={0}>
         <Topbar
-          title={chatMessages?.room?.receiver?.username}
+          title={chatMessages?.data?.room?.receiver?.username}
           link={"/messages"}
         />
         <ChatMessageRoom
-          room={chatMessages?.room}
-          messages={chatMessages?.messages}
+          room={chatMessages?.data?.room}
+          messages={chatMessages?.data?.messages}
         />
       </Stack>
     </MainContainer>

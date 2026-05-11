@@ -1,6 +1,9 @@
 import * as Yup from "yup";
 import { Post } from "@/types/posts.type";
-import { updateProfileSchema } from "@/schemas/users.schema";
+import {
+  updateProfileSchema,
+  updateProfileSettingsSchema,
+} from "@/schemas/users.schema";
 
 export type User = {
   readonly _id: string;
@@ -50,3 +53,6 @@ export enum Interests {
 }
 
 export type UpdateProfileFormValues = Yup.InferType<typeof updateProfileSchema>;
+export type UpdateProfileSettingsFormValues = Yup.InferType<
+  typeof updateProfileSettingsSchema
+>;
