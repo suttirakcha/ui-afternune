@@ -1,6 +1,7 @@
 "use client";
 
 import Sidebar from "@/components/custom/Sidebar";
+import CreateProfileDialog from "@/components/dialogs/CreateProfileDialog";
 import { Box, Stack } from "@chakra-ui/react";
 import { ReactNode } from "react";
 
@@ -15,6 +16,7 @@ export default function MainLayout({ children }: { children: ReactNode }) {
       >
         {children}
       </Stack>
+      <CreateProfileDialog />
     </Box>
   );
 }
