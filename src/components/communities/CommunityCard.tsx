@@ -4,15 +4,16 @@ import AvatarUser from "@/components/avatar/AvatarUser";
 import AfnBadge from "@/components/custom/AfnBadge";
 import { Community } from "@/types/communities.type";
 import { Avatar, Card, For, HStack, Stack, Text } from "@chakra-ui/react";
+import Link from "next/link";
 import { LuUsers } from "react-icons/lu";
 
 interface CommunityCardProps {
   community: Community;
 }
 
-// export default function CommunityCard({ community }: CommunityCardProps) {
-export default function CommunityCard() {
-  // const { title, detail, image_url, members, categories, creator } = community;
+export default function CommunityCard({ community }: CommunityCardProps) {
+  const { _id, title, detail, image_url, members, categories, creator } =
+    community;
   return (
     <Card.Root border={"2px solid #EA900040"} borderRadius={"16px"} p={6}>
       <Card.Body flexDirection={"row"} gap={6}>
@@ -22,14 +23,12 @@ export default function CommunityCard() {
           backgroundColor={"var(--light-orange)"}
           color={"var(--secondary)"}
         >
-          {/* <Avatar.Fallback name={title} /> */}
-          {/* {image_url && <Avatar.Image src={image_url} alt={title} />} */}
-          <Avatar.Fallback name="Test community" />
+          <Avatar.Fallback name={title} />
+          {image_url && <Avatar.Image src={image_url} alt={title} />}
         </Avatar.Root>
         <Stack gap={3}>
           <HStack>
-            {/* <For each={categories}> */}
-            <For each={["Music", "Sports"]}>
+            <For each={categories}>
               {(category) => (
                 <AfnBadge
                   width={"fit"}
@@ -48,8 +47,7 @@ export default function CommunityCard() {
             fontWeight={600}
             color={"var(--secondary)"}
           >
-            {/* {title} */}
-            Test community
+            {title}
           </Card.Title>
           <Card.Description
             color={"var(--primary)"}
@@ -58,8 +56,7 @@ export default function CommunityCard() {
             lineHeight={"28px"}
             lineClamp={3}
           >
-            {/* {detail} */}
-            Test community detail
+            {detail}
           </Card.Description>
           <HStack
             gap={2}
@@ -74,8 +71,7 @@ export default function CommunityCard() {
             </Text>
           </HStack>
 
-          {/* <AvatarUser user={creator} /> */}
-          <AvatarUser user={{ username: "Guest" }} />
+          <AvatarUser user={creator} />
         </Stack>
       </Card.Body>
     </Card.Root>
