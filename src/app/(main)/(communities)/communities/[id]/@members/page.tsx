@@ -2,7 +2,7 @@ import AvatarUser from "@/components/avatar/AvatarUser";
 import AfnTitle from "@/components/custom/AfnTitle";
 import { getCommunityById } from "@/services/communities.service";
 import { User } from "@/types/users.type";
-import { For, Stack } from "@chakra-ui/react";
+import { For, Stack, Text } from "@chakra-ui/react";
 
 interface CommunityMembersPageParams {
   params: Promise<{ id: string }>;
@@ -20,7 +20,14 @@ export default async function CommunityMembersPage({
     <Stack gap={10}>
       <AfnTitle>Members</AfnTitle>
       <Stack gap={5}>
-        <For each={members}>
+        <For
+          each={members}
+          fallback={
+            <Text>
+              No members yet, be the first member that joins this community
+            </Text>
+          }
+        >
           {(member: User) => <AvatarUser user={member} />}
         </For>
       </Stack>
