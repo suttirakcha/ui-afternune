@@ -7,7 +7,6 @@ import { Post } from "@/types/posts.type";
 import { User } from "@/types/users.type";
 import { getPosts } from "@/services/posts.service";
 import CreatePostButton from "@/components/posts/CreatePostButton";
-import dynamic from "next/dynamic";
 import { DataLoading } from "@/components/custom/DataLoading";
 
 interface PostsListProps {

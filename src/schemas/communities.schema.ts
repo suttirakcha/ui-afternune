@@ -2,7 +2,7 @@ import * as Yup from "yup";
 
 export const communitySchema = Yup.object().shape({
   title: Yup.string().required("Community title is a required field"),
-  detail: Yup.string(),
+  detail: Yup.string().required("Comunity detail is a required field"),
   image_url: Yup.string().optional(),
   categories: Yup.array(Yup.string()).optional(),
 });

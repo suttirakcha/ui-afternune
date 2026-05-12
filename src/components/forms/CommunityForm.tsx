@@ -4,28 +4,32 @@ import AfnField from "@/components/custom/AfnField";
 import AfnInput from "@/components/custom/AfnInput";
 import AfnTextarea from "@/components/custom/AfnTextarea";
 import SubmitButton from "@/components/custom/SubmitButton";
+import ManageInterestsCheckbox from "@/components/users/ManageInterestsCheckbox";
 import { revalidatePosts } from "@/lib/revalidate";
 import { postSchema } from "@/schemas/posts.schema";
 import { uploadImage } from "@/services/cloudinary.service";
-import { createPost, updatePost } from "@/services/posts.service";
+import {
+  createCommunity,
+  updateCommunity,
+} from "@/services/communities.service";
 import { useUploadImageStore } from "@/stores/useUploadImageStore";
-import { Post, PostFieldValues } from "@/types/posts.type";
+import { Community, CommunityFieldValues } from "@/types/communities.type";
 import { handleMessage } from "@/utils/handle-message";
 import { Formik } from "formik";
 import { useRouter } from "next/navigation";
 import { ChangeEvent, useRef } from "react";
 
-interface PostFormProps {
-  post?: Post;
+interface CommunityFormProps {
+  community?: Community;
 }
 
-export default function PostForm({ post }: PostFormProps) {
+export default function CommunityForm({ community }: CommunityFormProps) {
   const router = useRouter();
   const imageRef = useRef<HTMLInputElement>(null);
   const { previewUrl, imageFile, setPreviewUrl, resetPreview } =
     useUploadImageStore();
 
-  const onSubmit = async (values: PostFieldValues) => {
+  const onSubmit = async (values: CommunityFieldValues) => {
     let image_url = values.image_url;
 
     if (imageFile) {
@@ -38,13 +42,15 @@ export default function PostForm({ post }: PostFormProps) {
     }
 
     const requestPayload = {
-      caption: values.caption,
+      title: values.title,
+      detail: values.detail,
+      categories: values.categories,
       image_url,
     };
 
-    const response = post
-      ? await updatePost(post._id, requestPayload)
-      : await createPost(requestPayload);
+    const response = community
+      ? await updateCommunity(community._id, requestPayload)
+      : await createCommunity(requestPayload);
     if (!response.success) {
       return handleMessage(response.message);
     }
@@ -55,8 +61,10 @@ export default function PostForm({ post }: PostFormProps) {
   };
 
   const INITIAL_VALUES = {
-    caption: post?.caption ?? "",
-    image_url: post?.image_url ?? "",
+    title: community?.title ?? "",
+    detail: community?.detail ?? "",
+    categories: community?.categories ?? [],
+    image_url: community?.image_url ?? "",
   };
 
   return (
@@ -89,20 +97,38 @@ export default function PostForm({ post }: PostFormProps) {
         return (
           <form onSubmit={handleSubmit} className="form">
             <AfnField
-              label="Caption"
-              error={errors.caption}
-              touched={touched.caption}
+              label="Community title"
+              error={errors.title}
+              touched={touched.title}
             >
               <AfnTextarea
-                placeholder="Write your post caption"
-                defaultValue={values.caption}
+                placeholder="Write your community title"
+                defaultValue={values.title}
                 disabled={isSubmitting}
-                error={!!(errors.caption && touched.caption)}
-                onChange={(e) => setFieldValue("caption", e.target.value)}
+                error={!!(errors.title && touched.title)}
+                onChange={(e) => setFieldValue("title", e.target.value)}
               />
             </AfnField>
             <AfnField
-              label="Post image"
+              label="Community detail"
+              error={errors.detail}
+              touched={touched.detail}
+            >
+              <AfnTextarea
+                placeholder="Write your community detail"
+                defaultValue={values.detail}
+                disabled={isSubmitting}
+                error={!!(errors.detail && touched.detail)}
+                onChange={(e) => setFieldValue("detail", e.target.value)}
+              />
+            </AfnField>
+            <ManageInterestsCheckbox
+              label="Categories"
+              defaultValues={values.categories}
+              onValueChange={(values) => setFieldValue("categories", values)}
+            />
+            <AfnField
+              label="Community image"
               error={errors.image_url}
               touched={touched.image_url}
             >
@@ -119,8 +145,10 @@ export default function PostForm({ post }: PostFormProps) {
 
             <SubmitButton
               isSubmitting={isSubmitting}
-              submitText={post ? "Update" : "Create"}
-              submittingText={post ? "Updating post..." : "Creating post..."}
+              submitText={community ? "Update" : "Create"}
+              submittingText={
+                community ? "Updating community..." : "Creating community..."
+              }
             />
           </form>
         );

@@ -1,6 +1,7 @@
 "use server";
 
 import { handleFetch, handleFetchWithAuth } from "@/lib/handleFetch";
+import { CommunityFieldValues } from "@/types/communities.type";
 
 export async function getCommunities() {
   const response = await handleFetch("communities");
@@ -80,6 +81,43 @@ export async function leaveCommunity(communityId: string) {
     return {
       success: false,
       message: errorData.message ?? "Failed to leave community",
+    };
+  }
+
+  const data = await response.json();
+  return { success: true, message: data.message };
+}
+
+export async function createCommunity(values: CommunityFieldValues) {
+  const response = await handleFetchWithAuth("communities", {
+    method: "POST",
+    body: JSON.stringify(values),
+  });
+  if (!response.ok) {
+    const errorData = await response.json();
+    return {
+      success: false,
+      message: errorData.message ?? "Failed to create community",
+    };
+  }
+
+  const data = await response.json();
+  return { success: true, message: data.message };
+}
+
+export async function updateCommunity(
+  communityId: string,
+  values: CommunityFieldValues
+) {
+  const response = await handleFetchWithAuth(`communities/${communityId}`, {
+    method: "PATCH",
+    body: JSON.stringify(values),
+  });
+  if (!response.ok) {
+    const errorData = await response.json();
+    return {
+      success: false,
+      message: errorData.message ?? "Failed to update community",
     };
   }
 
