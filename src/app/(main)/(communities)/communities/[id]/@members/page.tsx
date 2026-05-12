@@ -28,7 +28,7 @@ export default async function CommunityMembersPage({
             </Text>
           }
         >
-          {(member: User) => <AvatarUser user={member} />}
+          {(member: User) => <AvatarUser key={member._id} user={member} />}
         </For>
       </Stack>
     </Stack>
