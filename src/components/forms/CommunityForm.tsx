@@ -5,7 +5,8 @@ import AfnInput from "@/components/custom/AfnInput";
 import AfnTextarea from "@/components/custom/AfnTextarea";
 import SubmitButton from "@/components/custom/SubmitButton";
 import ManageInterestsCheckbox from "@/components/users/ManageInterestsCheckbox";
-import { revalidatePosts } from "@/lib/revalidate";
+import { revalidateCommunity, revalidatePosts } from "@/lib/revalidate";
+import { communitySchema } from "@/schemas/communities.schema";
 import { postSchema } from "@/schemas/posts.schema";
 import { uploadImage } from "@/services/cloudinary.service";
 import {
@@ -56,22 +57,22 @@ export default function CommunityForm({ community }: CommunityFormProps) {
     }
     handleMessage(response.message);
     resetPreview();
-    revalidatePosts();
-    router.push("/posts");
+    revalidateCommunity();
+    router.push("/communities");
   };
 
   const INITIAL_VALUES = {
     title: community?.title ?? "",
     detail: community?.detail ?? "",
-    categories: community?.categories ?? [],
     image_url: community?.image_url ?? "",
+    categories: community?.categories ?? [],
   };
 
   return (
     <Formik
       initialValues={INITIAL_VALUES}
       onSubmit={onSubmit}
-      validationSchema={postSchema}
+      validationSchema={communitySchema}
     >
       {({
         isSubmitting,
@@ -101,7 +102,7 @@ export default function CommunityForm({ community }: CommunityFormProps) {
               error={errors.title}
               touched={touched.title}
             >
-              <AfnTextarea
+              <AfnInput
                 placeholder="Write your community title"
                 defaultValue={values.title}
                 disabled={isSubmitting}
@@ -122,13 +123,8 @@ export default function CommunityForm({ community }: CommunityFormProps) {
                 onChange={(e) => setFieldValue("detail", e.target.value)}
               />
             </AfnField>
-            <ManageInterestsCheckbox
-              label="Categories"
-              defaultValues={values.categories}
-              onValueChange={(values) => setFieldValue("categories", values)}
-            />
             <AfnField
-              label="Community image"
+              label="Community image (Optional)"
               error={errors.image_url}
               touched={touched.image_url}
             >
@@ -142,6 +138,11 @@ export default function CommunityForm({ community }: CommunityFormProps) {
                 previewUrl={previewUrl ?? (values.image_url || undefined)}
               />
             </AfnField>
+            <ManageInterestsCheckbox
+              label="Categories (Optional)"
+              defaultValues={values.categories}
+              onValueChange={(values) => setFieldValue("categories", values)}
+            />
 
             <SubmitButton
               isSubmitting={isSubmitting}

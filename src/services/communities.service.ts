@@ -4,7 +4,9 @@ import { handleFetch, handleFetchWithAuth } from "@/lib/handleFetch";
 import { CommunityFieldValues } from "@/types/communities.type";
 
 export async function getCommunities() {
-  const response = await handleFetch("communities");
+  const response = await handleFetch("communities", {
+    next: { tags: ["communities"], revalidate: 0 },
+  });
   if (!response.ok) {
     const errorData = await response.json();
     return {
