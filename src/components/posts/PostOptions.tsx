@@ -70,7 +70,7 @@ export default function PostOptions({ post, profile }: PostOptionsProps) {
         open={isReportPostDialogOpen.open}
         onOpenChange={setIsReportPostDialogOpen}
         type={ReportType.POST}
-        data={post}
+        data_id={post._id}
       />
       <DeletePostDialog
         open={isDeletePostDialogOpen.open}

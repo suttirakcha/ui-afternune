@@ -22,7 +22,7 @@ export interface CommunityDialogProps extends DialogOpenProps {
 }
 
 export interface ReportDialogProps extends DialogOpenProps {
-  data: unknown;
+  data_id: string;
   type: ReportType;
 }
 

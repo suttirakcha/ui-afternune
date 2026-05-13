@@ -25,5 +25,16 @@ export const reportSchema = Yup.object().shape({
     ReportType.COMMUNITY,
   ]),
   reason: Yup.string(),
-  data: Yup.mixed(),
+  post_id: Yup.string().when("type", {
+    is: ReportType.POST,
+    then: (schema) => schema.required(),
+  }),
+  community_id: Yup.string().when("type", {
+    is: ReportType.COMMUNITY,
+    then: (schema) => schema.required(),
+  }),
+  user_id: Yup.string().when("type", {
+    is: ReportType.USER,
+    then: (schema) => schema.required(),
+  }),
 });

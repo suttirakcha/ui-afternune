@@ -2,7 +2,7 @@ import { reportSchema } from "@/schemas/report.schema";
 import * as Yup from "yup";
 
 export enum ReportType {
-  POST = "Posts",
+  POST = "Post",
   COMMENT = "Comment",
   USER = "User",
   COMMUNITY = "Community",
