@@ -79,6 +79,7 @@ export default function ChatRoomList({ userId }: { userId: string }) {
                   username={room?.receiver?.username}
                   link={`/messages/${room?.receiver?._id}`}
                   message={room?.lastMessage}
+                  lineClamp={1}
                 />
                 {rooms.length !== index + 1 && (
                   <Stack
