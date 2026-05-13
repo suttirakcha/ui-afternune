@@ -4,7 +4,6 @@ import { Post } from "@/types/posts.type";
 import { User } from "@/types/users.type";
 import { calculateTime } from "@/utils/calculate-time";
 import { Box, CssProperties, HStack, Text } from "@chakra-ui/react";
-import React from "react";
 import { LuHeart, LuMessageSquareMore } from "react-icons/lu";
 
 interface PostInteractionsProps {

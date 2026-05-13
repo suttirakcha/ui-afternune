@@ -146,7 +146,7 @@ export default function CommunityForm({ community }: CommunityFormProps) {
 
             <SubmitButton
               isSubmitting={isSubmitting}
-              submitText={community ? "Update" : "Create"}
+              submitText={community ? "Update community" : "Create community"}
               submittingText={
                 community ? "Updating community..." : "Creating community..."
               }

@@ -13,7 +13,7 @@ export default function CreateCommunityPage() {
   return (
     <MainContainer animated>
       <Stack maxWidth={600} width="full" marginX="auto" gap={10}>
-        <LinkBackBtn href="/posts">Back to communities</LinkBackBtn>
+        <LinkBackBtn href="/communities">Back to communities</LinkBackBtn>
         <AfnTitle>Create Community</AfnTitle>
         <CommunityForm />
       </Stack>

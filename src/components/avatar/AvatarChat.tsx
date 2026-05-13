@@ -4,7 +4,6 @@ import { User } from "@/types/users.type";
 import { calculateTime } from "@/utils/calculate-time";
 import { Avatar, Box, HStack, Stack, Text } from "@chakra-ui/react";
 import { keyframes } from "@emotion/react";
-import React from "react";
 
 interface AvatarChatProps {
   message: string;

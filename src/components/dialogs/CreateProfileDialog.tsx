@@ -3,7 +3,7 @@ import CreateProfileForm from "@/components/forms/CreateProfileForm";
 import { getProfile } from "@/services/auth.service";
 import { User } from "@/types/users.type";
 import { Stack, Text } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function CreateProfileDialog() {
   const [profile, setProfile] = useState<User | null>(null);

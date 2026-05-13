@@ -1,25 +1,20 @@
 import AfnTitle from "@/components/custom/AfnTitle";
 import LinkBackBtn from "@/components/custom/LinkBackBtn";
 import MainContainer from "@/components/custom/MainContainer";
-import CommunityForm from "@/components/forms/CommunityForm";
+import CommunityEventForm from "@/components/forms/CommunityEventForm";
 import { getProfile } from "@/services/auth.service";
 import { getCommunityById } from "@/services/communities.service";
 import { handleMessage } from "@/utils/handle-message";
 import { Stack } from "@chakra-ui/react";
-import { Metadata } from "next";
 import { redirect } from "next/navigation";
 
-export const metadata: Metadata = {
-  title: "Update community",
-};
-
-interface UpdateCommunityPageParams {
+interface CreateCommunityEventPageParams {
   params: Promise<{ id: string }>;
 }
 
-export default async function UpdateCommunityPage({
+export default async function CreateCommunityEventPage({
   params,
-}: UpdateCommunityPageParams) {
+}: CreateCommunityEventPageParams) {
   const { id } = await params;
   const community = await getCommunityById(id);
   const profile = await getProfile();
@@ -28,14 +23,15 @@ export default async function UpdateCommunityPage({
     handleMessage(community.message);
     return redirect("/communities");
   }
+
   return (
     <MainContainer animated>
       <Stack maxWidth={600} width="full" marginX="auto" gap={10}>
         <LinkBackBtn href={`/communities/${community._id}`}>
-          Back to communities
+          Back to community
         </LinkBackBtn>
-        <AfnTitle>Update Community</AfnTitle>
-        <CommunityForm community={community} />
+        <AfnTitle>Create Community Event</AfnTitle>
+        <CommunityEventForm community={community} />
       </Stack>
     </MainContainer>
   );

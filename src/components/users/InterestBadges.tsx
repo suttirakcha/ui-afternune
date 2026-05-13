@@ -3,7 +3,6 @@
 import AfnBadge from "@/components/custom/AfnBadge";
 import AfnTitle from "@/components/custom/AfnTitle";
 import { For, HStack, Stack, Text } from "@chakra-ui/react";
-import React from "react";
 
 interface InterestBadgesProps {
   interests: string[];
