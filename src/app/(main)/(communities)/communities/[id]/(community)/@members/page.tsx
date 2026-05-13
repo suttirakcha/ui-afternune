@@ -24,8 +24,8 @@ export default async function CommunityMembersPage({
           each={members}
           fallback={
             <Text>
-              No members yet, be the first member to join this community or
-              invite users if you are the community creator
+              No members yet, be the first member or invite users to join this
+              community
             </Text>
           }
         >
