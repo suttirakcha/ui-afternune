@@ -3,6 +3,7 @@
 import AfnTitle from "@/components/custom/AfnTitle";
 import MainContainer from "@/components/custom/MainContainer";
 import { Box, Stack, Text } from "@chakra-ui/react";
+import { useTranslations } from "next-intl";
 import Error from "next/error";
 import { useEffect } from "react";
 
@@ -12,6 +13,7 @@ interface PostErrorProps {
 }
 
 export default function PostError({ error, reset }: PostErrorProps) {
+  const t = useTranslations();
   useEffect(() => {
     console.error(error);
   }, [error]);
@@ -29,13 +31,14 @@ export default function PostError({ error, reset }: PostErrorProps) {
         </Text>
         <Box width={"540px"} marginX={"auto"}>
           <AfnTitle size={"small"}>
-            We&apos;re sorry, but there was a technical issue while loading the
-            content. Please try again later.
+            {t(
+              "We're sorry, but there was a technical issue while loading the content"
+            )}
           </AfnTitle>
         </Box>
         <Box display={"inline-flex"} justifyContent={"center"}>
           <Text className="menu-links" onClick={reset}>
-            Refresh the page
+            {t("Refresh the page")}
           </Text>
         </Box>
       </Stack>

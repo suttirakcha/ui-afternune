@@ -114,7 +114,7 @@ export default function EditProfileForm({ profile }: EditProfileFormProps) {
             <SubmitButton
               isSubmitting={isSubmitting}
               submitText="Save"
-              submittingText="Saving..."
+              submittingText="Saving"
             />
           </form>
         );

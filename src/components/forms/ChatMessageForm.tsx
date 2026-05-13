@@ -2,13 +2,13 @@
 
 import AfnButton from "@/components/custom/AfnButton";
 import AfnInput from "@/components/custom/AfnInput";
-import pusherClient from "@/lib/pusher";
 import { chatMessageSchema } from "@/schemas/messages.schema";
 import { sendMessageToReceiverId } from "@/services/messages.service";
 import { ChatMessageValues } from "@/types/messages.type";
 import { handleMessage } from "@/utils/handle-message";
 import { Box } from "@chakra-ui/react";
 import { Formik, FormikHelpers } from "formik";
+import { useTranslations } from "next-intl";
 import { useEffect } from "react";
 import { LuSend } from "react-icons/lu";
 
@@ -30,6 +30,7 @@ const INITIAL_VALUES = {
 };
 
 export default function ChatMessageForm({ receiver_id }: ChatMessageFormProps) {
+  const t = useTranslations();
   const onSubmit = async (
     values: ChatMessageValues,
     actions: FormikHelpers<ChatMessageValues>
@@ -59,7 +60,7 @@ export default function ChatMessageForm({ receiver_id }: ChatMessageFormProps) {
               />
               <AfnButton {...SEND_BTN_STYLES} type="submit">
                 <LuSend className="submit-icon" />
-                Send
+                {t("Send")}
               </AfnButton>
             </Box>
           </form>

@@ -1,3 +1,5 @@
+"use client";
+
 import { ListType } from "@/types/menus.type";
 import {
   CheckboxCard,
@@ -6,6 +8,7 @@ import {
   Text,
   Wrap,
 } from "@chakra-ui/react";
+import { useTranslations } from "next-intl";
 
 interface AfnCheckboxBadgesProps extends CheckboxGroupProps {
   items: ListType[];
@@ -33,6 +36,7 @@ export default function AfnCheckboxBadges({
   value,
   onValueChange,
 }: AfnCheckboxBadgesProps) {
+  const t = useTranslations();
   return (
     <CheckboxGroup gap={"16px"} value={value} onValueChange={onValueChange}>
       {label && (
@@ -54,7 +58,7 @@ export default function AfnCheckboxBadges({
                 fontWeight={600}
                 fontSize={"16px"}
               >
-                {item.label}
+                {t(item.label)}
               </CheckboxCard.Label>
               <CheckboxCard.Indicator
                 color={"white"}

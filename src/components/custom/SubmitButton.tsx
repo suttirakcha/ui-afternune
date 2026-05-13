@@ -1,5 +1,8 @@
+"use client";
+
 import { Spinner } from "@chakra-ui/react";
 import AfnButton from "./AfnButton";
+import { useTranslations } from "next-intl";
 
 interface SubmitButtonProps {
   isSubmitting: boolean;
@@ -12,10 +15,11 @@ export default function SubmitButton({
   submitText,
   submittingText,
 }: SubmitButtonProps) {
+  const t = useTranslations();
   return (
     <AfnButton type="submit" disabled={isSubmitting} display="flex">
       {isSubmitting ? <Spinner /> : null}
-      {isSubmitting ? submittingText : submitText}
+      {t(isSubmitting ? submittingText : submitText)}
     </AfnButton>
   );
 }

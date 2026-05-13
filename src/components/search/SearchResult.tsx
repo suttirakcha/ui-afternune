@@ -7,6 +7,7 @@ import FollowButton from "@/components/users/FollowButton";
 import { getUsers } from "@/services/users.service";
 import { User } from "@/types/users.type";
 import { For, HStack, Stack, Text, VStack } from "@chakra-ui/react";
+import { useTranslations } from "next-intl";
 import { useCallback, useEffect, useState } from "react";
 
 interface SearchResultProps {
@@ -14,6 +15,7 @@ interface SearchResultProps {
 }
 
 export default function SearchResult({ search }: SearchResultProps) {
+  const t = useTranslations();
   const [isLoading, setIsLoading] = useState(true);
   const [users, setUsers] = useState<User[]>([]);
   const handleFetchUsers = useCallback(async () => {
@@ -41,7 +43,7 @@ export default function SearchResult({ search }: SearchResultProps) {
         width={"full"}
       >
         <AfnTitle size={"small"}>
-          {search ? "Search results" : "Suggested users"}
+          {t(search ? "Search results" : "Suggested users")}
         </AfnTitle>
         <Stack gap={4}>
           <For
@@ -52,20 +54,18 @@ export default function SearchResult({ search }: SearchResultProps) {
                   <Loading />
                 </Stack>
               ) : (
-                <Text>{"No users found"}</Text>
+                <Text>{t("No users found")}</Text>
               )
             }
           >
             {(profile) => {
               const { _id, username, image_url } = profile;
               return (
-                <HStack justifyContent={"space-between"} key={_id}>
-                  <AvatarUser
-                    user={{ username, image_url }}
-                    link={`/profile/${_id}`}
-                  />
-                  <FollowButton profile={profile} />
-                </HStack>
+                <AvatarUser
+                  user={{ username, image_url }}
+                  link={`/profile/${_id}`}
+                  key={_id}
+                />
               );
             }}
           </For>

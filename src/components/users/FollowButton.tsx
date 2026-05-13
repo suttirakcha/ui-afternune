@@ -5,6 +5,7 @@ import { revalidateFollow } from "@/lib/revalidate";
 import { followUser } from "@/services/users.service";
 import { User } from "@/types/users.type";
 import { handleMessage } from "@/utils/handle-message";
+import { useTranslations } from "next-intl";
 
 interface FollowButtonProps {
   profile: User;
@@ -15,6 +16,7 @@ export default function FollowButton({
   profile,
   isAlreadyFollowed,
 }: FollowButtonProps) {
+  const t = useTranslations();
   const handleFollow = async () => {
     const response = await followUser(profile._id);
     if (response && !response.success) {
@@ -29,7 +31,7 @@ export default function FollowButton({
       onClick={handleFollow}
       disabled={isAlreadyFollowed}
     >
-      {isAlreadyFollowed ? "Following" : "Follow"}
+      {t(isAlreadyFollowed ? "Following" : "Follow")}
     </AfnButton>
   );
 }

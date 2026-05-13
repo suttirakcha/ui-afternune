@@ -9,6 +9,7 @@ import { ForgotPasswordFormValues } from "@/types/auth.type";
 import { forgotPassword } from "@/services/auth.service";
 import { handleMessage } from "@/utils/handle-message";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 
 const BOX_TEXT_FIELD = {
   display: "inline-flex",
@@ -20,6 +21,7 @@ const INITIAL_VALUES = {
 };
 
 export default function ForgotPasswordForm() {
+  const t = useTranslations();
   const onSubmit = async (values: ForgotPasswordFormValues) => {
     const response = await forgotPassword(values);
     if (!response.success) {
@@ -35,30 +37,32 @@ export default function ForgotPasswordForm() {
         return (
           <form onSubmit={handleSubmit} className="form">
             <AfnField
-              label="Email address"
+              label={t("Email address")}
               touched={touched.email}
               error={errors.email}
-              helper="Your email will be sent for requesting to reset the password."
+              helper={t(
+                "Your email will be sent for requesting to reset the password"
+              )}
             >
               <AfnInput
                 name="email"
                 disabled={isSubmitting}
                 error={!!(errors.email && touched.email)}
-                placeholder="Enter your email address"
+                placeholder={t("Enter your email address")}
                 onChange={(e) => setFieldValue("email", e.target.value)}
               />
             </AfnField>
 
             <Box {...BOX_TEXT_FIELD}>
               <Link href="/login" className="menu-links">
-                Back to Login
+                {t("Back to login")}
               </Link>
             </Box>
 
             <SubmitButton
               isSubmitting={isSubmitting}
-              submitText="Reset password"
-              submittingText="Resetting..."
+              submitText={t("Reset password")}
+              submittingText={t("Resetting password")}
             />
           </form>
         );

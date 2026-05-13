@@ -8,6 +8,7 @@ import { CommentFieldValues, Post } from "@/types/posts.type";
 import { handleMessage } from "@/utils/handle-message";
 import { Box, Spinner } from "@chakra-ui/react";
 import { Formik, FormikHelpers } from "formik";
+import { useTranslations } from "next-intl";
 import { LuSend } from "react-icons/lu";
 
 interface CommentFormProps {
@@ -28,6 +29,7 @@ const SEND_BTN_STYLES = {
 };
 
 export default function CommentForm({ post }: CommentFormProps) {
+  const t = useTranslations();
   const onSubmit = async (
     values: CommentFieldValues,
     actions: FormikHelpers<CommentFieldValues>
@@ -50,7 +52,7 @@ export default function CommentForm({ post }: CommentFormProps) {
           <form onSubmit={handleSubmit}>
             <Box position="relative">
               <AfnInput
-                placeholder={"Write your comment"}
+                placeholder={t("Write your comment")}
                 onChange={(e) => setFieldValue("detail", e.target.value)}
               />
               <AfnButton
@@ -63,7 +65,7 @@ export default function CommentForm({ post }: CommentFormProps) {
                 ) : (
                   <LuSend className="submit-icon" />
                 )}
-                Send
+                {t("Send")}
               </AfnButton>
             </Box>
           </form>

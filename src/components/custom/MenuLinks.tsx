@@ -1,6 +1,7 @@
 "use client";
 
 import { Menu } from "@/types/menus.type";
+import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Fragment } from "react";
@@ -11,6 +12,7 @@ interface MenuLinksProps {
 }
 
 export default function MenuLinks({ menus, animated }: MenuLinksProps) {
+  const t = useTranslations();
   const pathname = usePathname();
   const isPathnameMatch = (path: string) => {
     const firstPathname = pathname.split("/");
@@ -36,7 +38,7 @@ export default function MenuLinks({ menus, animated }: MenuLinksProps) {
             style={menuStyles}
           >
             {menu.icon}
-            {menu.title}
+            {t(menu.title)}
           </Link>
         );
       })}
