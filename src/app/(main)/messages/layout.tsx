@@ -14,7 +14,14 @@ export default async function MessageLayout({ children }: MessageLayoutProps) {
   return (
     <MainContainer animated px={"0"} py={"0"} gap={"0"} maxWidth={"none"}>
       <Grid lg={{ gridTemplateColumns: "repeat(3, 1fr)" }}>
-        <GridItem px={8} py={4} gap={4} display="flex" flexDirection="column">
+        <GridItem
+          px={8}
+          py={4}
+          gap={4}
+          display="flex"
+          flexDirection="column"
+          maxWidth="400px"
+        >
           <AfnTitle size="small">Messages</AfnTitle>
           <ChatRoomList userId={profile?._id} />
         </GridItem>

@@ -90,7 +90,7 @@ export default function CommunityOptions({
 
       <ReportDialog
         type={ReportType.COMMUNITY}
-        data={community}
+        data_id={community._id}
         open={isReportCommunityDialogOpen.open}
         onOpenChange={setIsReportCommunityDialogOpen}
       />

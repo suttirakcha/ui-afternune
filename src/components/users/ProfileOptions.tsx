@@ -80,7 +80,7 @@ export default function ProfileOptions({
         open={isReportDialogOpen.open}
         onOpenChange={setIsReportDialogOpen}
         type={ReportType.USER}
-        data={profile}
+        data_id={profile._id}
       />
       <UnfollowDialog
         profile={profile}

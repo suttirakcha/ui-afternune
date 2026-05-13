@@ -9,6 +9,7 @@ interface AvatarMessageProps {
   message: string;
   link?: string;
   isOnline?: boolean;
+  lineClamp?: number;
 }
 
 export default function AvatarMessage({
@@ -17,6 +18,7 @@ export default function AvatarMessage({
   message,
   link,
   isOnline,
+  lineClamp,
 }: AvatarMessageProps) {
   const router = useRouter();
   return (
@@ -50,11 +52,13 @@ export default function AvatarMessage({
           />
         )}
       </Stack>
-      <Stack gap={1}>
+      <Stack gap={1} width={"calc(100% - 80px)"}>
         <Text color="var(--secondary)" fontSize="18px">
           {username}
         </Text>
-        <Text fontWeight={600}>{message}</Text>
+        <Text fontWeight={600} lineClamp={lineClamp} textOverflow={"ellipsis"}>
+          {message}
+        </Text>
       </Stack>
     </HStack>
   );

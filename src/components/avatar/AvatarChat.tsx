@@ -41,6 +41,7 @@ export default function AvatarChat({
     px: 5,
     py: 3,
     animation: `${chatAnim} .2s`,
+    maxWidth: "25vw",
   };
 
   return (
@@ -61,13 +62,15 @@ export default function AvatarChat({
       </Avatar.Root>
       <Stack gap={1} alignItems={isSender ? "flex-start" : "flex-end"}>
         <Box {...BOX_MESSAGE_STYLES}>{message}</Box>
-        <Text
-          fontSize={"14px"}
-          textAlign={isSender ? "left" : "right"}
-          animation={"fade-in .2s"}
-        >
-          {calculateTime(createdAt)}
-        </Text>
+        {createdAt && (
+          <Text
+            fontSize={"14px"}
+            textAlign={isSender ? "left" : "right"}
+            animation={"fade-in .2s"}
+          >
+            {calculateTime(createdAt)}
+          </Text>
+        )}
       </Stack>
     </HStack>
   );

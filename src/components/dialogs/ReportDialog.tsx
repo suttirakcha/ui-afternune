@@ -1,12 +1,11 @@
 "use client";
 
-import { Dialog, Portal } from "@chakra-ui/react";
 import { ReportDialogProps } from "@/types/dialog.type";
 import SubmitReportForm from "@/components/forms/SubmitReportForm";
 import AfnDialog from "@/components/custom/AfnDialog";
 
 export default function ReportDialog({
-  data,
+  data_id,
   type,
   open,
   onOpenChange,
@@ -16,7 +15,7 @@ export default function ReportDialog({
   };
   return (
     <AfnDialog open={open} onOpenChange={onOpenChange}>
-      <SubmitReportForm type={type} data={data} onClose={handleClose} />
+      <SubmitReportForm type={type} data_id={data_id} onClose={handleClose} />
     </AfnDialog>
   );
 }
