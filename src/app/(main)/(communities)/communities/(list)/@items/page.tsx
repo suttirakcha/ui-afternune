@@ -2,7 +2,7 @@ import CommunityCard from "@/components/communities/CommunityCard";
 import AfnTitle from "@/components/custom/AfnTitle";
 import { getCommunities } from "@/services/communities.service";
 import { Community } from "@/types/communities.type";
-import { For, Stack } from "@chakra-ui/react";
+import { For, Stack, Text } from "@chakra-ui/react";
 import Link from "next/link";
 
 export default async function CommunityItemsPage() {

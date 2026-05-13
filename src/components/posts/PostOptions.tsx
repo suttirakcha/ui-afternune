@@ -9,7 +9,7 @@ import { ReportType } from "@/types/report.type";
 import { User } from "@/types/users.type";
 import { Box } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
-import React, { Fragment, useState } from "react";
+import { Fragment, useState } from "react";
 import { LuEllipsis, LuFileText, LuSquarePen, LuTrash2 } from "react-icons/lu";
 
 interface PostOptionsProps {

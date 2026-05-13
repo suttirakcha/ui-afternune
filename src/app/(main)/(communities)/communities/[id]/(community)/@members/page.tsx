@@ -24,11 +24,12 @@ export default async function CommunityMembersPage({
           each={members}
           fallback={
             <Text>
-              No members yet, be the first member that joins this community
+              No members yet, be the first member or invite users to join this
+              community
             </Text>
           }
         >
-          {(member: User) => <AvatarUser user={member} />}
+          {(member: User) => <AvatarUser key={member._id} user={member} />}
         </For>
       </Stack>
     </Stack>

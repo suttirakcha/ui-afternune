@@ -7,7 +7,7 @@ import FollowButton from "@/components/users/FollowButton";
 import { getUsers } from "@/services/users.service";
 import { User } from "@/types/users.type";
 import { For, HStack, Stack, Text, VStack } from "@chakra-ui/react";
-import React, { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 interface SearchResultProps {
   search: string;

@@ -7,7 +7,7 @@ import { Option } from "@/types/menus.type";
 import { ReportType } from "@/types/report.type";
 import { User } from "@/types/users.type";
 import { Box } from "@chakra-ui/react";
-import React, { Fragment, useState } from "react";
+import { Fragment, useState } from "react";
 import {
   LuBan,
   LuEllipsis,

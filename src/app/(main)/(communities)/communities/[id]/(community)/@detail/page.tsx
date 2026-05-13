@@ -27,20 +27,20 @@ export default async function CommunityDetailPage({
     <Stack gap={10}>
       <HStack gap={7} alignItems={"center"}>
         <AfnTitle>{community.title}</AfnTitle>
-        {!profile ||
-          (!isCreator && (
-            <Stack gap={4} flexDirection="row" alignItems="center">
+        <Stack gap={4} flexDirection="row" alignItems="center">
+          {!profile ||
+            (!isCreator && (
               <JoinCommunityButton
                 community={community}
                 isAlreadyJoined={!!joined}
               />
-              <CommunityOptions
-                community={community}
-                isCreator={isCreator}
-                isJoined={!!joined}
-              />
-            </Stack>
-          ))}
+            ))}
+          <CommunityOptions
+            community={community}
+            isCreator={isCreator}
+            isJoined={!!joined}
+          />
+        </Stack>
       </HStack>
 
       <HStack alignItems={"flex-start"} gap={"60px"}>

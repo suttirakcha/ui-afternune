@@ -1,38 +1,41 @@
 import AfnTitle from "@/components/custom/AfnTitle";
 import LinkBackBtn from "@/components/custom/LinkBackBtn";
 import MainContainer from "@/components/custom/MainContainer";
-import PostForm from "@/components/forms/PostForm";
+import CommunityForm from "@/components/forms/CommunityForm";
 import { getProfile } from "@/services/auth.service";
-import { getPostById } from "@/services/posts.service";
+import { getCommunityById } from "@/services/communities.service";
 import { handleMessage } from "@/utils/handle-message";
 import { Stack } from "@chakra-ui/react";
 import { Metadata } from "next";
 import { redirect } from "next/navigation";
 
 export const metadata: Metadata = {
-  title: "Update post",
+  title: "Update community",
 };
 
-interface UpdatePostPageParams {
+interface UpdateCommunityPageParams {
   params: Promise<{ id: string }>;
 }
 
-export default async function UpdatePostPage({ params }: UpdatePostPageParams) {
+export default async function UpdateCommunityPage({
+  params,
+}: UpdateCommunityPageParams) {
   const { id } = await params;
-  const post = await getPostById(id);
+  const community = await getCommunityById(id);
   const profile = await getProfile();
 
-  if (!post || post.user_id !== profile?._id) {
-    handleMessage(post.message);
-    return redirect("/posts");
+  if (!community || community.creator_id !== profile?._id) {
+    handleMessage(community.message);
+    return redirect("/communities");
   }
-
   return (
     <MainContainer animated>
       <Stack maxWidth={600} width="full" marginX="auto" gap={10}>
-        <LinkBackBtn href="/posts">Back to posts</LinkBackBtn>
-        <AfnTitle>Update Post</AfnTitle>
-        <PostForm post={post} />
+        <LinkBackBtn href={`/communities/${community._id}`}>
+          Back to communities
+        </LinkBackBtn>
+        <AfnTitle>Update Community</AfnTitle>
+        <CommunityForm community={community} />
       </Stack>
     </MainContainer>
   );

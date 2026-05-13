@@ -8,8 +8,15 @@ import { Option } from "@/types/menus.type";
 import { ReportType } from "@/types/report.type";
 import { Box } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
-import React, { Fragment, useState } from "react";
-import { LuEllipsis, LuFileText, LuLogOut } from "react-icons/lu";
+import { Fragment, useState } from "react";
+import {
+  LuCalendarArrowUp,
+  LuEllipsis,
+  LuFilePenLine,
+  LuFileText,
+  LuLogOut,
+  LuUserPlus,
+} from "react-icons/lu";
 
 interface CommunityOptionsProps {
   community: Community;
@@ -44,9 +51,23 @@ export default function CommunityOptions({
       condition: isJoined && !isCreator,
     },
     {
-      menu: "Create Event",
-      onSelect: () => router.push(`/communities/${community._id}/create-event`),
+      menu: "Update community",
+      onSelect: () => router.push(`/update-community/${community._id}`),
+      icon: <LuFilePenLine />,
       condition: isCreator,
+    },
+    {
+      menu: "Create event",
+      onSelect: () => router.push(`/communities/${community._id}/create-event`),
+      icon: <LuCalendarArrowUp />,
+      condition: isCreator,
+    },
+    {
+      menu: "Invite",
+      // onSelect: () => router.push(`/communities/${community._id}/create-event`),
+      onSelect: () => {},
+      icon: <LuUserPlus />,
+      // condition: isCreator,
     },
   ];
   return (

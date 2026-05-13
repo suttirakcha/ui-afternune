@@ -10,7 +10,7 @@ import { useUploadImageStore } from "@/stores/useUploadImageStore";
 import { UpdateProfileSettingsFormValues, User } from "@/types/users.type";
 import { handleMessage } from "@/utils/handle-message";
 import { Formik } from "formik";
-import React, { ChangeEvent, useRef } from "react";
+import { ChangeEvent, useRef } from "react";
 
 interface EditProfileFormProps {
   profile: User;
