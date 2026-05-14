@@ -81,6 +81,7 @@ export default function ChatRoomList({ userId }: { userId: string }) {
               <Fragment key={room?._id}>
                 <AvatarMessage
                   username={room?.receiver?.username}
+                  image_url={room?.receiver?.image_url}
                   link={`/messages/${room?.receiver?._id}`}
                   message={room?.lastMessage}
                   lineClamp={1}
