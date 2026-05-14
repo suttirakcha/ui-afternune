@@ -16,7 +16,7 @@ export default function MenuLinks({ menus, animated }: MenuLinksProps) {
   const pathname = usePathname();
   const isPathnameMatch = (path: string) => {
     const firstPathname = pathname.split("/");
-    return firstPathname[1] === path;
+    return firstPathname[1] === path || firstPathname[2] === path;
   };
 
   return (
