@@ -39,7 +39,7 @@ export default function PostOptions({ post, profile }: PostOptionsProps) {
     },
     {
       menu: "Edit post",
-      onSelect: () => router.push(`/edit-post/${post._id}`),
+      onSelect: () => router.push(`/update-post/${post._id}`),
       icon: <LuSquarePen />,
       condition: isProfileMatch,
     },

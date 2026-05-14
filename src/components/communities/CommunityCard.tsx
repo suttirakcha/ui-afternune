@@ -4,6 +4,7 @@ import AvatarUser from "@/components/avatar/AvatarUser";
 import AfnBadge from "@/components/custom/AfnBadge";
 import { Community } from "@/types/communities.type";
 import { Avatar, Card, For, HStack, Stack, Text } from "@chakra-ui/react";
+import { useTranslations } from "next-intl";
 import { LuUsers } from "react-icons/lu";
 
 interface CommunityCardProps {
@@ -11,15 +12,21 @@ interface CommunityCardProps {
 }
 
 export default function CommunityCard({ community }: CommunityCardProps) {
+  const t = useTranslations();
   const { title, detail, image_url, members, categories, creator } = community;
   return (
-    <Card.Root border={"2px solid #EA900040"} borderRadius={"16px"} p={6}>
-      <Card.Body flexDirection={"row"} gap={6}>
+    <Card.Root
+      border="2px solid #EA900040"
+      borderRadius="16px"
+      p={6}
+      width="full"
+    >
+      <Card.Body flexDirection="row" gap={6}>
         <Avatar.Root
-          width={"128px"}
-          height={"128px"}
-          backgroundColor={"var(--light-orange)"}
-          color={"var(--secondary)"}
+          width="128px"
+          height="128px"
+          backgroundColor="var(--light-orange)"
+          color="var(--secondary)"
         >
           <Avatar.Fallback name={title} />
           {image_url && <Avatar.Image src={image_url} alt={title} />}
@@ -29,29 +36,25 @@ export default function CommunityCard({ community }: CommunityCardProps) {
             <For each={categories}>
               {(category) => (
                 <AfnBadge
-                  width={"fit"}
-                  fontSize={"14px"}
+                  width="fit"
+                  fontSize="14px"
                   px={4}
                   py={1.5}
                   key={category}
                 >
-                  {category}
+                  {t(category)}
                 </AfnBadge>
               )}
             </For>
           </HStack>
-          <Card.Title
-            fontSize={"24px"}
-            fontWeight={600}
-            color={"var(--secondary)"}
-          >
+          <Card.Title fontSize="24px" fontWeight={600} color="var(--secondary)">
             {title}
           </Card.Title>
           <Card.Description
-            color={"var(--primary)"}
-            fontSize={"20px"}
+            color="var(--primary)"
+            fontSize="20px"
             fontWeight={500}
-            lineHeight={"28px"}
+            lineHeight="28px"
             lineClamp={3}
           >
             {detail}
@@ -59,12 +62,12 @@ export default function CommunityCard({ community }: CommunityCardProps) {
           <HStack
             gap={2}
             fontWeight={600}
-            fontSize={"20px"}
-            color={"var(--secondary)"}
+            fontSize="20px"
+            color="var(--secondary)"
           >
             <LuUsers />
             <Text>
-              {members.length ?? 0} member{members.length === 1 ? "" : "s"}
+              {t("Community members", { count: members.length ?? 0 })}
             </Text>
           </HStack>
 

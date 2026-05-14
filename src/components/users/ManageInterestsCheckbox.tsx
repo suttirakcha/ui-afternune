@@ -2,6 +2,7 @@
 
 import AfnCheckboxBadges from "@/components/custom/AfnCheckoutBadges";
 import { Interests } from "@/types/users.type";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 
 interface ManageInterestsCheckboxProps {
@@ -22,6 +23,7 @@ export default function ManageInterestsCheckbox({
   onValueChange,
   defaultValues = [],
 }: ManageInterestsCheckboxProps) {
+  const t = useTranslations();
   const [selected, setSelected] = useState(defaultValues);
 
   const handleValueChange = (values: string[]) => {
@@ -32,7 +34,7 @@ export default function ManageInterestsCheckbox({
   return (
     <AfnCheckboxBadges
       items={interestsList}
-      label={label}
+      label={t(label ?? "")}
       value={selected}
       onValueChange={handleValueChange}
     />

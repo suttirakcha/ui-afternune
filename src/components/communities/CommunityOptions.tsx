@@ -62,13 +62,13 @@ export default function CommunityOptions({
       icon: <LuCalendarArrowUp />,
       condition: isCreator,
     },
-    {
-      menu: "Invite",
-      // onSelect: () => router.push(`/communities/${community._id}/create-event`),
-      onSelect: () => {},
-      icon: <LuUserPlus />,
-      // condition: isCreator,
-    },
+    // {
+    //   menu: "Invite friends",
+    //   onSelect: () => router.push(`/communities/${community._id}/create-event`),
+    //   onSelect: () => {},
+    //   icon: <LuUserPlus />,
+    //   condition: isCreator,
+    // },
   ];
   return (
     <Fragment>
