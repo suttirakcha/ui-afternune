@@ -17,12 +17,10 @@ export default async function MessageLayout({ children }: MessageLayoutProps) {
         <GridItem
           px={8}
           py={4}
-          gap={4}
           display="flex"
           flexDirection="column"
           maxWidth="400px"
         >
-          <AfnTitle size="small">Messages</AfnTitle>
           <ChatRoomList userId={profile?._id} />
         </GridItem>
         <GridItem colSpan={1} lg={{ gridColumn: "span 2" }}>

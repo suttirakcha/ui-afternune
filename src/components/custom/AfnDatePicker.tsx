@@ -5,6 +5,7 @@ import DatePicker from "react-datepicker";
 // import 'react-datepicker/dist/react-datepicker.css';
 import { LuChevronLeft, LuChevronRight } from "react-icons/lu";
 import AfnInput from "./AfnInput";
+import { useTranslations } from "next-intl";
 
 interface AfnDatePickerProps {
   placeholder?: string;
@@ -15,9 +16,12 @@ interface AfnDatePickerProps {
 }
 
 export default function AfnDatePicker(props: AfnDatePickerProps) {
+  const t = useTranslations();
   const { placeholder, selected, onChange, minDate, maxDate } = props;
+
   return (
     <DatePicker
+      locale="th"
       customInput={<AfnInput width={"full"} />}
       dateFormat={"dd-MM-yyyy"}
       selected={selected}
@@ -25,7 +29,7 @@ export default function AfnDatePicker(props: AfnDatePickerProps) {
       previousMonthButtonLabel={<LuChevronLeft />}
       nextMonthButtonLabel={<LuChevronRight />}
       className="peer"
-      placeholderText={placeholder ?? "Enter your date"}
+      placeholderText={t(placeholder ?? "Enter the date")}
       showMonthDropdown
       showYearDropdown
       dropdownMode="select"

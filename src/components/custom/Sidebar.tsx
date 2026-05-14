@@ -13,8 +13,10 @@ import { LuLogOut, LuSettings, LuUser } from "react-icons/lu";
 import { handleMessage } from "@/utils/handle-message";
 import SidebarLogin from "@/components/custom/SidebarLogin";
 import { settingsMenus } from "@/menus/settingsMenus";
+import { useTranslations } from "next-intl";
 
 export default function Sidebar() {
+  const t = useTranslations();
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
   const [profile, setProfile] = useState<User | null>(null);

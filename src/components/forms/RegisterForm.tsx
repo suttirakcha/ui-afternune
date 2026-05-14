@@ -11,6 +11,7 @@ import { handleMessage } from "@/utils/handle-message";
 import SubmitButton from "@/components/custom/SubmitButton";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 const BOX_TEXT_FIELD = {
   display: "inline-flex",
@@ -25,14 +26,15 @@ const INITIAL_VALUES = {
 };
 
 export default function RegisterForm() {
+  const t = useTranslations();
   const router = useRouter();
   const onSubmit = async (values: RegisterFormValues) => {
     const response = await register(values);
     if (!response.success) {
-      handleMessage(response.message);
+      handleMessage(t(response.message));
       return;
     }
-    handleMessage(response.message);
+    handleMessage(t(response.message));
     router.push("/login");
   };
   return (
@@ -109,10 +111,10 @@ export default function RegisterForm() {
             <Box {...BOX_TEXT_FIELD}>
               <HStack textAlign={"center"}>
                 <Text color={"var(--secondary)"} fontWeight={600}>
-                  Already have an account?{" "}
+                  {t("Already have an account")}
                 </Text>
                 <Link href="/login" className="menu-links">
-                  Login
+                  {t("Login")}
                 </Link>
               </HStack>
             </Box>
@@ -120,7 +122,7 @@ export default function RegisterForm() {
             <SubmitButton
               isSubmitting={isSubmitting}
               submitText="Register"
-              submittingText="Registering..."
+              submittingText="Registering"
             />
           </form>
         );

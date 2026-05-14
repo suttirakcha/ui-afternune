@@ -1,8 +1,10 @@
 "use client";
 
 import AfnTitle from "@/components/custom/AfnTitle";
+import { ListFallback } from "@/components/custom/ListFallback";
 import { CommunityEvent } from "@/types/communities.type";
 import { For, Stack, Text } from "@chakra-ui/react";
+import { useTranslations } from "next-intl";
 
 interface CommunityTabsProps {
   isJoined: boolean;
@@ -15,20 +17,15 @@ export default function CommunityTabs({
   isJoined,
   isCreator,
 }: CommunityTabsProps) {
+  const t = useTranslations();
   return (
     <Stack>
       {isJoined || isCreator ? (
         <Stack>
-          <AfnTitle size="medium">Events</AfnTitle>
+          <AfnTitle size="medium">{t("Events")}</AfnTitle>
           <For
             each={events}
-            fallback={
-              <Text>
-                Looks like there are no upcoming events in this community.
-                Please wait for a moment or ask the community creator to create
-                events.
-              </Text>
-            }
+            fallback={<ListFallback text="No upcoming events" />}
           >
             {(community_event) => (
               <Stack
@@ -45,9 +42,7 @@ export default function CommunityTabs({
           </For>
         </Stack>
       ) : (
-        <Text fontSize={"18px"} textAlign={"center"}>
-          Please join this community to see the details
-        </Text>
+        <ListFallback text="Please join this community to see the details" />
       )}
     </Stack>
   );

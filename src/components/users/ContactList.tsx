@@ -1,27 +1,32 @@
 "use client";
 
 import AvatarUser from "@/components/avatar/AvatarUser";
+import AfnTitle from "@/components/custom/AfnTitle";
 import { getChatRoomByReceiverId } from "@/services/messages.service";
 import { User } from "@/types/users.type";
-import { Button, For, Stack, Text, VStack } from "@chakra-ui/react";
+import { For, Stack, Text, VStack } from "@chakra-ui/react";
+import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
-import { Fragment } from "react";
 
 interface ContactListProps {
   profile: User;
 }
 
 export default function ContactList({ profile }: ContactListProps) {
+  const t = useTranslations();
   const router = useRouter();
   return (
-    <Fragment>
+    <Stack position="sticky" top={10} gap={10}>
+      <AfnTitle>{t("Contacts")}</AfnTitle>
       {profile ? (
         <VStack gap={5} alignItems="flex-start">
           <For
             each={profile.following}
             fallback={
               <Text>
-                No contacts yet, let's find new friends and have chat with them.
+                {t(
+                  "No contacts yet, let's find new friends and have chat with them"
+                )}
               </Text>
             }
           >
@@ -45,6 +50,6 @@ export default function ContactList({ profile }: ContactListProps) {
       ) : (
         <Text>Please login to see the contact list.</Text>
       )}
-    </Fragment>
+    </Stack>
   );
 }

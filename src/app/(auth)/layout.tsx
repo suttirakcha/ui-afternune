@@ -4,24 +4,26 @@ import LinkBackBtn from "@/components/custom/LinkBackBtn";
 import MainContainer from "@/components/custom/MainContainer";
 import { AuthType } from "@/types/auth.type";
 import { Grid, GridItem, Stack, Text } from "@chakra-ui/react";
+import { useTranslations } from "next-intl";
 import { usePathname } from "next/navigation";
 import { ReactNode } from "react";
 
 export default function AuthLayout({ children }: { children: ReactNode }) {
+  const t = useTranslations();
   const pathname = usePathname();
 
   const authTypes = [
     {
       path: "/login",
-      title: AuthType.LOGIN,
+      title: t(AuthType.LOGIN),
     },
     {
       path: "/register",
-      title: AuthType.REGISTER,
+      title: t(AuthType.REGISTER),
     },
     {
       path: "/forgot-password",
-      title: AuthType.RESET_PASSWORD,
+      title: t(AuthType.RESET_PASSWORD),
     },
   ];
 
@@ -63,7 +65,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
         </GridItem>
         <GridItem p={10} margin="auto" width="full">
           <Stack gap={10} maxWidth={600}>
-            <LinkBackBtn href="/">Back to homepage</LinkBackBtn>
+            <LinkBackBtn href="/">{t("Back to homepage")}</LinkBackBtn>
             <Stack gap={6}>
               <Text fontSize={24} color="var(--secondary)">
                 {title}

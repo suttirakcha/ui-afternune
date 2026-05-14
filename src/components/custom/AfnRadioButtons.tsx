@@ -1,5 +1,8 @@
+"use client";
+
 import { ListType } from "@/types/menus.type";
 import { For, RadioCard, RadioCardRootProps, Stack } from "@chakra-ui/react";
+import { useTranslations } from "next-intl";
 
 interface AfnRadioButtonsProps extends RadioCardRootProps {
   items: ListType[];
@@ -9,6 +12,7 @@ export default function AfnRadioButtons({
   items,
   onValueChange,
 }: AfnRadioButtonsProps) {
+  const t = useTranslations();
   return (
     <RadioCard.Root outline={"none"} onValueChange={onValueChange}>
       <Stack gap={4}>
@@ -29,7 +33,7 @@ export default function AfnRadioButtons({
                   _checked={{ backgroundColor: "var(--primary)" }}
                   borderColor={"var(--primary)"}
                 />
-                <RadioCard.ItemText>{item.label}</RadioCard.ItemText>
+                <RadioCard.ItemText>{t(item.label)}</RadioCard.ItemText>
               </RadioCard.ItemControl>
             </RadioCard.Item>
           )}

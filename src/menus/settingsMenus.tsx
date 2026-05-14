@@ -24,14 +24,14 @@ export const settingsMenus: Menu[] = [
     title: "Edit profile",
     href: getHref(SettingsMenu.PROFILE),
     icon: <LuUser />,
-    component: EditProfileSettings,
+    component: <EditProfileSettings />,
   },
   {
     id: SettingsMenu.MANAGE_INTERESTS,
     title: "Manage interests",
     href: getHref(SettingsMenu.MANAGE_INTERESTS),
     icon: <LuBookHeart />,
-    component: ManageInterestsSettings,
+    component: <ManageInterestsSettings />,
   },
   // {
   //   id: SettingsMenu.PRIVACY,

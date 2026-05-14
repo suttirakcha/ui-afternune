@@ -3,6 +3,7 @@
 import AfnTitle from "@/components/custom/AfnTitle";
 import { Gender } from "@/types/users.type";
 import { Flex, Stack } from "@chakra-ui/react";
+import { useTranslations } from "next-intl";
 import { LuUserCheck } from "react-icons/lu";
 import { TbMars, TbVenus } from "react-icons/tb";
 
@@ -13,6 +14,7 @@ interface GenderBadgeProps {
 export default function GenderBadge({
   gender = Gender.NOT_SPECIFIED,
 }: GenderBadgeProps) {
+  const t = useTranslations();
   const genderColor =
     gender === Gender.FEMALE
       ? "#f078e4"
@@ -34,7 +36,7 @@ export default function GenderBadge({
 
   return (
     <Stack gap={4}>
-      <AfnTitle>Gender</AfnTitle>
+      <AfnTitle>{t("Gender")}</AfnTitle>
       <Flex {...genderStyles}>
         {gender === Gender.FEMALE ? (
           <TbVenus />
@@ -43,7 +45,7 @@ export default function GenderBadge({
         ) : (
           <LuUserCheck />
         )}
-        {gender}
+        {t(gender)}
       </Flex>
     </Stack>
   );

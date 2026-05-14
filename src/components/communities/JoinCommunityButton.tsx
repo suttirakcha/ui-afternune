@@ -5,6 +5,7 @@ import { revalidateCommunity } from "@/lib/revalidate";
 import { joinCommunity } from "@/services/communities.service";
 import { Community } from "@/types/communities.type";
 import { handleMessage } from "@/utils/handle-message";
+import { useTranslations } from "next-intl";
 
 interface JoinCommunityButtonProps {
   isAlreadyJoined: boolean;
@@ -15,6 +16,7 @@ export default function JoinCommunityButton({
   isAlreadyJoined,
   community,
 }: JoinCommunityButtonProps) {
+  const t = useTranslations();
   const handleJoin = async () => {
     const response = await joinCommunity(community._id);
     if (!response.success) {
@@ -29,7 +31,7 @@ export default function JoinCommunityButton({
       onClick={handleJoin}
       disabled={isAlreadyJoined}
     >
-      {isAlreadyJoined ? "Joined" : "Join"}
+      {t(isAlreadyJoined ? "Joined" : "Join")}
     </AfnButton>
   );
 }

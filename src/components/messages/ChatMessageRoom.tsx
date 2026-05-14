@@ -5,6 +5,7 @@ import AfnBadge from "@/components/custom/AfnBadge";
 import ChatMessageForm from "@/components/forms/ChatMessageForm";
 import { ChatMessage, type ChatRoom } from "@/types/messages.type";
 import { Box, For, Stack } from "@chakra-ui/react";
+import { useTranslations } from "next-intl";
 import Pusher from "pusher-js";
 import { useEffect, useRef, useState } from "react";
 
@@ -17,6 +18,7 @@ export default function ChatMessageRoom({
   room,
   messages: initialMessages,
 }: ChatMessageRoomProps) {
+  const t = useTranslations();
   const bottomRef = useRef<HTMLDivElement>(null);
   const [messages, setMessages] = useState<ChatMessage[]>(initialMessages);
 
@@ -46,19 +48,20 @@ export default function ChatMessageRoom({
     <Stack
       px={6}
       py={8}
-      flexDirection={"column"}
-      justifyContent={"space-between"}
-      height={"calc(100dvh - 72px)"}
+      flexDirection="column"
+      justifyContent="space-between"
+      height="calc(100dvh - 72px)"
       lg={{ borderLeft: "2px solid var(--light-orange)" }}
     >
       <Stack gap={6} overflow={"auto"}>
         <For
           each={messages}
           fallback={
-            <Box margin={"auto"}>
-              <AfnBadge cursor={"default"}>
-                You can start the conversation with {room?.receiver?.username}{" "}
-                here.
+            <Box margin="auto">
+              <AfnBadge cursor="default">
+                {t("You can start the conversation here", {
+                  receiver: room?.receiver?.username,
+                })}
               </AfnBadge>
             </Box>
           }

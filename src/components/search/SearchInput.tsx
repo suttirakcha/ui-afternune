@@ -25,9 +25,9 @@ export default function SearchInput({ search, onSearch }: SearchInputProps) {
   };
   return (
     <Box position={"relative"}>
-      <AfnField label="Want to search for users?">
+      <AfnField label="Want to search for users">
         <AfnInput
-          placeholder="Type any user you want to search..."
+          placeholder="Type any user you want to search"
           value={search}
           onChange={(e) => {
             onSearch(e.target.value);

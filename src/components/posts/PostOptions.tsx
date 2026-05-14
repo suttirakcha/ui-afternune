@@ -8,6 +8,7 @@ import { Post } from "@/types/posts.type";
 import { ReportType } from "@/types/report.type";
 import { User } from "@/types/users.type";
 import { Box } from "@chakra-ui/react";
+import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { Fragment, useState } from "react";
 import { LuEllipsis, LuFileText, LuSquarePen, LuTrash2 } from "react-icons/lu";
@@ -18,6 +19,7 @@ interface PostOptionsProps {
 }
 
 export default function PostOptions({ post, profile }: PostOptionsProps) {
+  const t = useTranslations();
   const router = useRouter();
   const [isReportPostDialogOpen, setIsReportPostDialogOpen] = useState({
     open: false,
@@ -37,7 +39,7 @@ export default function PostOptions({ post, profile }: PostOptionsProps) {
     },
     {
       menu: "Edit post",
-      onSelect: () => router.push(`/edit-post/${post._id}`),
+      onSelect: () => router.push(`/update-post/${post._id}`),
       icon: <LuSquarePen />,
       condition: isProfileMatch,
     },

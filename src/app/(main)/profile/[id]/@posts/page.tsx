@@ -1,4 +1,4 @@
-import { PostFallback } from "@/components/posts/PostFallback";
+import { ListFallback } from "@/components/custom/ListFallback";
 import PostsList from "@/components/posts/PostsList";
 import { getProfile } from "@/services/auth.service";
 import { getUserById } from "@/services/users.service";
@@ -16,6 +16,10 @@ export default async function ProfilePostPage({
   const { posts } = user;
 
   return (
-    <PostsList posts={posts} fallback={<PostFallback />} profile={profile} />
+    <PostsList
+      posts={posts}
+      fallback={<ListFallback text="Hmm, there are no posts here" />}
+      profile={profile}
+    />
   );
 }

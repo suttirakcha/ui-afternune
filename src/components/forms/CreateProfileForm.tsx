@@ -1,7 +1,6 @@
 "use client";
 
 import AfnButton from "@/components/custom/AfnButton";
-import AfnCheckboxBadges from "@/components/custom/AfnCheckoutBadges";
 import AfnDatePicker from "@/components/custom/AfnDatePicker";
 import AfnField from "@/components/custom/AfnField";
 import AfnRadioButtons from "@/components/custom/AfnRadioButtons";
@@ -12,6 +11,7 @@ import { Gender, Interests, UpdateProfileFormValues } from "@/types/users.type";
 import { handleMessage } from "@/utils/handle-message";
 import { Grid } from "@chakra-ui/react";
 import { Formik } from "formik";
+import { useTranslations } from "next-intl";
 
 const INITIAL_VALUES = {
   date_of_birth: null,
@@ -31,6 +31,7 @@ interface CreateProfileFormProps {
 }
 
 export default function CreateProfileForm({ onSkip }: CreateProfileFormProps) {
+  const t = useTranslations();
   const onSubmit = async (values: UpdateProfileFormValues) => {
     const response = await updateUser({
       ...values,
@@ -39,7 +40,7 @@ export default function CreateProfileForm({ onSkip }: CreateProfileFormProps) {
     if (!response.success) {
       return handleMessage(response.message);
     }
-    handleMessage(response.message);
+    handleMessage(t("Your profile has been updated"));
     onSkip();
   };
 
@@ -58,11 +59,11 @@ export default function CreateProfileForm({ onSkip }: CreateProfileFormProps) {
         return (
           <form onSubmit={handleSubmit} className="form">
             <AfnField
-              label="When is your birthday?"
-              helper="Your birthday will not be shown publicly and cannot be modified."
+              label="When is your birthday"
+              helper="Your birthday will not be shown publicly and cannot be modified"
             >
               <AfnDatePicker
-                placeholder={"Enter your birthday"}
+                placeholder="Enter your birthday"
                 selected={
                   (values.date_of_birth && new Date(values.date_of_birth)) ||
                   null
@@ -74,9 +75,9 @@ export default function CreateProfileForm({ onSkip }: CreateProfileFormProps) {
               />
             </AfnField>
             <AfnField
-              label="What is your gender?"
-              helper="Your gender cannot be modified after selected."
-              gap={"16px"}
+              label="What is your gender"
+              helper="Your gender cannot be modified after selected"
+              gap="16px"
             >
               <AfnRadioButtons
                 items={genders}
@@ -84,13 +85,13 @@ export default function CreateProfileForm({ onSkip }: CreateProfileFormProps) {
               />
             </AfnField>
             <ManageInterestsCheckbox
-              label="What are your interests? (Can select more than one)"
+              label="What are your interests"
               onValueChange={(values) => setFieldValue("interests", values)}
             />
             <Grid templateColumns={"repeat(2, 1fr)"} gap={4}>
-              <AfnButton type="submit">Next</AfnButton>
+              <AfnButton type="submit">{t("Next")}</AfnButton>
               <AfnButton variant={"outline"} onClick={() => handleSkip(false)}>
-                Skip
+                {t("Skip")}
               </AfnButton>
             </Grid>
           </form>

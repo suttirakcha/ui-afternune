@@ -1,4 +1,7 @@
+"use client";
+
 import { Field, FieldRootProps, VStack } from "@chakra-ui/react";
+import { useTranslations } from "next-intl";
 import { ReactNode } from "react";
 
 interface AfnFieldProps extends FieldRootProps {
@@ -20,6 +23,7 @@ export default function AfnField({
   invalid,
   ...props
 }: AfnFieldProps) {
+  const t = useTranslations();
   const showError = touched && !!error;
   const isInvalid = invalid ?? showError;
 
@@ -27,19 +31,19 @@ export default function AfnField({
     <Field.Root {...props} invalid={isInvalid}>
       {label && (
         <Field.Label fontSize={16} fontWeight={600} htmlFor={htmlFor}>
-          {label}
+          {t(label)}
         </Field.Label>
       )}
       <VStack w="100%" alignItems="flex-start">
         {children}
-        {showError && <Field.ErrorText>{error}</Field.ErrorText>}
+        {showError && <Field.ErrorText>{t(error)}</Field.ErrorText>}
         {helper && (
           <Field.HelperText
             color="var(--secondary)"
             fontSize={"14px"}
             fontWeight={600}
           >
-            {helper}
+            {t(helper)}
           </Field.HelperText>
         )}
       </VStack>

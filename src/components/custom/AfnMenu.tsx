@@ -2,6 +2,7 @@
 
 import { Option } from "@/types/menus.type";
 import { For, Menu, MenuRootProps, Portal } from "@chakra-ui/react";
+import { useTranslations } from "next-intl";
 import { Fragment, ReactNode } from "react";
 
 interface AfnMenuProps {
@@ -15,6 +16,7 @@ export default function AfnMenu({
   trigger,
   positioning,
 }: AfnMenuProps) {
+  const t = useTranslations();
   return (
     <Menu.Root {...positioning}>
       <Menu.Trigger outline={"none"}>{trigger}</Menu.Trigger>
@@ -44,7 +46,7 @@ export default function AfnMenu({
                         onClick={onSelect}
                       >
                         {icon}
-                        {menu}
+                        {t(menu)}
                       </Menu.Item>
                     )}
                   </Fragment>

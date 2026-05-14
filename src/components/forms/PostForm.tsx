@@ -12,6 +12,7 @@ import { useUploadImageStore } from "@/stores/useUploadImageStore";
 import { Post, PostFieldValues } from "@/types/posts.type";
 import { handleMessage } from "@/utils/handle-message";
 import { Formik } from "formik";
+import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { ChangeEvent, useRef } from "react";
 
@@ -20,6 +21,7 @@ interface PostFormProps {
 }
 
 export default function PostForm({ post }: PostFormProps) {
+  const t = useTranslations();
   const router = useRouter();
   const imageRef = useRef<HTMLInputElement>(null);
   const { previewUrl, imageFile, setPreviewUrl, resetPreview } =
@@ -46,9 +48,9 @@ export default function PostForm({ post }: PostFormProps) {
       ? await updatePost(post._id, requestPayload)
       : await createPost(requestPayload);
     if (!response.success) {
-      return handleMessage(response.message);
+      return handleMessage(t(response.message));
     }
-    handleMessage(response.message);
+    handleMessage(t(response.message));
     resetPreview();
     revalidatePosts();
     router.push("/posts");

@@ -1,5 +1,5 @@
-import CommunityDetailSkeletons from "@/components/skeletons/CommunityDetailSkeletons";
+import CommunitySkeletons from "@/components/skeletons/CommunitySkeletons";
 
 export default function CommunityEventsLoading() {
-  return <CommunityDetailSkeletons />;
+  return <CommunitySkeletons />;
 }

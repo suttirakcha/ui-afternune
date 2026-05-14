@@ -1,7 +1,6 @@
-import AfnTitle from "@/components/custom/AfnTitle";
+import SettingsComp from "@/components/settings/SettingsComp";
 import { settingsMenus } from "@/menus/settingsMenus";
 import { Menu } from "@/types/menus.type";
-import { Stack } from "@chakra-ui/react";
 import { notFound } from "next/navigation";
 
 interface SettingsPageParams {
@@ -15,12 +14,5 @@ export default async function SettingsPage({ params }: SettingsPageParams) {
     return notFound();
   }
 
-  const Component = currentMenu.component;
-
-  return (
-    <Stack gap={6}>
-      <AfnTitle size={"small"}>{currentMenu.title}</AfnTitle>
-      {Component && <Component />}
-    </Stack>
-  );
+  return <SettingsComp menu={currentMenu} />;
 }

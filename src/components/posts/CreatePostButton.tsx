@@ -1,4 +1,7 @@
+"use client";
+
 import { Stack } from "@chakra-ui/react";
+import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { LuCirclePlus } from "react-icons/lu";
 
@@ -20,14 +23,12 @@ const CREATE_POST_BUTTON_STYLES = {
 };
 
 export default function CreatePostButton() {
+  const t = useTranslations();
   return (
-    <Link
-      href="/create-post"
-      // onClick={handleCheckAuth}
-    >
+    <Link href="/create-post">
       <Stack {...CREATE_POST_BUTTON_STYLES}>
         <LuCirclePlus style={{ width: "32px", height: "32px" }} />
-        Create post to share with your friends
+        {t("Create post to share with your friends")}
       </Stack>
     </Link>
   );

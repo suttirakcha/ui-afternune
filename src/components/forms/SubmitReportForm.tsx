@@ -1,3 +1,5 @@
+"use client";
+
 import { Grid, Spinner, Stack, Text } from "@chakra-ui/react";
 import { Formik } from "formik";
 import { reportReasonList } from "@/schemas/report.schema";
@@ -6,6 +8,7 @@ import AfnRadioButtons from "@/components/custom/AfnRadioButtons";
 import AfnButton from "@/components/custom/AfnButton";
 import { submitReport } from "@/services/reports.service";
 import { handleMessage } from "@/utils/handle-message";
+import { useTranslations } from "next-intl";
 
 interface SubmitReportFormProps {
   type: ReportType;
@@ -18,6 +21,7 @@ export default function SubmitReportForm({
   data_id,
   onClose,
 }: SubmitReportFormProps) {
+  const t = useTranslations();
   const onSubmit = async (values: ReportFormValues) => {
     const response = await submitReport(data_id, values);
     if (!response.success) {
@@ -42,7 +46,9 @@ export default function SubmitReportForm({
           <form onSubmit={handleSubmit}>
             <Stack w={"full"} gap={6}>
               <Text fontSize={24} color="var(--secondary)" lineHeight={"28px"}>
-                Please select a reason you report this {type.toLowerCase()}
+                {t("Please select a reason you report", {
+                  type: t(type.toLowerCase()),
+                })}
               </Text>
               <AfnRadioButtons
                 items={reportReasonList}
@@ -55,10 +61,10 @@ export default function SubmitReportForm({
                   display={"flex"}
                 >
                   {isSubmitting && <Spinner />}
-                  {isSubmitting ? "Submitting..." : "Submit the report"}
+                  {t(isSubmitting ? "Submitting" : "Submit the report")}
                 </AfnButton>
                 <AfnButton variant={"outline"} onClick={onClose}>
-                  Cancel
+                  {t("Cancel")}
                 </AfnButton>
               </Grid>
             </Stack>

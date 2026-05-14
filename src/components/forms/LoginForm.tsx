@@ -11,6 +11,7 @@ import { handleMessage } from "@/utils/handle-message";
 import SubmitButton from "@/components/custom/SubmitButton";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 
 const BOX_TEXT_FIELD = {
   display: "inline-flex",
@@ -23,14 +24,15 @@ const INITIAL_VALUES = {
 };
 
 export default function LoginForm() {
+  const t = useTranslations();
   const router = useRouter();
   const onSubmit = async (values: LoginFormValues) => {
     const response = await login(values);
     if (!response.success) {
-      handleMessage(response.message);
+      handleMessage(t(response.message));
       return;
     }
-    handleMessage(response.message);
+    handleMessage(t(response.message));
     router.push("/");
   };
 
@@ -75,17 +77,17 @@ export default function LoginForm() {
 
             <Box {...BOX_TEXT_FIELD}>
               <Link href="/forgot-password" className="menu-links">
-                Forgot password?
+                {t("Forgot password?")}
               </Link>
             </Box>
 
             <Box {...BOX_TEXT_FIELD}>
               <HStack textAlign={"center"}>
                 <Text color={"var(--secondary)"} fontWeight={600}>
-                  Don&apos;t have an account?{" "}
+                  {t("Don't have an account")}
                 </Text>
                 <Link href="/register" className="menu-links">
-                  Register
+                  {t("Register")}
                 </Link>
               </HStack>
             </Box>
@@ -93,7 +95,7 @@ export default function LoginForm() {
             <SubmitButton
               isSubmitting={isSubmitting}
               submitText="Login"
-              submittingText="Logging in..."
+              submittingText="Logging in"
             />
           </form>
         );

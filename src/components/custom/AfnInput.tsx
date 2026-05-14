@@ -6,6 +6,7 @@ import AfnCloseButton from "@/components/custom/AfnCloseButton";
 import { PasswordInput } from "../ui/password-input";
 import InputFocusLine from "@/components/custom/InputFocusLine";
 import { forwardRef } from "react";
+import { useTranslations } from "next-intl";
 
 export type AfnInputProps = (
   | { type: "file"; previewUrl?: string; onReset: () => void }
@@ -24,9 +25,10 @@ const BASE_INPUT_PROPS = {
 } satisfies InputProps;
 
 const AfnInput = forwardRef<HTMLInputElement, AfnInputProps>(function AfnInput(
-  { error = false, previewUrl, onReset, ...rest },
+  { error = false, previewUrl, onReset, placeholder, ...rest },
   ref
 ) {
+  const t = useTranslations();
   if (rest.type === "file") {
     return (
       <Stack gap={4} width="full">
@@ -66,7 +68,7 @@ const AfnInput = forwardRef<HTMLInputElement, AfnInputProps>(function AfnInput(
                 py={40}
                 cursor="pointer"
               >
-                Upload image here
+                {t("Upload image here")}
               </Stack>
             )}
             <Input
@@ -90,6 +92,7 @@ const AfnInput = forwardRef<HTMLInputElement, AfnInputProps>(function AfnInput(
           {...rest}
           focusRing="none"
           className="peer"
+          placeholder={t(placeholder ?? "")}
         />
       ) : (
         <Input
@@ -97,6 +100,7 @@ const AfnInput = forwardRef<HTMLInputElement, AfnInputProps>(function AfnInput(
           {...rest}
           focusRing="none"
           className="peer"
+          placeholder={t(placeholder ?? "")}
         />
       )}
       <InputFocusLine error={error} />

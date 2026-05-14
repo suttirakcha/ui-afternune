@@ -1,12 +1,14 @@
+"use client";
 import { Textarea, TextareaProps } from "@chakra-ui/react";
-import { Fragment } from "react/jsx-runtime";
+import { useTranslations } from "next-intl";
 
 interface AfnTextareaProps extends TextareaProps {
   error?: boolean;
 }
 
 export default function AfnTextarea(props: AfnTextareaProps) {
-  const { error, ...rest } = props;
+  const t = useTranslations();
+  const { error, placeholder, ...rest } = props;
   const BASE_TEXTAREA_PROPS = {
     borderRadius: "16px",
     color: "var(--secondary)",
@@ -19,5 +21,11 @@ export default function AfnTextarea(props: AfnTextareaProps) {
     resize: "none",
   } satisfies TextareaProps;
 
-  return <Textarea {...BASE_TEXTAREA_PROPS} {...rest}></Textarea>;
+  return (
+    <Textarea
+      {...BASE_TEXTAREA_PROPS}
+      placeholder={t(placeholder ?? "")}
+      {...rest}
+    ></Textarea>
+  );
 }

@@ -8,8 +8,11 @@ import { getAllChatRooms } from "@/services/messages.service";
 import { handleMessage } from "@/utils/handle-message";
 import Loading from "@/components/custom/Loading";
 import Pusher from "pusher-js";
+import AfnTitle from "@/components/custom/AfnTitle";
+import { useTranslations } from "next-intl";
 
 export default function ChatRoomList({ userId }: { userId: string }) {
+  const t = useTranslations();
   const [rooms, setRooms] = useState<ChatRoom[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -59,6 +62,7 @@ export default function ChatRoomList({ userId }: { userId: string }) {
 
   return (
     <Stack gap={4}>
+      <AfnTitle size="small">{t("Messages")}</AfnTitle>
       {isLoading ? (
         <Stack alignItems="center" py={10}>
           <Loading />

@@ -1,11 +1,15 @@
+"use client";
+
 import AfnDialog from "@/components/custom/AfnDialog";
 import CreateProfileForm from "@/components/forms/CreateProfileForm";
 import { getProfile } from "@/services/auth.service";
 import { User } from "@/types/users.type";
 import { Stack, Text } from "@chakra-ui/react";
+import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 
 export default function CreateProfileDialog() {
+  const t = useTranslations();
   const [profile, setProfile] = useState<User | null>(null);
   const [isCreateProfileModalOpen, setIsCreateProfileModalOpen] = useState({
     open: false,
@@ -39,7 +43,7 @@ export default function CreateProfileDialog() {
     >
       <Stack w={"full"} gap={6}>
         <Text fontSize={24} color="var(--secondary)">
-          Tell us about yourself
+          {t("Tell us about yourself")}
         </Text>
         <CreateProfileForm onSkip={handleSkip} />
       </Stack>

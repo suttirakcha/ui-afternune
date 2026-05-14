@@ -2,10 +2,12 @@ import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import updateLocate from "dayjs/plugin/updateLocale";
 import utc from "dayjs/plugin/utc";
+import "dayjs/locale/th";
 
 dayjs.extend(relativeTime);
 dayjs.extend(updateLocate);
 dayjs.extend(utc);
+dayjs.locale("en");
 
 dayjs.updateLocale("en", {
   relativeTime: {
@@ -22,6 +24,24 @@ dayjs.updateLocale("en", {
     MM: "%d months",
     y: "1 year",
     yy: "%d years",
+  },
+});
+
+dayjs.updateLocale("th", {
+  relativeTime: {
+    future: "ในอีก %s",
+    past: "%sที่ผ่านมา",
+    s: "เมื่อสักครู่นี้",
+    m: "1 นาที",
+    mm: "%d นาที",
+    h: "1 ชั่วโมง",
+    hh: "%d ชั่วโมง",
+    d: "1 วัน",
+    dd: "%d วัน",
+    M: "1 เดือน",
+    MM: "%d เดือน",
+    y: "1 ปี",
+    yy: "%d ปี",
   },
 });
 
