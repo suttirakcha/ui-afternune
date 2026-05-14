@@ -14,8 +14,13 @@ import { handleMessage } from "@/utils/handle-message";
 import SidebarLogin from "@/components/custom/SidebarLogin";
 import { settingsMenus } from "@/menus/settingsMenus";
 import { useTranslations } from "next-intl";
+import LanguageSwitcherSelect from "@/components/custom/LanguageSwitcherSelect";
 
-export default function Sidebar() {
+interface SidebarProps {
+  locale: string;
+}
+
+export default function Sidebar({ locale }: SidebarProps) {
   const t = useTranslations();
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
@@ -43,11 +48,12 @@ export default function Sidebar() {
   const handleLogout = useCallback(async () => {
     const response = await logout();
     if (!response.success) {
-      handleMessage(response.message);
+      handleMessage(t(response.message));
       return;
     }
-    handleMessage(response.message);
+    handleMessage(t(response.message));
     setProfile(null);
+    router.push("/");
   }, []);
 
   const handleFetchProfile = useCallback(async () => {
@@ -87,6 +93,7 @@ export default function Sidebar() {
         <Logo />
         <Stack gap={"30px"} flexDirection={"column"}>
           <MenuLinks menus={sidebarMenus} animated />
+          <LanguageSwitcherSelect defaultLocale={locale} />
         </Stack>
       </Stack>
       <Stack gap={"20px"}>

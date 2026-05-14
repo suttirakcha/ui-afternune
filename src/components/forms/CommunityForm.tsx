@@ -17,6 +17,7 @@ import { useUploadImageStore } from "@/stores/useUploadImageStore";
 import { Community, CommunityFieldValues } from "@/types/communities.type";
 import { handleMessage } from "@/utils/handle-message";
 import { Formik } from "formik";
+import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { ChangeEvent, useRef } from "react";
 
@@ -25,6 +26,7 @@ interface CommunityFormProps {
 }
 
 export default function CommunityForm({ community }: CommunityFormProps) {
+  const t = useTranslations();
   const router = useRouter();
   const imageRef = useRef<HTMLInputElement>(null);
   const { previewUrl, imageFile, setPreviewUrl, resetPreview } =
@@ -53,9 +55,9 @@ export default function CommunityForm({ community }: CommunityFormProps) {
       ? await updateCommunity(community._id, requestPayload)
       : await createCommunity(requestPayload);
     if (!response.success) {
-      return handleMessage(response.message);
+      return handleMessage(t(response.message));
     }
-    handleMessage(response.message);
+    handleMessage(t(response.message));
     resetPreview();
     revalidateCommunity();
     router.push("/communities");
@@ -103,7 +105,7 @@ export default function CommunityForm({ community }: CommunityFormProps) {
               touched={touched.title}
             >
               <AfnInput
-                placeholder="Write your community title"
+                placeholder="Write the community title"
                 defaultValue={values.title}
                 disabled={isSubmitting}
                 error={!!(errors.title && touched.title)}
@@ -116,7 +118,7 @@ export default function CommunityForm({ community }: CommunityFormProps) {
               touched={touched.detail}
             >
               <AfnTextarea
-                placeholder="Write your community detail"
+                placeholder="Write the community detail"
                 defaultValue={values.detail}
                 disabled={isSubmitting}
                 error={!!(errors.detail && touched.detail)}
@@ -124,7 +126,7 @@ export default function CommunityForm({ community }: CommunityFormProps) {
               />
             </AfnField>
             <AfnField
-              label="Community image (Optional)"
+              label="Community image"
               error={errors.image_url}
               touched={touched.image_url}
             >
@@ -139,7 +141,7 @@ export default function CommunityForm({ community }: CommunityFormProps) {
               />
             </AfnField>
             <ManageInterestsCheckbox
-              label="Categories (Optional)"
+              label="Categories label"
               defaultValues={values.categories}
               onValueChange={(values) => setFieldValue("categories", values)}
             />
@@ -148,7 +150,7 @@ export default function CommunityForm({ community }: CommunityFormProps) {
               isSubmitting={isSubmitting}
               submitText={community ? "Update community" : "Create community"}
               submittingText={
-                community ? "Updating community..." : "Creating community..."
+                community ? "Updating community" : "Creating community"
               }
             />
           </form>

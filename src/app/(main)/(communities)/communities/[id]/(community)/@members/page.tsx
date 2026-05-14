@@ -11,7 +11,7 @@ export default async function CommunityMembersPage({
   const { id } = await params;
   const community = await getCommunityById(id);
 
-  const { members } = community;
+  const { members, creator } = community;
 
-  return <CommunityMembersList members={members} />;
+  return <CommunityMembersList members={members} creator={creator} />;
 }

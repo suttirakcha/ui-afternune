@@ -39,7 +39,7 @@ export default function AfnMenu({
                         fontSize={"18px"}
                         p={4}
                         _hover={{
-                          backgroundColor: "var(--light-orange)",
+                          background: "var(--light-orange)",
                         }}
                         gap={"12px"}
                         value={menu}
