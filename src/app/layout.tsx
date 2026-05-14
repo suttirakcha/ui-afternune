@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 import { Raleway, Send_Flowers } from "next/font/google";
+import { Provider } from "@/components/ui/provider";
+import { Toaster } from "@/components/ui/toaster";
+import { NextIntlClientProvider } from "next-intl";
 import "./globals.css";
 
 const sendFlowers = Send_Flowers({
@@ -28,9 +31,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning>
       <body className={`${sendFlowers.variable} ${raleway.variable}`}>
-        {children}
+        <NextIntlClientProvider>
+          <Provider>
+            {children}
+            <Toaster />
+          </Provider>
+        </NextIntlClientProvider>
       </body>
     </html>
   );
