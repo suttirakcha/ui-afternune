@@ -122,7 +122,7 @@ export default function PostForm({ post }: PostFormProps) {
             <SubmitButton
               isSubmitting={isSubmitting}
               submitText={post ? "Update post" : "Create post"}
-              submittingText={post ? "Updating post..." : "Creating post..."}
+              submittingText={post ? "Updating post" : "Creating post"}
             />
           </form>
         );

@@ -50,4 +50,8 @@ export const calculateTime = (date: Date | string) => {
   return result.includes("Just now") ? "Just now" : result;
 };
 
+export const formatDate = (date: Date | string) => {
+  return dayjs(date).format("DD MMMM YYYY");
+};
+
 setInterval(calculateTime, 1000);

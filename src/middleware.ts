@@ -3,8 +3,10 @@ import { NextRequest, NextResponse } from "next/server";
 
 const protectedRoutes = [
   "/create-post",
+  "/create-community",
   "/messages",
   "/update-post",
+  "/update-community",
   "/settings",
 ];
 const authRoutes = ["/login", "/register", "/forgot-password"];
@@ -15,7 +17,7 @@ export async function middleware(request: NextRequest) {
   const refreshToken = request.cookies.get("refreshToken")?.value;
 
   const isProtectedRoute = protectedRoutes.some((route) =>
-    pathname.startsWith(route)
+    pathname.includes(route)
   );
   const isAuthRoute = authRoutes.some((route) => pathname.startsWith(route));
 

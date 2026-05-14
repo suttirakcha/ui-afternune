@@ -48,7 +48,7 @@ export default function ContactList({ profile }: ContactListProps) {
           </For>
         </VStack>
       ) : (
-        <Text>Please login to see the contact list.</Text>
+        <Text>{t("Please login to see the contact list")}</Text>
       )}
     </Stack>
   );

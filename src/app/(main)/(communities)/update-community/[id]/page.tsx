@@ -1,11 +1,7 @@
-import AfnTitle from "@/components/custom/AfnTitle";
-import LinkBackBtn from "@/components/custom/LinkBackBtn";
-import MainContainer from "@/components/custom/MainContainer";
-import CommunityForm from "@/components/forms/CommunityForm";
+import CommunityFormTemplate from "@/components/communities/CommunityFormTemplate";
 import { getProfile } from "@/services/auth.service";
 import { getCommunityById } from "@/services/communities.service";
 import { handleMessage } from "@/utils/handle-message";
-import { Stack } from "@chakra-ui/react";
 import { Metadata } from "next";
 import { redirect } from "next/navigation";
 
@@ -28,15 +24,5 @@ export default async function UpdateCommunityPage({
     handleMessage(community.message);
     return redirect("/communities");
   }
-  return (
-    <MainContainer animated>
-      <Stack maxWidth={600} width="full" marginX="auto" gap={10}>
-        <LinkBackBtn href={`/communities/${community._id}`}>
-          Back to communities
-        </LinkBackBtn>
-        <AfnTitle>Update Community</AfnTitle>
-        <CommunityForm community={community} />
-      </Stack>
-    </MainContainer>
-  );
+  return <CommunityFormTemplate community={community} />;
 }

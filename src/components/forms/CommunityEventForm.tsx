@@ -116,7 +116,7 @@ export default function CommunityEventForm({
               touched={touched.event_name}
             >
               <AfnInput
-                placeholder="Write your event name"
+                placeholder="Write the event name"
                 defaultValue={values.event_name}
                 disabled={isSubmitting}
                 error={!!(errors.event_name && touched.event_name)}
@@ -129,14 +129,14 @@ export default function CommunityEventForm({
               touched={touched.event_detail}
             >
               <AfnTextarea
-                placeholder="Write your event detail"
+                placeholder="Write the event detail"
                 defaultValue={values.event_detail}
                 disabled={isSubmitting}
                 error={!!(errors.event_detail && touched.event_detail)}
                 onChange={(e) => setFieldValue("event_detail", e.target.value)}
               />
             </AfnField>
-            <AfnField label="Event image (Optional)">
+            <AfnField label="Event image">
               <AfnInput
                 ref={imageRef}
                 type="file"
@@ -152,7 +152,7 @@ export default function CommunityEventForm({
               touched={touched.start_date}
             >
               <AfnDatePicker
-                placeholder="Enter your start date"
+                placeholder="Enter the event start date"
                 selected={
                   (values.start_date && new Date(values.start_date)) || null
                 }
@@ -168,7 +168,7 @@ export default function CommunityEventForm({
               touched={touched.end_date}
             >
               <AfnDatePicker
-                placeholder="Enter your end date"
+                placeholder="Enter the event end date"
                 selected={
                   (values.end_date && new Date(values.end_date)) || null
                 }
@@ -188,8 +188,8 @@ export default function CommunityEventForm({
               }
               submittingText={
                 communityEvent
-                  ? "Updating community event..."
-                  : "Creating community event..."
+                  ? "Updating community event"
+                  : "Creating community event"
               }
             />
           </form>

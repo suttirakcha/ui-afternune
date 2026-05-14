@@ -1,11 +1,7 @@
-import AfnTitle from "@/components/custom/AfnTitle";
-import LinkBackBtn from "@/components/custom/LinkBackBtn";
-import MainContainer from "@/components/custom/MainContainer";
-import CommunityEventForm from "@/components/forms/CommunityEventForm";
+import CommunityEventFormTemplate from "@/components/communities/CommunityEventFormTemplate";
 import { getProfile } from "@/services/auth.service";
 import { getCommunityById } from "@/services/communities.service";
 import { handleMessage } from "@/utils/handle-message";
-import { Stack } from "@chakra-ui/react";
 import { redirect } from "next/navigation";
 
 interface CreateCommunityEventPageParams {
@@ -24,15 +20,5 @@ export default async function CreateCommunityEventPage({
     return redirect("/communities");
   }
 
-  return (
-    <MainContainer animated>
-      <Stack maxWidth={600} width="full" marginX="auto" gap={10}>
-        <LinkBackBtn href={`/communities/${community._id}`}>
-          Back to community
-        </LinkBackBtn>
-        <AfnTitle>Create Community Event</AfnTitle>
-        <CommunityEventForm community={community} />
-      </Stack>
-    </MainContainer>
-  );
+  return <CommunityEventFormTemplate community={community} />;
 }

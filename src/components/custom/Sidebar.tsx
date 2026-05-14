@@ -14,6 +14,7 @@ import { handleMessage } from "@/utils/handle-message";
 import SidebarLogin from "@/components/custom/SidebarLogin";
 import { settingsMenus } from "@/menus/settingsMenus";
 import { useTranslations } from "next-intl";
+import LanguageSwitcherWrapper from "@/components/custom/LanguageSwitcherWrapper";
 
 export default function Sidebar() {
   const t = useTranslations();
@@ -43,10 +44,10 @@ export default function Sidebar() {
   const handleLogout = useCallback(async () => {
     const response = await logout();
     if (!response.success) {
-      handleMessage(response.message);
+      handleMessage(t(response.message));
       return;
     }
-    handleMessage(response.message);
+    handleMessage(t(response.message));
     setProfile(null);
   }, []);
 
@@ -87,6 +88,7 @@ export default function Sidebar() {
         <Logo />
         <Stack gap={"30px"} flexDirection={"column"}>
           <MenuLinks menus={sidebarMenus} animated />
+          <LanguageSwitcherWrapper />
         </Stack>
       </Stack>
       <Stack gap={"20px"}>
