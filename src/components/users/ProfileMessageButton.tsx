@@ -16,7 +16,7 @@ export default function ProfileMessageButton({
   const handleChatRoom = async () => {
     const roomResponse = await getChatRoomByReceiverId(profile._id);
     if (roomResponse.success) {
-      router.push(`/messages/${roomResponse?.data?.room?.receiver?._id}`);
+      router.push(`/messages/${roomResponse?.data?.room?.receiver_id}`);
     }
   };
 
