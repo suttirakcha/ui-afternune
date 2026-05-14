@@ -1,9 +1,10 @@
 "use server";
 
 import { handleFetch, handleFetchWithAuth } from "@/lib/handleFetch";
+import { QueryType } from "@/types/query.type";
 
-export async function getUsers(search?: string) {
-  const userUrl = `users${search ? `?search=${search}` : ""}`;
+export async function getUsers({ search, limit }: QueryType = {}) {
+  const userUrl = `users?search=${search}&limit=${limit}`;
   const response = await handleFetch(userUrl);
 
   if (!response.ok) {

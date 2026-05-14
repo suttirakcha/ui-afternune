@@ -42,12 +42,7 @@ export default function ReportsTemplate({ reports }: ReportsTemplateProps) {
               <Table.Cell>{report.reason}</Table.Cell>
               <Table.Cell>{report.type}</Table.Cell>
               <Table.Cell>
-                <Link
-                  href={`/admin/reports/${report._id}`}
-                  className="menu-links"
-                >
-                  View
-                </Link>
+                <Link href={`/admin/reports/${report._id}`}>View</Link>
               </Table.Cell>
             </Table.Row>
           ))}

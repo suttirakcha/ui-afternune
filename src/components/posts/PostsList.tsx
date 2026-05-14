@@ -43,7 +43,9 @@ export default function PostsList({
     if (isLoading || isAllLoaded) return;
     setIsLoading(true);
     setLimit((prev) => prev + POSTS_LIMIT);
-    const response = await getPosts(limit * POSTS_LIMIT);
+    const response = await getPosts({
+      limit: limit * POSTS_LIMIT,
+    });
     setItems(response);
     setIsLoading(false);
   }, [isLoading, isAllLoaded, limit]);

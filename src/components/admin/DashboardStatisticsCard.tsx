@@ -14,7 +14,7 @@ export default function DashboardStatisticsCard({
   title,
 }: DashboardStatisticsCardProps) {
   return (
-    <Box border={"2px solid var(--light-orange-2)"} borderRadius={"16px"} p={6}>
+    <Box boxShadow={"var(--main-box-shadow)"} borderRadius={"16px"} p={6}>
       <AfnTitle size={"small"}>{title}</AfnTitle>
       <Text fontSize={"48px"} fontWeight={600}>
         {formatAmount(count ?? 0)}
