@@ -10,7 +10,7 @@ import { User } from "@/types/users.type";
 
 interface PostCardProps {
   post: Post;
-  profile: User;
+  profile?: User;
 }
 
 const CARD_STYLES = {
@@ -68,7 +68,7 @@ export default function PostCard({ post, profile }: PostCardProps) {
           </Link>
 
           <AvatarUser user={user} link={`/profile/${user._id}`} />
-          <PostInteractions post={post} profile={profile} />
+          <PostInteractions post={post} profile={profile ?? user} />
 
           <Card.Description {...DESCRIPTION_STYLES}>{caption}</Card.Description>
         </VStack>

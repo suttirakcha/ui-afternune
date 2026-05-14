@@ -22,7 +22,7 @@ export default function Sidebar() {
   const [profile, setProfile] = useState<User | null>(null);
   const currentYear = new Date().getFullYear();
 
-  const sidebarStyles = {
+  const SIDEBAR_STYLES = {
     position: "fixed",
     px: 8,
     py: 6,
@@ -82,7 +82,7 @@ export default function Sidebar() {
   }, []);
 
   return (
-    <Stack {...sidebarStyles}>
+    <Stack {...SIDEBAR_STYLES}>
       <Stack gap={"60px"} flexDirection={"column"}>
         <Logo />
         <Stack gap={"30px"} flexDirection={"column"}>

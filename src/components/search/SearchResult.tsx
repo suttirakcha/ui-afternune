@@ -3,10 +3,9 @@
 import AvatarUser from "@/components/avatar/AvatarUser";
 import AfnTitle from "@/components/custom/AfnTitle";
 import Loading from "@/components/custom/Loading";
-import FollowButton from "@/components/users/FollowButton";
 import { getUsers } from "@/services/users.service";
 import { User } from "@/types/users.type";
-import { For, HStack, Stack, Text, VStack } from "@chakra-ui/react";
+import { For, Stack, Text, VStack } from "@chakra-ui/react";
 import { useTranslations } from "next-intl";
 import { useCallback, useEffect, useState } from "react";
 
@@ -21,7 +20,10 @@ export default function SearchResult({ search }: SearchResultProps) {
   const handleFetchUsers = useCallback(async () => {
     try {
       setIsLoading(true);
-      const fetchedUsers = await getUsers(search);
+      const fetchedUsers = await getUsers({
+        search,
+        limit: 5,
+      });
       setUsers(fetchedUsers);
     } finally {
       setIsLoading(false);

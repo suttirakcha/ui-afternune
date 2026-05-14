@@ -4,7 +4,9 @@ import { getProfile } from "@/services/auth.service";
 import { getPosts } from "@/services/posts.service";
 
 export default async function PostItemsPage() {
-  const posts = await getPosts(2);
+  const posts = await getPosts({
+    limit: 2,
+  });
   const profile = await getProfile();
 
   return (

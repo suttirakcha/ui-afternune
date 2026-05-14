@@ -2,9 +2,10 @@
 
 import { handleFetch, handleFetchWithAuth } from "@/lib/handleFetch";
 import { PostFieldValues } from "@/types/posts.type";
+import { QueryType } from "@/types/query.type";
 
-export async function getPosts(limit?: number) {
-  const postUrl = limit ? `posts?limit=${limit}` : "posts";
+export async function getPosts({ search, limit }: QueryType = {}) {
+  const postUrl = `posts?search=${search}&limit=${limit}`;
   const response = await handleFetch(postUrl, {
     method: "GET",
     next: { tags: ["posts"], revalidate: 0 },

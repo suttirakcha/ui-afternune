@@ -24,7 +24,7 @@ export default function NotFound() {
           textAlign={"center"}
           width={"480px"}
         >
-          {t("Tt looks like the content you are looking for is not found")}
+          {t("It looks like the content you are looking for is not found")}
         </Text>
         <Link href="/" className="menu-links">
           {t("Go to Homepage")}

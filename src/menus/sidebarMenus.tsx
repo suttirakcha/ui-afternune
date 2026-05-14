@@ -20,7 +20,7 @@ export enum AdminSidebarMenu {
   DASHBOARD = "dashboard",
   USERS = "users",
   REPORTS = "reports",
-  BACK_TO_MAINPAGE = "back_to_mainpage",
+  BACK_TO_MAINPAGE = "back-to-mainpage",
 }
 
 const getHref = (href: string) => `/${href}`;
