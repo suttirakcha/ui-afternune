@@ -9,7 +9,7 @@ export interface DialogOpenProps {
 }
 
 export interface BlockUserDialogProps extends DialogOpenProps {
-  user: User;
+  profile: User;
   isBlocked: boolean;
 }
 

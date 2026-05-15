@@ -22,7 +22,7 @@ export async function getPosts({ search, limit }: QueryType = {}) {
   }
 
   const data = await response.json();
-  return data;
+  return { success: true, data };
 }
 
 export async function getPostById(id: string) {

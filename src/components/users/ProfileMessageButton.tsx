@@ -3,6 +3,7 @@
 import AfnButton from "@/components/custom/AfnButton";
 import { getChatRoomByReceiverId } from "@/services/messages.service";
 import { User } from "@/types/users.type";
+import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 
 interface ProfileMessageButtonProps {
@@ -12,6 +13,7 @@ interface ProfileMessageButtonProps {
 export default function ProfileMessageButton({
   profile,
 }: ProfileMessageButtonProps) {
+  const t = useTranslations();
   const router = useRouter();
   const handleChatRoom = async () => {
     const roomResponse = await getChatRoomByReceiverId(profile._id);
@@ -27,7 +29,7 @@ export default function ProfileMessageButton({
       fontSize="16px"
       onClick={handleChatRoom}
     >
-      Message
+      {t("Message")}
     </AfnButton>
   );
 }
