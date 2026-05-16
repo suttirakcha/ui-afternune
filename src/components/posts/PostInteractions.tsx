@@ -8,7 +8,7 @@ import { LuHeart, LuMessageSquareMore } from "react-icons/lu";
 
 interface PostInteractionsProps {
   post: Post;
-  profile: User;
+  profile?: User;
 }
 
 const ICON_STYLES = {
@@ -23,7 +23,7 @@ export default function PostInteractions({
   post,
   profile,
 }: PostInteractionsProps) {
-  const { createdAt, comments, likes, user } = post;
+  const { createdAt, comments, likes } = post;
 
   return (
     <HStack
@@ -49,7 +49,7 @@ export default function PostInteractions({
       </HStack>
       <HStack>
         <Text>{calculateTime(createdAt)}</Text>
-        <PostOptions post={post} profile={profile} />
+        {profile && <PostOptions post={post} profile={profile} />}
       </HStack>
     </HStack>
   );

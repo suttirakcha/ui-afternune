@@ -6,8 +6,14 @@ import FollowButton from "@/components/users/FollowButton";
 import ProfileMessageButton from "@/components/users/ProfileMessageButton";
 import ProfileOptions from "@/components/users/ProfileOptions";
 import { getProfile } from "@/services/auth.service";
-import { getFollowedUser, getUserById } from "@/services/users.service";
+import {
+  getBlockedUser,
+  getFollowedUser,
+  getUserById,
+} from "@/services/users.service";
+import { handleMessage } from "@/utils/handle-message";
 import { Avatar, AvatarGroup, HStack, Stack, Text } from "@chakra-ui/react";
+import { redirect } from "next/navigation";
 
 interface ProfileDetailPageProps {
   params: Promise<{ id: string }>;
@@ -25,14 +31,16 @@ export default async function ProfileDetailPage({
   params,
 }: ProfileDetailPageProps) {
   const { id } = await params;
-  const profile = await getUserById(id);
+  const { message, data: profile } = await getUserById(id);
   const currentProfile = await getProfile();
 
   if (!profile) {
-    return <NotFound />;
+    handleMessage(message);
+    return redirect("/");
   }
 
-  const followed = await getFollowedUser(profile._id);
+  const { data: followed } = await getFollowedUser(profile._id);
+  const blocked = await getBlockedUser(profile._id);
   const isLoggedInProfile = currentProfile?._id !== profile?._id;
 
   return (
@@ -52,6 +60,7 @@ export default async function ProfileDetailPage({
               <ProfileOptions
                 profile={profile}
                 isAlreadyFollowed={!!followed}
+                isBlocked={!!blocked}
               />
             </Stack>
           ))}

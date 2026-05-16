@@ -11,7 +11,7 @@ export default async function ProfilePostPage({
   params,
 }: ProfilePostPageProps) {
   const { id } = await params;
-  const user = await getUserById(id);
+  const { data: user } = await getUserById(id);
   const profile = await getProfile();
   const { posts } = user;
 

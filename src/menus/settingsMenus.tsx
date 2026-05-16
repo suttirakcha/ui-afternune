@@ -1,3 +1,4 @@
+import BlockedUserSettings from "@/components/settings/BlockedUserSettings";
 import EditProfileSettings from "@/components/settings/EditProfileSettings";
 import ManageInterestsSettings from "@/components/settings/ManageInterestsSettings";
 import { Menu } from "@/types/menus.type";
@@ -30,6 +31,8 @@ export const settingsMenus: Menu[] = [
     id: SettingsMenu.MANAGE_INTERESTS,
     title: "Manage interests",
     href: getHref(SettingsMenu.MANAGE_INTERESTS),
+    description:
+      "Your interests will be used for any post and community suggestions",
     icon: <LuBookHeart />,
     component: <ManageInterestsSettings />,
   },
@@ -46,11 +49,12 @@ export const settingsMenus: Menu[] = [
   //   href: getHref(SettingsMenu.THEMES),
   //   icon: <LuPalette />,
   // },
-  // {
-  //   id: SettingsMenu.BLOCKED,
-  //   title: "Blocked users",
-  //   href: getHref(SettingsMenu.BLOCKED),
-  //   icon: <LuBan />,
-  //   component: <BlockedUsersSettings />,
-  // },
+  {
+    id: SettingsMenu.BLOCKED,
+    title: "Blocked users",
+    description: "You can manage blocked users here",
+    href: getHref(SettingsMenu.BLOCKED),
+    icon: <LuBan />,
+    component: <BlockedUserSettings />,
+  },
 ];

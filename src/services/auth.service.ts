@@ -8,7 +8,6 @@ import {
 } from "@/types/auth.type";
 import { clearCookieTokens, setCookieTokens } from "@/lib/setCookieTokens";
 import { revalidateUserOnSidebar } from "@/lib/revalidate";
-import { User } from "@/types/users.type";
 
 export async function login(values: LoginFormValues) {
   const response = await handleFetch("auth/login", {
