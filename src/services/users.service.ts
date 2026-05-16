@@ -9,11 +9,14 @@ export async function getUsers({ search, limit }: QueryType = {}) {
 
   if (!response.ok) {
     const errorData = await response.json();
-    return errorData.message ?? "Failed to fetch users";
+    return {
+      success: false,
+      message: errorData.message ?? "Failed to fetch users",
+    };
   }
 
   const data = await response.json();
-  return data;
+  return { success: true, data };
 }
 
 export async function getUserById(userId: string) {
@@ -21,11 +24,14 @@ export async function getUserById(userId: string) {
 
   if (!response.ok) {
     const errorData = await response.json();
-    return errorData.message ?? "Failed to fetch user";
+    return {
+      success: false,
+      message: errorData.message ?? "Failed to fetch user",
+    };
   }
 
   const data = await response.json();
-  return data;
+  return { success: true, data };
 }
 
 export async function getFollowedUser(userId: string) {
@@ -38,6 +44,24 @@ export async function getFollowedUser(userId: string) {
     return {
       success: false,
       message: errorData.message ?? "Failed to fetch the follow",
+    };
+  }
+
+  const text = await response.text();
+  const data = text ? JSON.parse(text) : null;
+  return { success: true, data };
+}
+
+export async function getBlockedUser(userId: string) {
+  const response = await handleFetchWithAuth(`users/${userId}/blocked`, {
+    next: { tags: ["blocked"], revalidate: 0 },
+  });
+
+  if (!response.ok) {
+    const errorData = await response.json();
+    return {
+      success: false,
+      message: errorData.message ?? "Failed to fetch the block",
     };
   }
 
@@ -60,6 +84,23 @@ export async function followUser(userId: string) {
   }
 }
 
+export async function blockUser(userId: string) {
+  const response = await handleFetchWithAuth(`users/${userId}/block`, {
+    method: "POST",
+  });
+
+  if (!response.ok) {
+    const errorData = await response.json();
+    return {
+      success: false,
+      message: errorData.message ?? "Failed to block",
+    };
+  }
+
+  const data = await response.json();
+  return { success: true, message: data.message };
+}
+
 export async function unfollowUser(userId: string) {
   const response = await handleFetchWithAuth(`users/${userId}/unfollow`, {
     method: "DELETE",
@@ -70,6 +111,26 @@ export async function unfollowUser(userId: string) {
     return {
       success: false,
       message: errorData.message ?? "Failed to unfollow",
+    };
+  }
+
+  const data = await response.json();
+  return {
+    success: true,
+    message: data.message,
+  };
+}
+
+export async function unblockUser(userId: string) {
+  const response = await handleFetchWithAuth(`users/${userId}/unblock`, {
+    method: "DELETE",
+  });
+
+  if (!response.ok) {
+    const errorData = await response.json();
+    return {
+      success: false,
+      message: errorData.message ?? "Failed to unblock",
     };
   }
 

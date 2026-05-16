@@ -9,7 +9,6 @@ import { handleMessage } from "@/utils/handle-message";
 import { Box } from "@chakra-ui/react";
 import { Formik, FormikHelpers } from "formik";
 import { useTranslations } from "next-intl";
-import { useEffect } from "react";
 import { LuSend } from "react-icons/lu";
 
 interface ChatMessageFormProps {
@@ -49,7 +48,7 @@ export default function ChatMessageForm({ receiver_id }: ChatMessageFormProps) {
       validationSchema={chatMessageSchema}
       onSubmit={onSubmit}
     >
-      {({ handleSubmit, setFieldValue, values }) => {
+      {({ handleSubmit, setFieldValue, values, isSubmitting }) => {
         return (
           <form onSubmit={handleSubmit}>
             <Box position={"relative"}>
@@ -57,8 +56,13 @@ export default function ChatMessageForm({ receiver_id }: ChatMessageFormProps) {
                 placeholder="Type a message"
                 onChange={(e) => setFieldValue("message", e.target.value)}
                 value={values.message}
+                disabled={isSubmitting}
               />
-              <AfnButton {...SEND_BTN_STYLES} type="submit">
+              <AfnButton
+                {...SEND_BTN_STYLES}
+                type="submit"
+                disabled={isSubmitting}
+              >
                 <LuSend className="submit-icon" />
                 {t("Send")}
               </AfnButton>

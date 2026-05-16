@@ -4,7 +4,9 @@ import { revalidatePosts } from "@/lib/revalidate";
 import { likePost, unlikePost } from "@/services/likes.service";
 import { Post } from "@/types/posts.type";
 import { User } from "@/types/users.type";
-import { CSSProperties, Fragment, useCallback } from "react";
+import { handleMessage } from "@/utils/handle-message";
+import { useTranslations } from "next-intl";
+import { CSSProperties, Fragment, useCallback, useState } from "react";
 import { LuHeart } from "react-icons/lu";
 
 interface LikeButtonProps {
@@ -14,6 +16,8 @@ interface LikeButtonProps {
 }
 
 export default function LikeButton({ post, style, profile }: LikeButtonProps) {
+  const t = useTranslations();
+  const [isClicked, setIsClicked] = useState(false);
   const { _id, likes } = post;
 
   const isLiked = likes.some(
@@ -21,13 +25,27 @@ export default function LikeButton({ post, style, profile }: LikeButtonProps) {
   );
 
   const handleClickLike = useCallback(async () => {
+    setIsClicked(true);
     const response = await likePost(_id);
+    if (!response.success) {
+      handleMessage(t(response.message));
+      setIsClicked(false);
+      return;
+    }
     revalidatePosts();
+    setIsClicked(false);
   }, []);
 
   const handleClickUnlike = useCallback(async () => {
+    setIsClicked(true);
     const response = await unlikePost(_id);
+    if (!response.success) {
+      handleMessage(t(response.message));
+      setIsClicked(false);
+      return;
+    }
     revalidatePosts();
+    setIsClicked(false);
   }, []);
 
   return (
@@ -35,10 +53,15 @@ export default function LikeButton({ post, style, profile }: LikeButtonProps) {
       {isLiked ? (
         <LuHeart
           onClick={handleClickUnlike}
+          aria-disabled={isClicked}
           style={{ ...style, fill: "var(--secondary)" }}
         />
       ) : (
-        <LuHeart onClick={handleClickLike} style={{ ...style, fill: "" }} />
+        <LuHeart
+          onClick={handleClickLike}
+          aria-disabled={isClicked}
+          style={{ ...style, fill: "" }}
+        />
       )}
     </Fragment>
   );

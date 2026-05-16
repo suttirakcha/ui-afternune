@@ -14,6 +14,8 @@ export async function likePost(postId: string) {
       message: errorData.message ?? "Failed to like post",
     };
   }
+
+  return { success: true };
 }
 
 export async function unlikePost(postId: string) {
@@ -28,4 +30,6 @@ export async function unlikePost(postId: string) {
       message: errorData.message ?? "Failed to unlike post",
     };
   }
+
+  return { success: true };
 }

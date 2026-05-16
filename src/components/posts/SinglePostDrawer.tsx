@@ -7,7 +7,8 @@ import CommentList from "@/components/posts/CommentList";
 import PostInteractions from "@/components/posts/PostInteractions";
 import { Comment, Post } from "@/types/posts.type";
 import { User } from "@/types/users.type";
-import { Drawer, Skeleton, Stack, VStack } from "@chakra-ui/react";
+import { Drawer, Skeleton, Stack, Text, VStack } from "@chakra-ui/react";
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { CSSProperties, Suspense } from "react";
@@ -59,6 +60,7 @@ export default function SinglePostDrawer({
   comments,
   profile,
 }: SinglePostDrawerProps) {
+  const t = useTranslations();
   const router = useRouter();
   const { image_url, caption, user } = post;
   return (
@@ -88,12 +90,16 @@ export default function SinglePostDrawer({
               </Drawer.Description>
               <PostInteractions post={post} profile={profile} />
 
-              <Suspense fallback={<Skeleton height={10} width="full" />}>
-                <Stack h="full" w="full" justifyContent="space-between">
-                  <CommentList comments={comments} />
-                  <CommentForm post={post} />
-                </Stack>
-              </Suspense>
+              {profile ? (
+                <Suspense fallback={<Skeleton height={10} width="full" />}>
+                  <Stack h="full" w="full" justifyContent="space-between">
+                    <CommentList comments={comments} />
+                    <CommentForm post={post} />
+                  </Stack>
+                </Suspense>
+              ) : (
+                <Text>{t("Please login to comment this post")}</Text>
+              )}
             </VStack>
           </Stack>
           <AfnCloseButton onClick={router.back} />

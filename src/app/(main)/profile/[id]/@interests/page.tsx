@@ -11,7 +11,7 @@ export default async function ProfileInterestsPage({
   params,
 }: ProfileInterestsPageProps) {
   const { id } = await params;
-  const user = await getUserById(id);
+  const { data: user } = await getUserById(id);
 
   const { interests, gender } = user;
 

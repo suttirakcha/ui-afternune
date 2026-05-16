@@ -4,7 +4,9 @@ import { handleFetch, handleFetchWithAuth } from "@/lib/handleFetch";
 import { CommentFieldValues } from "@/types/posts.type";
 
 export async function getCommentsByPostId(postId: string) {
-  const response = await handleFetch(`posts/${postId}/comments`);
+  const response = await handleFetch(`posts/${postId}/comments`, {
+    next: { tags: ["comments"], revalidate: 0 },
+  });
 
   if (!response.ok) {
     const errorData = await response.json();
@@ -31,4 +33,6 @@ export async function addComment(postId: string, values: CommentFieldValues) {
       message: errorData.message ?? "Failed to comment",
     };
   }
+
+  return { success: true };
 }

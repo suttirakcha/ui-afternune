@@ -1,6 +1,7 @@
 "use client";
 
 import AfnMenu from "@/components/custom/AfnMenu";
+import BlockUserDialog from "@/components/dialogs/BlockUserDialog";
 import ReportDialog from "@/components/dialogs/ReportDialog";
 import UnfollowDialog from "@/components/dialogs/UnfollowDialog";
 import { Option } from "@/types/menus.type";
@@ -18,17 +19,22 @@ import {
 
 interface ProfileOptionsProps {
   profile: User;
-  isAlreadyFollowed?: boolean;
+  isAlreadyFollowed: boolean;
+  isBlocked: boolean;
 }
 
 export default function ProfileOptions({
   profile,
   isAlreadyFollowed,
+  isBlocked,
 }: ProfileOptionsProps) {
   const [isReportDialogOpen, setIsReportDialogOpen] = useState({
     open: false,
   });
   const [isUnfollowDialogOpen, setIsUnfollowDialogOpen] = useState({
+    open: false,
+  });
+  const [isBlockUserDialogOpen, setIsBlockUserDialogOpen] = useState({
     open: false,
   });
   const options: Option[] = [
@@ -40,17 +46,15 @@ export default function ProfileOptions({
     },
     {
       menu: "Block",
-      // onSelect: () => setIsBlockModalOpen({ open: true }),
-      onSelect: () => {},
+      onSelect: () => setIsBlockUserDialogOpen({ open: true }),
       icon: <LuBan />,
-      // condition: !isBlocked,
+      condition: !isBlocked,
     },
     {
       menu: "Unblock",
-      // onSelect: () => setIsBlockModalOpen({ open: true }),
-      onSelect: () => {},
+      onSelect: () => setIsBlockUserDialogOpen({ open: true }),
       icon: <LuLockKeyholeOpen />,
-      // condition: isBlocked,
+      condition: isBlocked,
     },
     {
       menu: "Report",
@@ -86,6 +90,12 @@ export default function ProfileOptions({
         profile={profile}
         open={isUnfollowDialogOpen.open}
         onOpenChange={setIsUnfollowDialogOpen}
+      />
+      <BlockUserDialog
+        open={isBlockUserDialogOpen.open}
+        onOpenChange={setIsBlockUserDialogOpen}
+        profile={profile}
+        isBlocked={isBlocked}
       />
     </Fragment>
   );
