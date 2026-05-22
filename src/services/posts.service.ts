@@ -4,10 +4,14 @@ import { handleFetch, handleFetchWithAuth } from "@/lib/handleFetch";
 import { PostFieldValues } from "@/types/posts.type";
 import { QueryType } from "@/types/query.type";
 
-export async function getPosts({ search, limit }: QueryType = {}) {
-  const postUrl = `posts${search ? `?search=${search}` : ""}${
-    search && limit ? "&" : "?"
-  }${limit ? `limit=${limit}` : ""}`;
+export async function getPosts({ limit, userId }: QueryType = {}) {
+  // const postUrl = `posts${search ? `?search=${search}` : ""}${
+  //   search && limit ? "&" : "?"
+  // }${limit ? `limit=${limit}` : ""}`;
+  const postUrl = `posts${limit ? `?limit=${limit}` : ""}${
+    userId ? `${limit ? "&" : "?"}userId=${userId}` : ""
+  }`;
+
   const response = await handleFetch(postUrl, {
     method: "GET",
     next: { tags: ["posts"], revalidate: 0 },
