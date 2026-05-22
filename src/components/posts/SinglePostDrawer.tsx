@@ -23,12 +23,10 @@ const CONTENT_STYLES = {
   flexDirection: "column",
   width: "full",
   height: "full",
-  padding: 6,
-  gap: 8,
+  gap: 4,
   overflow: "auto",
-  lg: {
+  md: {
     flexDirection: "row",
-    padding: 16,
     overflow: "auto",
   },
 };
@@ -40,17 +38,18 @@ const INNER_CONTENT_STYLES = {
 };
 
 const POST_DETAIL_STYLES = {
+  padding: 8,
   gap: 6,
   alignItems: "flex-start",
   width: "full",
-  xl: {
-    maxWidth: "400px",
+  md: {
+    maxWidth: "500px",
+    padding: 16,
   },
 };
 
 const IMAGE_STYLES = {
   objectFit: "contain",
-  borderRadius: "16px",
   width: "100%",
   height: "100%",
 } satisfies CSSProperties;
@@ -90,16 +89,18 @@ export default function SinglePostDrawer({
               </Drawer.Description>
               <PostInteractions post={post} profile={profile} />
 
-              {profile ? (
-                <Suspense fallback={<Skeleton height={10} width="full" />}>
-                  <Stack h="full" w="full" justifyContent="space-between">
-                    <CommentList comments={comments} />
+              <Suspense fallback={<Skeleton height={10} width="full" />}>
+                <Stack h="full" w="full" justifyContent="space-between">
+                  <CommentList comments={comments} />
+                  {profile ? (
                     <CommentForm post={post} />
-                  </Stack>
-                </Suspense>
-              ) : (
-                <Text>{t("Please login to comment this post")}</Text>
-              )}
+                  ) : (
+                    <Text textAlign="center" fontSize="16px">
+                      {t("Please login to comment this post")}
+                    </Text>
+                  )}
+                </Stack>
+              </Suspense>
             </VStack>
           </Stack>
           <AfnCloseButton onClick={router.back} />
