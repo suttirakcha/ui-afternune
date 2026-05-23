@@ -66,7 +66,7 @@ a:focus-visible {
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: "Raleway", Arial, Helvetica, sans-serif;
+  font-family: "Raleway", "Noto Sans Thai", Arial, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
