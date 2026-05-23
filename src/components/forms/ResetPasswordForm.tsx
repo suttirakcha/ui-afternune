@@ -14,7 +14,9 @@ const INITIAL_VALUES = {
 };
 
 export default function ResetPasswordForm({ token }: ResetPasswordFormProps) {
-  const onSubmit = () => {};
+  const onSubmit = (values: unknown) => {
+    console.log(values);
+  };
   return (
     <Formik initialValues={INITIAL_VALUES} onSubmit={onSubmit}>
       {({ handleSubmit, isSubmitting, errors, touched, setFieldValue }) => {

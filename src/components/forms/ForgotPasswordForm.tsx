@@ -10,6 +10,7 @@ import { forgotPassword } from "@/services/auth.service";
 import { handleMessage } from "@/utils/handle-message";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
+import { forgotPasswordSchema } from "@/schemas/auth.schema";
 
 const BOX_TEXT_FIELD = {
   display: "inline-flex",
@@ -25,14 +26,18 @@ export default function ForgotPasswordForm() {
   const onSubmit = async (values: ForgotPasswordFormValues) => {
     const response = await forgotPassword(values);
     if (!response.success) {
-      handleMessage(response.message);
+      handleMessage(t(response.message));
       return;
     }
-    handleMessage(response.message);
+    handleMessage(t(response.message));
   };
 
   return (
-    <Formik initialValues={INITIAL_VALUES} onSubmit={onSubmit}>
+    <Formik
+      initialValues={INITIAL_VALUES}
+      onSubmit={onSubmit}
+      validationSchema={forgotPasswordSchema}
+    >
       {({ errors, touched, isSubmitting, handleSubmit, setFieldValue }) => {
         return (
           <form onSubmit={handleSubmit} className="form">
@@ -40,15 +45,13 @@ export default function ForgotPasswordForm() {
               label={t("Email address")}
               touched={touched.email}
               error={errors.email}
-              helper={t(
-                "Your email will be sent for requesting to reset the password"
-              )}
+              helper="Your email will be sent for requesting to reset the password"
             >
               <AfnInput
                 name="email"
                 disabled={isSubmitting}
                 error={!!(errors.email && touched.email)}
-                placeholder={t("Enter your email address")}
+                placeholder="Enter your email address"
                 onChange={(e) => setFieldValue("email", e.target.value)}
               />
             </AfnField>
@@ -61,8 +64,8 @@ export default function ForgotPasswordForm() {
 
             <SubmitButton
               isSubmitting={isSubmitting}
-              submitText={t("Reset password")}
-              submittingText={t("Resetting password")}
+              submitText="Reset password"
+              submittingText="Resetting password"
             />
           </form>
         );
