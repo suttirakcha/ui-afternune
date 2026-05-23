@@ -73,6 +73,27 @@ export async function forgotPassword(values: ForgotPasswordFormValues) {
   return { success: true, message: data.message };
 }
 
+export async function resetPassword(
+  token: string,
+  values: ForgotPasswordFormValues
+) {
+  const response = await handleFetch(`auth/forgot-password?token=${token}`, {
+    method: "POST",
+    body: JSON.stringify(values),
+  });
+
+  if (!response.ok) {
+    const errorData = await response.json();
+    return {
+      success: false,
+      message: errorData.message ?? "Reset password failed",
+    };
+  }
+
+  const data = await response.json();
+  return { success: true, message: data.message };
+}
+
 export async function logout() {
   const response = await handleFetchWithAuth("auth/logout", {
     method: "POST",

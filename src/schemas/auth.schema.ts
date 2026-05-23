@@ -25,3 +25,7 @@ export const forgotPasswordSchema = Yup.object({
     .email("Invalid email address")
     .required("Email is a required field"),
 });
+
+export const resetPasswordSchema = Yup.object({
+  newPassword: Yup.string().required("New password is a required field"),
+});
