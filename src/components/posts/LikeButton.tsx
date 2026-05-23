@@ -12,7 +12,7 @@ import { LuHeart } from "react-icons/lu";
 interface LikeButtonProps {
   post: Post;
   style: CSSProperties;
-  profile: User;
+  profile?: User;
 }
 
 export default function LikeButton({ post, style, profile }: LikeButtonProps) {

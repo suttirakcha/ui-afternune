@@ -14,6 +14,7 @@ interface PostsListProps {
   fallback?: ReactNode;
   profile: User;
   limit?: number;
+  userId?: string;
   allowToCreatePost?: boolean;
 }
 
@@ -30,6 +31,7 @@ export default function PostsList({
   posts,
   fallback,
   profile,
+  userId,
   allowToCreatePost,
 }: PostsListProps) {
   const [items, setItems] = useState(posts);
@@ -45,6 +47,7 @@ export default function PostsList({
     setLimit((prev) => prev + POSTS_LIMIT);
     const { data: response } = await getPosts({
       limit: limit * POSTS_LIMIT,
+      userId: userId ?? "",
     });
     setItems(response);
     setIsLoading(false);

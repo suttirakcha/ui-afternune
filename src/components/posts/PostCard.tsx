@@ -68,7 +68,7 @@ export default function PostCard({ post, profile }: PostCardProps) {
           </Link>
 
           <AvatarUser user={user} link={`/profile/${user._id}`} />
-          <PostInteractions post={post} profile={profile ?? user} />
+          <PostInteractions post={post} profile={profile} />
 
           <Card.Description {...DESCRIPTION_STYLES}>{caption}</Card.Description>
         </VStack>
