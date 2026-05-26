@@ -42,7 +42,7 @@ export default function ForgotPasswordForm() {
         return (
           <form onSubmit={handleSubmit} className="form">
             <AfnField
-              label={t("Email address")}
+              label="Email address"
               touched={touched.email}
               error={errors.email}
               helper="Your email will be sent for requesting to reset the password"
