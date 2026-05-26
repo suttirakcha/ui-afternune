@@ -8,7 +8,8 @@ import { User } from "@/types/users.type";
 import { handleMessage } from "@/utils/handle-message";
 import { For, Stack, Text, VStack } from "@chakra-ui/react";
 import { useTranslations } from "next-intl";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import { useDebouncedCallback } from "use-debounce";
 
 interface SearchResultProps {
   search: string;
@@ -18,7 +19,7 @@ export default function SearchResult({ search }: SearchResultProps) {
   const t = useTranslations();
   const [isLoading, setIsLoading] = useState(true);
   const [users, setUsers] = useState<User[]>([]);
-  const handleFetchUsers = useCallback(async () => {
+  const handleFetchData = useDebouncedCallback(async () => {
     setIsLoading(true);
     const response = await getUsers({
       search,
@@ -29,10 +30,10 @@ export default function SearchResult({ search }: SearchResultProps) {
     }
     setUsers(response.data);
     setIsLoading(false);
-  }, [search]);
+  }, 200);
 
   useEffect(() => {
-    handleFetchUsers();
+    handleFetchData();
   }, [search]);
 
   return (
