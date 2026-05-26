@@ -35,11 +35,13 @@ export default async function CommunityDetailPage({
                 isAlreadyJoined={!!joined}
               />
             ))}
-          <CommunityOptions
-            community={community}
-            isCreator={isCreator}
-            isJoined={!!joined}
-          />
+          {profile && (
+            <CommunityOptions
+              community={community}
+              isCreator={isCreator}
+              isJoined={!!joined}
+            />
+          )}
         </Stack>
       </HStack>
 
