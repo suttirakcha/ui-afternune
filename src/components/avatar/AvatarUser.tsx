@@ -8,11 +8,12 @@ type AvatarUserProps = {
   user: Pick<User, "username" | "image_url">;
   isOnline?: boolean;
   link?: string;
+  notification?: number;
 };
 
 export default function AvatarUser(props: AvatarUserProps) {
   const router = useRouter();
-  const { user, link, isOnline } = props;
+  const { user, link, isOnline, notification } = props;
   return (
     <HStack
       onClick={() => {
@@ -22,6 +23,26 @@ export default function AvatarUser(props: AvatarUserProps) {
       gap={"16px"}
     >
       <Stack position={"relative"}>
+        {notification && (
+          <Stack
+            backgroundColor="var(--primary)"
+            color="white"
+            width="24px"
+            height="24px"
+            position="absolute"
+            right={-1}
+            top={-1}
+            boxShadow="var(--main-box-shadow)"
+            borderRadius="9999px"
+            zIndex={9}
+            alignItems="center"
+            justifyContent="center"
+            fontWeight={600}
+            fontSize="16px"
+          >
+            {notification}
+          </Stack>
+        )}
         <Avatar.Root
           backgroundColor={"var(--light-orange)"}
           color={"var(--secondary)"}
