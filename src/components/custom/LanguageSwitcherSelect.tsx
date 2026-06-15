@@ -13,7 +13,7 @@ interface LanguageSwitcherSelectProps {
 const LANGUAGE_OPTIONS = [
   { label: "English", value: "en" },
   { label: "ภาษาไทย", value: "th" },
-  // { label: "中文", value: "zh-cn" },
+  { label: "中文", value: "zh-cn" },
 ];
 
 export default function LanguageSwitcherSelect({
