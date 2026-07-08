@@ -9,18 +9,20 @@ import { getProfile, logout } from "@/services/auth.service";
 import { User } from "@/types/users.type";
 import { useRouter } from "next/navigation";
 import { Option } from "@/types/menus.type";
-import { LuLogOut, LuSettings, LuUser } from "react-icons/lu";
+import { LuBellRing, LuLogOut, LuSettings, LuUser } from "react-icons/lu";
 import { handleMessage } from "@/utils/handle-message";
 import SidebarLogin from "@/components/custom/SidebarLogin";
 import { settingsMenus } from "@/menus/settingsMenus";
 import { useTranslations } from "next-intl";
 import LanguageSwitcherSelect from "@/components/custom/LanguageSwitcherSelect";
+import { useNotificationStore } from "@/stores/useNotificationStore";
 
 interface SidebarProps {
   locale: string;
 }
 
 export default function Sidebar({ locale }: SidebarProps) {
+  const { notify } = useNotificationStore();
   const t = useTranslations();
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
@@ -76,6 +78,15 @@ export default function Sidebar({ locale }: SidebarProps) {
       onSelect: () => router.push(settingsMenus[0].href),
       icon: <LuSettings />,
     },
+    {
+      menu: "Notifications",
+      onSelect: () => router.push("/notifications"),
+      icon: <LuBellRing />,
+    },
+    // {
+    //   menu: "Test Notify",
+    //   onSelect: () => notify(profile?._id!, "marktest liked your post"),
+    // },
     {
       menu: "Logout",
       onSelect: handleLogout,

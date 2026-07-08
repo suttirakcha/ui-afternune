@@ -13,6 +13,8 @@ export const toaster = createToaster({
   placement: "top",
   pauseOnPageIdle: true,
   duration: 5000,
+  overlap: true,
+  max: 2,
 });
 
 export const Toaster = () => {
@@ -25,6 +27,7 @@ export const Toaster = () => {
             border={"none"}
             boxShadow={"0 0 12px #ffdaa0"}
             borderRadius={"16px"}
+            padding={toast.title ? 1.5 : 0.5}
           >
             {toast.type === "loading" ? (
               <Spinner size="sm" color="blue.solid" />
@@ -53,16 +56,23 @@ export const Toaster = () => {
             </Stack>
             {toast.action && (
               <Toast.ActionTrigger
-                borderColor={"var(--primary)"}
+                backgroundColor="transparent!"
+                border="none"
+                cursor="pointer"
                 color={"var(--primary)"}
-                px={2}
-                mr={2}
+                px={1}
+                mr={5}
               >
                 {toast.action.label}
               </Toast.ActionTrigger>
             )}
             {toast.closable && (
-              <Toast.CloseTrigger top={2} right={2} color={"var(--primary)"} />
+              <Toast.CloseTrigger
+                top={2.5}
+                fontSize={20}
+                right={2.5}
+                color={"var(--primary)"}
+              />
             )}
           </Toast.Root>
         )}

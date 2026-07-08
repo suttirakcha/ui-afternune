@@ -1,16 +1,7 @@
-import AfnTitle from "@/components/custom/AfnTitle";
-import MainContainer from "@/components/custom/MainContainer";
-import { Stack, Text } from "@chakra-ui/react";
+import NotificationList from "@/components/notifications/NotificationList";
+import { getNotifications } from "@/services/notifications.service";
 
-export default function NotificationsPage() {
-  return (
-    <MainContainer animated>
-      <Stack gap={10}>
-        <AfnTitle>Notifications</AfnTitle>
-        <Stack>
-          <Text>You have new messages from marktest:</Text>
-        </Stack>
-      </Stack>
-    </MainContainer>
-  );
+export default async function NotificationsPage() {
+  const { data: notifications } = await getNotifications();
+  return <NotificationList notifications={notifications} />;
 }
