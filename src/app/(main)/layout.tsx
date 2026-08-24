@@ -1,3 +1,5 @@
+import MobileNavbar from "@/components/custom/MobileNavbar";
+import MobileTopbar from "@/components/custom/MobileTopbar";
 import Sidebar from "@/components/custom/Sidebar";
 import CreateProfileDialog from "@/components/dialogs/CreateProfileDialog";
 import { Box, Stack } from "@chakra-ui/react";
@@ -13,6 +15,7 @@ export default async function MainLayout({
   const locale = cookieStore.get("locale")?.value ?? "en";
   return (
     <Box className="animated">
+      <MobileTopbar locale={locale} />
       <Sidebar locale={locale} />
       <Stack
         maxWidth="100dvw"
@@ -21,6 +24,7 @@ export default async function MainLayout({
       >
         {children}
       </Stack>
+      <MobileNavbar />
       <CreateProfileDialog />
     </Box>
   );

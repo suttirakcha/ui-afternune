@@ -3,10 +3,11 @@
 import AfnSelect from "@/components/custom/AfnSelect";
 import { changeLanguage } from "@/services/language.service";
 import { ListType } from "@/types/menus.type";
-import { SelectValueChangeDetails } from "@chakra-ui/react";
+import { SelectRootProps, SelectValueChangeDetails } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
 
-interface LanguageSwitcherSelectProps {
+interface LanguageSwitcherSelectProps
+  extends Omit<SelectRootProps, "collection"> {
   defaultLocale: string;
 }
 
@@ -18,6 +19,7 @@ const LANGUAGE_OPTIONS = [
 
 export default function LanguageSwitcherSelect({
   defaultLocale,
+  ...props
 }: LanguageSwitcherSelectProps) {
   const router = useRouter();
   const handleSwitchLanguage = (
@@ -32,6 +34,7 @@ export default function LanguageSwitcherSelect({
       defaultValue={[defaultLocale]}
       options={LANGUAGE_OPTIONS}
       onValueChange={handleSwitchLanguage}
+      {...props}
     />
   );
 }

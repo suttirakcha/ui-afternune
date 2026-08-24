@@ -63,6 +63,19 @@ a:focus-visible {
   font-weight: 700;
 }
 
+.mobile-menu-link {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+}
+
+.mobile-menu-link svg {
+  width: 24px;
+  height: 24px;
+}
+
 body {
   color: var(--foreground);
   background: var(--background);
