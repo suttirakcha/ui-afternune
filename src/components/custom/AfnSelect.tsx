@@ -3,12 +3,14 @@
 import { ListType } from "@/types/menus.type";
 import {
   createListCollection,
+  ListCollection,
   Portal,
   Select,
+  SelectRootProps,
   SelectValueChangeDetails,
 } from "@chakra-ui/react";
 
-interface AfnSelectProps {
+interface AfnSelectProps extends Omit<SelectRootProps, "collection"> {
   options: ListType[];
   placeholder?: string;
   onValueChange: (details: SelectValueChangeDetails<ListType>) => void;
@@ -20,6 +22,7 @@ export default function AfnSelect({
   placeholder,
   onValueChange,
   defaultValue,
+  ...props
 }: AfnSelectProps) {
   const collections = createListCollection({
     items: options,
@@ -30,6 +33,7 @@ export default function AfnSelect({
       defaultValue={defaultValue}
       collection={collections}
       onValueChange={onValueChange}
+      {...props}
     >
       <Select.HiddenSelect />
       <Select.Control>

@@ -3,15 +3,16 @@ import Link from "next/link";
 
 interface LogoProps {
   fontSize?: string;
+  lineHeight?: string;
 }
 
-export default function Logo({ fontSize }: LogoProps) {
+export default function Logo({ lineHeight, fontSize }: LogoProps) {
   return (
     <Link href="/">
       <Heading
-        fontFamily={"Send Flowers"}
-        fontSize={fontSize || "5xl"}
-        lineHeight={"44px"}
+        fontFamily="Send Flowers"
+        fontSize={fontSize ?? "5xl"}
+        lineHeight={lineHeight ?? "44px"}
       >
         Afternune
       </Heading>

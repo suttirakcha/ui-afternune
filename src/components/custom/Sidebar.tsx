@@ -38,8 +38,7 @@ export default function Sidebar({ locale }: SidebarProps) {
     flexDirection: "column",
     justifyContent: "space-between",
     backgroundColor: "white",
-    // display: "none",
-    display: "flex",
+    display: "none",
     lg: {
       display: "flex",
     },
