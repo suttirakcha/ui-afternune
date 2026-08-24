@@ -17,11 +17,14 @@ const BASE_CONTAINER_STYLES = {
 
 const DEFAULT_SPACING = {
   mt: "60px",
-  px: "120px",
+  px: "24px",
   py: "40px",
+  mb: "76px",
   lg: {
     minH: "100dvh",
     mt: "0",
+    mb: "0",
+    px: "120px",
   },
 } satisfies ContainerProps;
 
