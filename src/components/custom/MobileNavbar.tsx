@@ -12,9 +12,10 @@ export default function MobileNavbar() {
     bottom: 0,
     insetX: 0,
     boxShadow: "var(--main-box-shadow)",
-    px: 6,
+    px: 4,
     py: 3,
     backgroundColor: "white",
+    lg: { display: "none" },
   };
 
   return (

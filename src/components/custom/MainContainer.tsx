@@ -16,14 +16,14 @@ const BASE_CONTAINER_STYLES = {
 } satisfies ContainerProps;
 
 const DEFAULT_SPACING = {
-  mt: "60px",
+  marginTop: "60px",
+  marginBottom: "76px",
   px: "24px",
   py: "40px",
-  mb: "76px",
   lg: {
     minH: "100dvh",
-    mt: "0",
-    mb: "0",
+    marginTop: "0",
+    marginBottom: "0",
     px: "120px",
   },
 } satisfies ContainerProps;
@@ -33,17 +33,19 @@ export default function MainContainer({
   animated = false,
   ...props
 }: MainContainerProps) {
-  const { mt, px, py, lg, ...restProps } = props;
+  const { marginTop, marginBottom, px, py, lg, ...restProps } = props;
 
   const containerStyles: ContainerProps = {
     ...BASE_CONTAINER_STYLES,
     ...restProps,
-    mt: mt ?? DEFAULT_SPACING.mt,
+    marginTop: marginTop ?? DEFAULT_SPACING.marginTop,
+    marginBottom: marginTop ?? DEFAULT_SPACING.marginBottom,
     px: px ?? DEFAULT_SPACING.px,
     py: py ?? DEFAULT_SPACING.py,
     lg: {
       minH: lg?.minH ?? DEFAULT_SPACING.lg.minH,
-      mt: lg?.mt ?? DEFAULT_SPACING.lg.mt,
+      marginTop: lg?.marginTop ?? DEFAULT_SPACING.lg.marginTop,
+      marginBottom: lg?.marginBottom ?? DEFAULT_SPACING.lg.marginBottom,
     },
   };
 
