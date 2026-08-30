@@ -12,7 +12,7 @@ export default function MobileTopbar({ locale }: MobileTopbarProps) {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    px: 6,
+    px: 4,
     py: 2,
     zIndex: 2,
     boxShadow: "var(--main-box-shadow)",
