@@ -15,6 +15,7 @@ export default function MobileNavbar() {
     px: 6,
     py: 3,
     backgroundColor: "white",
+    lg: { display: "none" },
   };
 
   return (
