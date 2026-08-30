@@ -44,13 +44,13 @@ export default async function ProfileDetailPage({
   const isLoggedInProfile = currentProfile?._id !== profile?._id;
 
   return (
-    <Stack gap={10}>
+    <Stack alignItems="center" gap={10} md={{ alignItems: "flex-start" }}>
       <Topbar
         isShowWhenScroll
         title={profile.username}
         {...PROFILE_TOPBAR_STYLES}
       />
-      <HStack gap={7} alignItems={"center"}>
+      <HStack gap={7} alignItems="center">
         <AfnTitle>{profile.username}</AfnTitle>
         {!currentProfile ||
           (isLoggedInProfile && (
@@ -66,7 +66,18 @@ export default async function ProfileDetailPage({
           ))}
       </HStack>
 
-      <HStack alignItems="flex-start" gap="60px">
+      <HStack
+        flexDirection="column"
+        alignItems="flex-start"
+        gap="24px"
+        textAlign="center"
+        md={{
+          textAlign: "left",
+          flexDirection: "row",
+          alignItems: "flex-start",
+          gap: "60px",
+        }}
+      >
         <AvatarGroup>
           <Avatar.Root
             width={256}

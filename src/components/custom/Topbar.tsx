@@ -28,6 +28,8 @@ export default function Topbar({
     flexDirection: "row",
     alignItems: "center",
     top: isHeaderUserShow ? 0 : "-200px",
+    display: "none",
+    md: { display: "block" },
   };
 
   useEffect(() => {
